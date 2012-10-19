@@ -1,14 +1,14 @@
-if ( jQuery.fn.offset ) {
+if ( eQuery.fn.offset ) {
 
 module("offset", { setup: function(){
 	// force a scroll value on the main window
 	// this insures that the results will be wrong
 	// if the offset method is using the scroll offset
 	// of the parent window
-	var forceScroll = jQuery("<div>").css({ "width": 2000, "height": 2000 });
+	var forceScroll = eQuery("<div>").css({ "width": 2000, "height": 2000 });
 	// this needs to be body, because #qunit-fixture is hidden and elements inside it don't have a scrollTop
 	forceScroll.appendTo("body");
-	var checkDiv = jQuery("<div>").appendTo("#qunit-fixture")[0];
+	var checkDiv = eQuery("<div>").appendTo("#qunit-fixture")[0];
 
 	window.scrollTo( 200, 200 );
 	window.supportsScroll = ( document.documentElement.scrollTop || document.body.scrollTop );
@@ -19,28 +19,28 @@ module("offset", { setup: function(){
 	// safari subtracts parent border width here which is 5px
 	window.supportsFixedPosition = ( checkDiv.offsetTop === 20 || checkDiv.offsetTop === 15 );
 	checkDiv.style.position = checkDiv.style.top = "";
-	jQuery( checkDiv ).remove();
+	eQuery( checkDiv ).remove();
 	forceScroll.remove();
 }, teardown: moduleTeardown });
 
 /*
-	Closure-compiler will roll static methods off of the jQuery object and so they will
-	not be passed with the jQuery object across the windows. To differentiate this, the
-	testIframe callbacks use the "€" symbol to refer to the jQuery object passed from
-	the iframe window and the "jQuery" symbol is used to access any static methods.
+	Closure-compiler will roll static methods off of the eQuery object and so they will
+	not be passed with the eQuery object across the windows. To differentiate this, the
+	testIframe callbacks use the "€" symbol to refer to the eQuery object passed from
+	the iframe window and the "eQuery" symbol is used to access any static methods.
 */
 
 test("empty set", function() {
 	expect(2);
-	strictEqual( jQuery().offset(), undefined, "offset() returns undefined for empty set (#11962)" );
-	strictEqual( jQuery().position(), undefined, "position() returns undefined for empty set (#11962)" );
+	strictEqual( eQuery().offset(), undefined, "offset() returns undefined for empty set (#11962)" );
+	strictEqual( eQuery().position(), undefined, "position() returns undefined for empty set (#11962)" );
 });
 
 test("object without getBoundingClientRect", function() {
 	expect(2);
 
 	// Simulates a browser without gBCR on elements, we just want to return 0,0
-	var result = jQuery({ ownerDocument: document }).offset();
+	var result = eQuery({ ownerDocument: document }).offset();
 	equal( result.top, 0, "Check top" );
 	equal( result.left, 0, "Check left" );
 });
@@ -48,7 +48,7 @@ test("object without getBoundingClientRect", function() {
 test("disconnected node", function() {
 	expect(2);
 
-	var result = jQuery( document.createElement("div") ).offset();
+	var result = eQuery( document.createElement("div") ).offset();
 
 	equal( result.top, 0, "Check top" );
 	equal( result.left, 0, "Check left" );
@@ -64,9 +64,9 @@ testIframe("offset/absolute", "absolute", function(€, iframe) {
 	tests = [
 		{ "id": "#absolute-1", "top": 1, "left": 1 }
 	];
-	jQuery.each( tests, function() {
-		equal( jQuery( this["id"], doc ).offset().top,  this["top"],  "jQuery('" + this["id"] + "').offset().top" );
-		equal( jQuery( this["id"], doc ).offset().left, this["left"], "jQuery('" + this["id"] + "').offset().left" );
+	eQuery.each( tests, function() {
+		equal( eQuery( this["id"], doc ).offset().top,  this["top"],  "eQuery('" + this["id"] + "').offset().top" );
+		equal( eQuery( this["id"], doc ).offset().left, this["left"], "eQuery('" + this["id"] + "').offset().left" );
 	});
 
 
@@ -74,9 +74,9 @@ testIframe("offset/absolute", "absolute", function(€, iframe) {
 	tests = [
 		{ "id": "#absolute-1", "top": 0, "left": 0 }
 	];
-	jQuery.each( tests, function() {
-		equal( jQuery( this["id"], doc ).position().top,  this["top"],  "jQuery('" + this["id"] + "').position().top" );
-		equal( jQuery( this["id"], doc ).position().left, this["left"], "jQuery('" + this["id"] + "').position().left" );
+	eQuery.each( tests, function() {
+		equal( eQuery( this["id"], doc ).position().top,  this["top"],  "eQuery('" + this["id"] + "').position().top" );
+		equal( eQuery( this["id"], doc ).position().left, this["left"], "eQuery('" + this["id"] + "').position().left" );
 	});
 });
 
@@ -90,9 +90,9 @@ testIframe("offset/absolute", "absolute", function( € ) {
 		{ "id": "#absolute-1-1-1", "top":  9, "left":  9 },
 		{ "id": "#absolute-2",     "top": 20, "left": 20 }
 	];
-	jQuery.each( tests, function() {
-		equal( €( this["id"] ).offset().top,  this["top"],  "jQuery('" + this["id"] + "').offset().top" );
-		equal( €( this["id"] ).offset().left, this["left"], "jQuery('" + this["id"] + "').offset().left" );
+	eQuery.each( tests, function() {
+		equal( €( this["id"] ).offset().top,  this["top"],  "eQuery('" + this["id"] + "').offset().top" );
+		equal( €( this["id"] ).offset().left, this["left"], "eQuery('" + this["id"] + "').offset().left" );
 	});
 
 
@@ -103,9 +103,9 @@ testIframe("offset/absolute", "absolute", function( € ) {
 		{ "id": "#absolute-1-1-1", "top":  1, "left":  1 },
 		{ "id": "#absolute-2",     "top": 19, "left": 19 }
 	];
-	jQuery.each( tests, function() {
-		equal( €( this["id"] ).position().top,  this["top"],  "jQuery('" + this["id"] + "').position().top" );
-		equal( €( this["id"] ).position().left, this["left"], "jQuery('" + this["id"] + "').position().left" );
+	eQuery.each( tests, function() {
+		equal( €( this["id"] ).position().top,  this["top"],  "eQuery('" + this["id"] + "').position().top" );
+		equal( €( this["id"] ).position().left, this["left"], "eQuery('" + this["id"] + "').position().left" );
 	});
 
 	// test #5781
@@ -133,10 +133,10 @@ testIframe("offset/absolute", "absolute", function( € ) {
 		{ "id": "#absolute-1",     "top": -1, "left": -1 },
 		{ "id": "#absolute-1",     "top":  1, "left":  1 }
 	];
-	jQuery.each( tests, function() {
+	eQuery.each( tests, function() {
 		€( this["id"] ).offset({ "top": this["top"], "left": this["left"] });
-		equal( €( this["id"] ).offset().top,  this["top"],  "jQuery('" + this["id"] + "').offset({ top: "  + this["top"]  + " })" );
-		equal( €( this["id"] ).offset().left, this["left"], "jQuery('" + this["id"] + "').offset({ left: " + this["left"] + " })" );
+		equal( €( this["id"] ).offset().top,  this["top"],  "eQuery('" + this["id"] + "').offset({ top: "  + this["top"]  + " })" );
+		equal( €( this["id"] ).offset().left, this["left"], "eQuery('" + this["id"] + "').offset({ left: " + this["left"] + " })" );
 
 		var top = this["top"], left = this["left"];
 
@@ -145,8 +145,8 @@ testIframe("offset/absolute", "absolute", function( € ) {
 			equal( val.left, left, "Verify incoming top position." );
 			return { "top": top + 1, "left": left + 1 };
 		});
-		equal( €( this["id"] ).offset().top,  this["top"]  + 1, "jQuery('" + this["id"] + "').offset({ top: "  + (this["top"]  + 1) + " })" );
-		equal( €( this["id"] ).offset().left, this["left"] + 1, "jQuery('" + this["id"] + "').offset({ left: " + (this["left"] + 1) + " })" );
+		equal( €( this["id"] ).offset().top,  this["top"]  + 1, "eQuery('" + this["id"] + "').offset({ top: "  + (this["top"]  + 1) + " })" );
+		equal( €( this["id"] ).offset().left, this["left"] + 1, "eQuery('" + this["id"] + "').offset({ left: " + (this["left"] + 1) + " })" );
 
 		€( this["id"] )
 			.offset({ "left": this["left"] + 2 })
@@ -160,8 +160,8 @@ testIframe("offset/absolute", "absolute", function( € ) {
 				"left": props.left + 1
 			});
 		}});
-		equal( €( this["id"] ).offset().top,  this["top"]  + 1, "jQuery('" + this["id"] + "').offset({ top: "  + (this["top"]  + 1) + ", using: fn })" );
-		equal( €( this["id"] ).offset().left, this["left"] + 1, "jQuery('" + this["id"] + "').offset({ left: " + (this["left"] + 1) + ", using: fn })" );
+		equal( €( this["id"] ).offset().top,  this["top"]  + 1, "eQuery('" + this["id"] + "').offset({ top: "  + (this["top"]  + 1) + ", using: fn })" );
+		equal( €( this["id"] ).offset().left, this["left"] + 1, "eQuery('" + this["id"] + "').offset({ left: " + (this["left"] + 1) + ", using: fn })" );
 	});
 });
 
@@ -177,9 +177,9 @@ testIframe("offset/relative", "relative", function( € ) {
 		{ "id": "#relative-1-1", "top": ie ?  13 :  15, "left": 15 },
 		{ "id": "#relative-2",   "top": ie ? 141 : 142, "left": 27 }
 	];
-	jQuery.each( tests, function() {
-		equal( €( this["id"] ).offset().top,  this["top"],  "jQuery('" + this["id"] + "').offset().top" );
-		equal( €( this["id"] ).offset().left, this["left"], "jQuery('" + this["id"] + "').offset().left" );
+	eQuery.each( tests, function() {
+		equal( €( this["id"] ).offset().top,  this["top"],  "eQuery('" + this["id"] + "').offset().top" );
+		equal( €( this["id"] ).offset().left, this["left"], "eQuery('" + this["id"] + "').offset().left" );
 	});
 
 
@@ -189,9 +189,9 @@ testIframe("offset/relative", "relative", function( € ) {
 		{ "id": "#relative-1-1", "top": ie ?   4 :   5, "left":  5 },
 		{ "id": "#relative-2",   "top": ie ? 140 : 141, "left": 26 }
 	];
-	jQuery.each( tests, function() {
-		equal( €( this["id"] ).position().top,  this["top"],  "jQuery('" + this["id"] + "').position().top" );
-		equal( €( this["id"] ).position().left, this["left"], "jQuery('" + this["id"] + "').position().left" );
+	eQuery.each( tests, function() {
+		equal( €( this["id"] ).position().top,  this["top"],  "eQuery('" + this["id"] + "').position().top" );
+		equal( €( this["id"] ).position().left, this["left"], "eQuery('" + this["id"] + "').position().left" );
 	});
 
 
@@ -210,10 +210,10 @@ testIframe("offset/relative", "relative", function( € ) {
 		{ "id": "#relative-1",   "top":  -1, "left":  -1 },
 		{ "id": "#relative-1",   "top":   7, "left":   7 }
 	];
-	jQuery.each( tests, function() {
+	eQuery.each( tests, function() {
 		€( this["id"] ).offset({ "top": this["top"], "left": this["left"] });
-		equal( €( this["id"] ).offset().top,  this["top"],  "jQuery('" + this["id"] + "').offset({ top: "  + this["top"]  + " })" );
-		equal( €( this["id"] ).offset().left, this["left"], "jQuery('" + this["id"] + "').offset({ left: " + this["left"] + " })" );
+		equal( €( this["id"] ).offset().top,  this["top"],  "eQuery('" + this["id"] + "').offset({ top: "  + this["top"]  + " })" );
+		equal( €( this["id"] ).offset().left, this["left"], "eQuery('" + this["id"] + "').offset({ left: " + this["left"] + " })" );
 
 		€( this["id"] ).offset({ "top": this["top"], "left": this["left"], "using": function( props ) {
 			€( this ).css({
@@ -221,8 +221,8 @@ testIframe("offset/relative", "relative", function( € ) {
 				"left": props.left + 1
 			});
 		}});
-		equal( €( this["id"] ).offset().top,  this["top"]  + 1, "jQuery('" + this["id"] + "').offset({ top: "  + (this["top"]  + 1) + ", using: fn })" );
-		equal( €( this["id"] ).offset().left, this["left"] + 1, "jQuery('" + this["id"] + "').offset({ left: " + (this["left"] + 1) + ", using: fn })" );
+		equal( €( this["id"] ).offset().top,  this["top"]  + 1, "eQuery('" + this["id"] + "').offset({ top: "  + (this["top"]  + 1) + ", using: fn })" );
+		equal( €( this["id"] ).offset().left, this["left"] + 1, "eQuery('" + this["id"] + "').offset({ left: " + (this["left"] + 1) + ", using: fn })" );
 	});
 });
 
@@ -240,9 +240,9 @@ testIframe("offset/static", "static", function( € ) {
 		{ "id": "#static-1-1-1", "top": ie ?  20 :  23, "left": 23 },
 		{ "id": "#static-2", "top": ie ? 121 : 122, left: 7 }
 	];
-	jQuery.each( tests, function() {
-		equal( €( this["id"] ).offset().top,  this["top"],  "jQuery('" + this["id"] + "').offset().top" );
-		equal( €( this["id"] ).offset().left, this["left"], "jQuery('" + this["id"] + "').offset().left" );
+	eQuery.each( tests, function() {
+		equal( €( this["id"] ).offset().top,  this["top"],  "eQuery('" + this["id"] + "').offset().top" );
+		equal( €( this["id"] ).offset().left, this["left"], "eQuery('" + this["id"] + "').offset().left" );
 	});
 
 
@@ -253,9 +253,9 @@ testIframe("offset/static", "static", function( € ) {
 		{ "id": "#static-1-1-1", "top": ie ?  19 :  22, "left": 22 },
 		{ "id": "#static-2", "top": ie ? 120 : 121, "left": 6 }
 	];
-	jQuery.each( tests, function() {
-		equal( €( this["id"] ).position().top,  this["top"],  "jQuery('" + this["top"]  + "').position().top" );
-		equal( €( this["id"] ).position().left, this["left"], "jQuery('" + this["left"] +"').position().left" );
+	eQuery.each( tests, function() {
+		equal( €( this["id"] ).position().top,  this["top"],  "eQuery('" + this["top"]  + "').position().top" );
+		equal( €( this["id"] ).position().left, this["left"], "eQuery('" + this["left"] +"').position().left" );
 	});
 
 
@@ -278,10 +278,10 @@ testIframe("offset/static", "static", function( € ) {
 		{ "id": "#static-1",     "top":  -2, "left":  -2 },
 		{ "id": "#static-1",     "top":   7, "left":   7 }
 	];
-	jQuery.each( tests, function() {
+	eQuery.each( tests, function() {
 		€( this["id"] ).offset({ "top": this["top"], "left": this["left"] });
-		equal( €( this["id"] ).offset().top,  this["top"],  "jQuery('" + this["id"] + "').offset({ top: "  + this["top"]  + " })" );
-		equal( €( this["id"] ).offset().left, this["left"], "jQuery('" + this["id"] + "').offset({ left: " + this["left"] + " })" );
+		equal( €( this["id"] ).offset().top,  this["top"],  "eQuery('" + this["id"] + "').offset({ top: "  + this["top"]  + " })" );
+		equal( €( this["id"] ).offset().left, this["left"], "eQuery('" + this["id"] + "').offset({ left: " + this["left"] + " })" );
 
 		€( this["id"] ).offset({ "top": this["top"], "left": this["left"], "using": function( props ) {
 			€( this ).css({
@@ -289,8 +289,8 @@ testIframe("offset/static", "static", function( € ) {
 				"left": props.left + 1
 			});
 		}});
-		equal( €( this["id"] ).offset().top,  this["top"]  + 1, "jQuery('" + this["id"] + "').offset({ top: "  + (this["top"]  + 1) + ", using: fn })" );
-		equal( €( this["id"] ).offset().left, this["left"] + 1, "jQuery('" + this["id"] + "').offset({ left: " + (this["left"] + 1) + ", using: fn })" );
+		equal( €( this["id"] ).offset().top,  this["top"]  + 1, "eQuery('" + this["id"] + "').offset({ top: "  + (this["top"]  + 1) + ", using: fn })" );
+		equal( €( this["id"] ).offset().left, this["left"] + 1, "eQuery('" + this["id"] + "').offset({ left: " + (this["left"] + 1) + ", using: fn })" );
 	});
 });
 
@@ -317,7 +317,7 @@ testIframe("offset/fixed", "fixed", function( € ) {
 		}
 	];
 
-	jQuery.each( tests, function() {
+	eQuery.each( tests, function() {
 		if ( !window.supportsScroll ) {
 			ok( true, "Browser doesn't support scroll position." );
 			ok( true, "Browser doesn't support scroll position." );
@@ -325,10 +325,10 @@ testIframe("offset/fixed", "fixed", function( € ) {
 			ok( true, "Browser doesn't support scroll position." );
 
 		} else if ( window.supportsFixedPosition ) {
-			equal( €( this["id"] ).offset().top,  this["offsetTop"],  "jQuery('" + this["id"] + "').offset().top" );
-			equal( €( this["id"] ).position().top,  this["positionTop"],  "jQuery('" + this["id"] + "').position().top" );
-			equal( €( this["id"] ).offset().left, this["offsetLeft"], "jQuery('" + this["id"] + "').offset().left" );
-			equal( €( this["id"] ).position().left,  this["positionLeft"],  "jQuery('" + this["id"] + "').position().left" );
+			equal( €( this["id"] ).offset().top,  this["offsetTop"],  "eQuery('" + this["id"] + "').offset().top" );
+			equal( €( this["id"] ).position().top,  this["positionTop"],  "eQuery('" + this["id"] + "').position().top" );
+			equal( €( this["id"] ).offset().left, this["offsetLeft"], "eQuery('" + this["id"] + "').offset().left" );
+			equal( €( this["id"] ).position().left,  this["positionLeft"],  "eQuery('" + this["id"] + "').position().left" );
 		} else {
 			// need to have same number of assertions
 			ok( true, "Fixed position is not supported" );
@@ -347,11 +347,11 @@ testIframe("offset/fixed", "fixed", function( € ) {
 		{ "id": "#fixed-2", "top":  -5, "left":  -5 }
 	];
 
-	jQuery.each( tests, function() {
+	eQuery.each( tests, function() {
 		if ( window.supportsFixedPosition ) {
 			€( this["id"] ).offset({ "top": this["top"], "left": this["left"] });
-			equal( €( this["id"] ).offset().top,  this["top"],  "jQuery('" + this["id"] + "').offset({ top: "  + this["top"]  + " })" );
-			equal( €( this["id"] ).offset().left, this["left"], "jQuery('" + this["id"] + "').offset({ left: " + this["left"] + " })" );
+			equal( €( this["id"] ).offset().top,  this["top"],  "eQuery('" + this["id"] + "').offset({ top: "  + this["top"]  + " })" );
+			equal( €( this["id"] ).offset().left, this["left"], "eQuery('" + this["id"] + "').offset({ left: " + this["left"] + " })" );
 
 			€( this["id"] ).offset({ "top": this["top"], "left": this["left"], "using": function( props ) {
 				€( this ).css({
@@ -359,8 +359,8 @@ testIframe("offset/fixed", "fixed", function( € ) {
 					"left": props.left + 1
 				});
 			}});
-			equal( €( this["id"] ).offset().top,  this["top"]  + 1, "jQuery('" + this["id"] + "').offset({ top: "  + (this["top"]  + 1) + ", using: fn })" );
-			equal( €( this["id"] ).offset().left, this["left"] + 1, "jQuery('" + this["id"] + "').offset({ left: " + (this["left"] + 1) + ", using: fn })" );
+			equal( €( this["id"] ).offset().top,  this["top"]  + 1, "eQuery('" + this["id"] + "').offset({ top: "  + (this["top"]  + 1) + ", using: fn })" );
+			equal( €( this["id"] ).offset().left, this["left"] + 1, "eQuery('" + this["id"] + "').offset({ left: " + (this["left"] + 1) + ", using: fn })" );
 		} else {
 			// need to have same number of assertions
 			ok( true, "Fixed position is not supported" );
@@ -385,11 +385,11 @@ testIframe("offset/fixed", "fixed", function( € ) {
 testIframe("offset/table", "table", function( € ) {
 	expect(4);
 
-	equal( €("#table-1").offset().top, 6, "jQuery('#table-1').offset().top" );
-	equal( €("#table-1").offset().left, 6, "jQuery('#table-1').offset().left" );
+	equal( €("#table-1").offset().top, 6, "eQuery('#table-1').offset().top" );
+	equal( €("#table-1").offset().left, 6, "eQuery('#table-1').offset().left" );
 
-	equal( €("#th-1").offset().top, 10, "jQuery('#th-1').offset().top" );
-	equal( €("#th-1").offset().left, 10, "jQuery('#th-1').offset().left" );
+	equal( €("#th-1").offset().top, 10, "eQuery('#th-1').offset().top" );
+	equal( €("#th-1").offset().left, 10, "eQuery('#th-1').offset().left" );
 });
 
 testIframe("offset/scroll", "scroll", function( €, win ) {
@@ -399,20 +399,20 @@ testIframe("offset/scroll", "scroll", function( €, win ) {
 	var ie = €("#scroll-1").offset().top == 6;
 
 	// IE is collapsing the top margin of 1px
-	equal( €("#scroll-1").offset().top, ie ? 6 : 7, "jQuery('#scroll-1').offset().top" );
-	equal( €("#scroll-1").offset().left, 7, "jQuery('#scroll-1').offset().left" );
+	equal( €("#scroll-1").offset().top, ie ? 6 : 7, "eQuery('#scroll-1').offset().top" );
+	equal( €("#scroll-1").offset().left, 7, "eQuery('#scroll-1').offset().left" );
 
 	// IE is collapsing the top margin of 1px
-	equal( €("#scroll-1-1").offset().top, ie ? 9 : 11, "jQuery('#scroll-1-1').offset().top" );
-	equal( €("#scroll-1-1").offset().left, 11, "jQuery('#scroll-1-1').offset().left" );
+	equal( €("#scroll-1-1").offset().top, ie ? 9 : 11, "eQuery('#scroll-1-1').offset().top" );
+	equal( €("#scroll-1-1").offset().left, 11, "eQuery('#scroll-1-1').offset().left" );
 
 
 	// scroll offset tests .scrollTop/Left
-	equal( €("#scroll-1").scrollTop(), 5, "jQuery('#scroll-1').scrollTop()" );
-	equal( €("#scroll-1").scrollLeft(), 5, "jQuery('#scroll-1').scrollLeft()" );
+	equal( €("#scroll-1").scrollTop(), 5, "eQuery('#scroll-1').scrollTop()" );
+	equal( €("#scroll-1").scrollLeft(), 5, "eQuery('#scroll-1').scrollLeft()" );
 
-	equal( €("#scroll-1-1").scrollTop(), 0, "jQuery('#scroll-1-1').scrollTop()" );
-	equal( €("#scroll-1-1").scrollLeft(), 0, "jQuery('#scroll-1-1').scrollLeft()" );
+	equal( €("#scroll-1-1").scrollTop(), 0, "eQuery('#scroll-1-1').scrollTop()" );
+	equal( €("#scroll-1-1").scrollLeft(), 0, "eQuery('#scroll-1-1').scrollLeft()" );
 
 	// scroll method chaining
 	equal( €("#scroll-1").scrollTop(undefined).scrollTop(), 5, ".scrollTop(undefined) is chainable (#5571)" );
@@ -427,82 +427,82 @@ testIframe("offset/scroll", "scroll", function( €, win ) {
 		ok( true, "Browser doesn't support scroll position." );
 		ok( true, "Browser doesn't support scroll position." );
 	} else {
-		equal( €(win).scrollTop(), 1000, "jQuery(window).scrollTop()" );
-		equal( €(win).scrollLeft(), 1000, "jQuery(window).scrollLeft()" );
+		equal( €(win).scrollTop(), 1000, "eQuery(window).scrollTop()" );
+		equal( €(win).scrollLeft(), 1000, "eQuery(window).scrollLeft()" );
 
-		equal( €(win.document).scrollTop(), 1000, "jQuery(document).scrollTop()" );
-		equal( €(win.document).scrollLeft(), 1000, "jQuery(document).scrollLeft()" );
+		equal( €(win.document).scrollTop(), 1000, "eQuery(document).scrollTop()" );
+		equal( €(win.document).scrollLeft(), 1000, "eQuery(document).scrollLeft()" );
 	}
 
-	// test jQuery using parent window/document
-	// jQuery reference here is in the iframe
+	// test eQuery using parent window/document
+	// eQuery reference here is in the iframe
 	window.scrollTo(0,0);
-	equal( €(window).scrollTop(), 0, "jQuery(window).scrollTop() other window" );
-	equal( €(window).scrollLeft(), 0, "jQuery(window).scrollLeft() other window" );
-	equal( €(document).scrollTop(), 0, "jQuery(window).scrollTop() other document" );
-	equal( €(document).scrollLeft(), 0, "jQuery(window).scrollLeft() other document" );
+	equal( €(window).scrollTop(), 0, "eQuery(window).scrollTop() other window" );
+	equal( €(window).scrollLeft(), 0, "eQuery(window).scrollLeft() other window" );
+	equal( €(document).scrollTop(), 0, "eQuery(window).scrollTop() other document" );
+	equal( €(document).scrollLeft(), 0, "eQuery(window).scrollLeft() other document" );
 
-	// Tests scrollTop/Left with empty jquery objects
-	notEqual( €().scrollTop(100), null, "jQuery().scrollTop(100) testing setter on empty jquery object" );
-	notEqual( €().scrollLeft(100), null, "jQuery().scrollLeft(100) testing setter on empty jquery object" );
-	notEqual( €().scrollTop(null), null, "jQuery().scrollTop(null) testing setter on empty jquery object" );
-	notEqual( €().scrollLeft(null), null, "jQuery().scrollLeft(null) testing setter on empty jquery object" );
-	strictEqual( €().scrollTop(), null, "jQuery().scrollTop(100) testing setter on empty jquery object" );
-	strictEqual( €().scrollLeft(), null, "jQuery().scrollLeft(100) testing setter on empty jquery object" );
+	// Tests scrollTop/Left with empty equery objects
+	notEqual( €().scrollTop(100), null, "eQuery().scrollTop(100) testing setter on empty equery object" );
+	notEqual( €().scrollLeft(100), null, "eQuery().scrollLeft(100) testing setter on empty equery object" );
+	notEqual( €().scrollTop(null), null, "eQuery().scrollTop(null) testing setter on empty equery object" );
+	notEqual( €().scrollLeft(null), null, "eQuery().scrollLeft(null) testing setter on empty equery object" );
+	strictEqual( €().scrollTop(), null, "eQuery().scrollTop(100) testing setter on empty equery object" );
+	strictEqual( €().scrollLeft(), null, "eQuery().scrollLeft(100) testing setter on empty equery object" );
 });
 
 testIframe("offset/body", "body", function( € ) {
 	expect(2);
 
-	equal( €("body").offset().top, 1, "jQuery('#body').offset().top" );
-	equal( €("body").offset().left, 1, "jQuery('#body').offset().left" );
+	equal( €("body").offset().top, 1, "eQuery('#body').offset().top" );
+	equal( €("body").offset().left, 1, "eQuery('#body').offset().left" );
 });
 
 test("chaining", function() {
 	expect(3);
 	var coords = { "top":  1, "left":  1 };
-	equal( jQuery("#absolute-1").offset(coords).selector, "#absolute-1", "offset(coords) returns jQuery object" );
-	equal( jQuery("#non-existent").offset(coords).selector, "#non-existent", "offset(coords) with empty jQuery set returns jQuery object" );
-	equal( jQuery("#absolute-1").offset(undefined).selector, "#absolute-1", "offset(undefined) returns jQuery object (#5571)" );
+	equal( eQuery("#absolute-1").offset(coords).selector, "#absolute-1", "offset(coords) returns eQuery object" );
+	equal( eQuery("#non-existent").offset(coords).selector, "#non-existent", "offset(coords) with empty eQuery set returns eQuery object" );
+	equal( eQuery("#absolute-1").offset(undefined).selector, "#absolute-1", "offset(undefined) returns eQuery object (#5571)" );
 });
 
 test("offsetParent", function(){
 	expect(12);
 
-	var body = jQuery("body").offsetParent();
+	var body = eQuery("body").offsetParent();
 	equal( body.length, 1, "Only one offsetParent found." );
 	equal( body[0], document.body, "The body is its own offsetParent." );
 
-	var header = jQuery("#qunit-header").offsetParent();
+	var header = eQuery("#qunit-header").offsetParent();
 	equal( header.length, 1, "Only one offsetParent found." );
 	equal( header[0], document.body, "The body is the offsetParent." );
 
-	var div = jQuery("#nothiddendivchild").offsetParent();
+	var div = eQuery("#nothiddendivchild").offsetParent();
 	equal( div.length, 1, "Only one offsetParent found." );
 	equal( div[0], document.body, "The body is the offsetParent." );
 
-	jQuery("#nothiddendiv").css("position", "relative");
+	eQuery("#nothiddendiv").css("position", "relative");
 
-	div = jQuery("#nothiddendivchild").offsetParent();
+	div = eQuery("#nothiddendivchild").offsetParent();
 	equal( div.length, 1, "Only one offsetParent found." );
-	equal( div[0], jQuery("#nothiddendiv")[0], "The div is the offsetParent." );
+	equal( div[0], eQuery("#nothiddendiv")[0], "The div is the offsetParent." );
 
-	div = jQuery("body, #nothiddendivchild").offsetParent();
+	div = eQuery("body, #nothiddendivchild").offsetParent();
 	equal( div.length, 2, "Two offsetParent found." );
 	equal( div[0], document.body, "The body is the offsetParent." );
-	equal( div[1], jQuery("#nothiddendiv")[0], "The div is the offsetParent." );
+	equal( div[1], eQuery("#nothiddendiv")[0], "The div is the offsetParent." );
 
-	var area = jQuery("#imgmap area").offsetParent();
+	var area = eQuery("#imgmap area").offsetParent();
 	equal( area[0], document.body, "The body is the offsetParent." );
 });
 
 test("fractions (see #7730 and #7885)", function() {
 	expect(2);
 
-	jQuery("body").append("<div id='fractions'/>");
+	eQuery("body").append("<div id='fractions'/>");
 
 	var expected = { "top": 1000, "left": 1000 };
-	var div = jQuery("#fractions");
+	var div = eQuery("#fractions");
 
 	div.css({
 		"position": "absolute",

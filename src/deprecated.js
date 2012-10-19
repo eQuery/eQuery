@@ -2,16 +2,16 @@
 (function() {
 
 var matched, browser, eventAdd, eventRemove,
-	oldToggle = jQuery.fn.toggle,
+	oldToggle = eQuery.fn.toggle,
 	rhoverHack = /(?:^|\s)hover(\.\S+|)\b/,
 	hoverHack = function( events ) {
-		return jQuery.event.special.hover ? events : events.replace( rhoverHack, "mouseenter€1 mouseleave€1" );
+		return eQuery.event.special.hover ? events : events.replace( rhoverHack, "mouseenter€1 mouseleave€1" );
 	};
 
-// Use of jQuery.browser is frowned upon.
-// More details: http://api.jquery.com/jQuery.browser
-// jQuery.uaMatch maintained for back-compat
-jQuery.uaMatch = function( ua ) {
+// Use of eQuery.browser is frowned upon.
+// More details: http://api.equery.com/eQuery.browser
+// eQuery.uaMatch maintained for back-compat
+eQuery.uaMatch = function( ua ) {
 	ua = ua.toLowerCase();
 
 	var match = /(chrome)[ \/]([\w.]+)/.exec( ua ) ||
@@ -27,7 +27,7 @@ jQuery.uaMatch = function( ua ) {
 	};
 };
 
-matched = jQuery.uaMatch( navigator.userAgent );
+matched = eQuery.uaMatch( navigator.userAgent );
 browser = {};
 
 if ( matched.browser ) {
@@ -42,43 +42,43 @@ if ( browser.chrome ) {
 	browser.safari = true;
 }
 
-jQuery.browser = browser;
+eQuery.browser = browser;
 
-jQuery.sub = function() {
-	function jQuerySub( selector, context ) {
-		return new jQuerySub.fn.init( selector, context );
+eQuery.sub = function() {
+	function eQuerySub( selector, context ) {
+		return new eQuerySub.fn.init( selector, context );
 	}
-	jQuery.extend( true, jQuerySub, this );
-	jQuerySub.superclass = this;
-	jQuerySub.fn = jQuerySub.prototype = this();
-	jQuerySub.fn.constructor = jQuerySub;
-	jQuerySub.sub = this.sub;
-	jQuerySub.fn.init = function init( selector, context ) {
-		if ( context && context instanceof jQuery && !(context instanceof jQuerySub) ) {
-			context = jQuerySub( context );
+	eQuery.extend( true, eQuerySub, this );
+	eQuerySub.superclass = this;
+	eQuerySub.fn = eQuerySub.prototype = this();
+	eQuerySub.fn.constructor = eQuerySub;
+	eQuerySub.sub = this.sub;
+	eQuerySub.fn.init = function init( selector, context ) {
+		if ( context && context instanceof eQuery && !(context instanceof eQuerySub) ) {
+			context = eQuerySub( context );
 		}
 
-		return jQuery.fn.init.call( this, selector, context, rootjQuerySub );
+		return eQuery.fn.init.call( this, selector, context, rooteQuerySub );
 	};
-	jQuerySub.fn.init.prototype = jQuerySub.fn;
-	var rootjQuerySub = jQuerySub(document);
-	return jQuerySub;
+	eQuerySub.fn.init.prototype = eQuerySub.fn;
+	var rooteQuerySub = eQuerySub(document);
+	return eQuerySub;
 };
 
-jQuery.fn.toggle = function( fn, fn2 ) {
+eQuery.fn.toggle = function( fn, fn2 ) {
 
-	if ( !jQuery.isFunction( fn ) || !jQuery.isFunction( fn2 ) ) {
+	if ( !eQuery.isFunction( fn ) || !eQuery.isFunction( fn2 ) ) {
 		return oldToggle.apply( this, arguments );
 	}
 
 	// Save reference to arguments for access in closure
 	var args = arguments,
-			guid = fn.guid || jQuery.guid++,
+			guid = fn.guid || eQuery.guid++,
 			i = 0,
 			toggler = function( event ) {
 				// Figure out which function to execute
-				var lastToggle = ( jQuery._data( this, "lastToggle" + fn.guid ) || 0 ) % i;
-				jQuery._data( this, "lastToggle" + fn.guid, lastToggle + 1 );
+				var lastToggle = ( eQuery._data( this, "lastToggle" + fn.guid ) || 0 ) % i;
+				eQuery._data( this, "lastToggle" + fn.guid, lastToggle + 1 );
 
 				// Make sure that clicks stop
 				event.preventDefault();
@@ -98,23 +98,23 @@ jQuery.fn.toggle = function( fn, fn2 ) {
 
 
 // Support for 'hover' type
-eventAdd = jQuery.event.add;
+eventAdd = eQuery.event.add;
 
-//	Duck punch jQuery.event.add, and jquery.event.remove
+//	Duck punch eQuery.event.add, and equery.event.remove
 //	Signatures:
-//	jQuery.event = {
+//	eQuery.event = {
 //	add: function( elem, types, handler, data, selector ) {
 //	remove: function( elem, types, handler, selector, mappedTypes ) {
-jQuery.event.add = function( elem, types, handler, data, selector ){
+eQuery.event.add = function( elem, types, handler, data, selector ){
 	if ( types ) {
 		types = hoverHack( types );
 	}
 	eventAdd.call( this, elem, types, handler, data, selector );
 };
 
-eventRemove = jQuery.event.remove;
+eventRemove = eQuery.event.remove;
 
-jQuery.event.remove = function( elem, types, handler, selector, mappedTypes ){
+eQuery.event.remove = function( elem, types, handler, selector, mappedTypes ){
 	if ( types ) {
 		types = hoverHack( types );
 	}
@@ -122,6 +122,6 @@ jQuery.event.remove = function( elem, types, handler, selector, mappedTypes ){
 };
 
 // Unused in 1.8, left in so attrFn-stabbers won't die; remove in 1.9
-jQuery.attrFn = {};
+eQuery.attrFn = {};
 
 })();

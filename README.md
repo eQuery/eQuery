@@ -1,20 +1,20 @@
-[jQuery](http://jquery.com/) - New Wave JavaScript
+[eQuery](http://equery.com/) - New Wave JavaScript
 ==================================================
 
 Contribution Guides
 --------------------------------------
 
-In the spirit of open source software development, jQuery always encourages community code contribution. To help you get started and before you jump into writing code, be sure to read these important contribution guidelines thoroughly:
+In the spirit of open source software development, eQuery always encourages community code contribution. To help you get started and before you jump into writing code, be sure to read these important contribution guidelines thoroughly:
 
-1. [Getting Involved](http://docs.jquery.com/Getting_Involved)
-2. [Core Style Guide](http://docs.jquery.com/JQuery_Core_Style_Guidelines)
-3. [Tips For Bug Patching](http://docs.jquery.com/Tips_for_jQuery_Bug_Patching)
+1. [Getting Involved](http://docs.equery.com/Getting_Involved)
+2. [Core Style Guide](http://docs.equery.com/JQuery_Core_Style_Guidelines)
+3. [Tips For Bug Patching](http://docs.equery.com/Tips_for_eQuery_Bug_Patching)
 
 
-What you need to build your own jQuery
+What you need to build your own eQuery
 --------------------------------------
 
-In order to build jQuery, you need to have GNU make 3.8 or later, Node.js/npm latest, and git 1.7 or later.
+In order to build eQuery, you need to have GNU make 3.8 or later, Node.js/npm latest, and git 1.7 or later.
 (Earlier versions might work OK, but are not tested.)
 
 Windows users have two options:
@@ -36,19 +36,19 @@ Linux/BSD users should use their appropriate package managers to install make, g
 if you swing that way. Easy-peasy.
 
 
-How to build your own jQuery
+How to build your own eQuery
 ----------------------------
 
-First, clone a copy of the main jQuery git repo by running:
+First, clone a copy of the main eQuery git repo by running:
 
 ```bash
-git clone git://github.com/jquery/jquery.git
+git clone git://github.com/equery/equery.git
 ```
 
 Enter the directory and install the Node dependencies:
 
 ```bash
-cd jquery && npm install
+cd equery && npm install
 ```
 
 
@@ -60,19 +60,19 @@ grunt -version
 
 
 
-Then, to get a complete, minified (w/ Uglify.js), linted (w/ JSHint) version of jQuery, type the following:
+Then, to get a complete, minified (w/ Uglify.js), linted (w/ JSHint) version of eQuery, type the following:
 
 ```bash
 grunt
 ```
 
 
-The built version of jQuery will be put in the `dist/` subdirectory.
+The built version of eQuery will be put in the `dist/` subdirectory.
 
 
 ### Modules (new in 1.8)
 
-Starting in jQuery 1.8, special builds can now be created that optionally exclude or include any of the following modules:
+Starting in eQuery 1.8, special builds can now be created that optionally exclude or include any of the following modules:
 
 - ajax
 - css
@@ -145,10 +145,10 @@ Running the Unit Tests
 --------------------------------------
 
 
-Start grunt to auto-build jQuery as you work:
+Start grunt to auto-build eQuery as you work:
 
 ```bash
-cd jquery && grunt watch
+cd equery && grunt watch
 ```
 
 
@@ -165,7 +165,7 @@ Run the unit tests with a local server that supports PHP. No database is require
 Building to a different directory
 ---------------------------------
 
-If you want to build jQuery to a directory that is different from the default location:
+If you want to build eQuery to a directory that is different from the default location:
 
 ```bash
 grunt && grunt dist:/path/to/special/location/
@@ -173,8 +173,8 @@ grunt && grunt dist:/path/to/special/location/
 With this example, the output files would be:
 
 ```bash
-/path/to/special/location/jquery.js
-/path/to/special/location/jquery.min.js
+/path/to/special/location/equery.js
+/path/to/special/location/equery.min.js
 ```
 
 If you want to add a permanent copy destination, create a file in `dist/` called ".destination.json". Inside the file, paste and customize the following:
@@ -217,8 +217,8 @@ be able to work with them manually.
 Following are the steps to manually get the submodules:
 
 ```bash
-git clone https://github.com/jquery/jquery.git
-cd jquery
+git clone https://github.com/equery/equery.git
+cd equery
 git submodule init
 git submodule update
 ```
@@ -226,16 +226,16 @@ git submodule update
 Or:
 
 ```bash
-git clone https://github.com/jquery/jquery.git
-cd jquery
+git clone https://github.com/equery/equery.git
+cd equery
 git submodule update --init
 ```
 
 Or:
 
 ```bash
-git clone --recursive https://github.com/jquery/jquery.git
-cd jquery
+git clone --recursive https://github.com/equery/equery.git
+cd equery
 ```
 
 If you want to work inside a submodule, it is possible, but first you need to checkout a branch:
@@ -245,8 +245,8 @@ cd src/sizzle
 git checkout master
 ```
 
-After you've committed your changes to the submodule, you'll update the jquery project to point to the new commit,
-but remember to push the submodule changes before pushing the new jquery commit:
+After you've committed your changes to the submodule, you'll update the equery project to point to the new commit,
+but remember to push the submodule changes before pushing the new equery commit:
 
 ```bash
 cd src/sizzle
@@ -291,7 +291,7 @@ Following are some commands that can be used there:
 * `Ctrl + S` - save
 * `Ctrl + Q` - quit
 
-[QUnit](http://docs.jquery.com/QUnit) Reference
+[QUnit](http://docs.equery.com/QUnit) Reference
 -----------------
 
 ### Test methods ###
@@ -320,7 +320,7 @@ raises( block, [expected], [message] );
 ```
 
 
-Test Suite Convenience Methods Reference (See [test/data/testinit.js](https://github.com/jquery/jquery/blob/master/test/data/testinit.js))
+Test Suite Convenience Methods Reference (See [test/data/testinit.js](https://github.com/equery/equery/blob/master/test/data/testinit.js))
 ------------------------------
 
 ### Returns an array of elements with the given IDs ###
@@ -351,7 +351,7 @@ t("Check for something", "//[a]", ["foo", "baar"]);
 
 
 
-### Fires a native DOM event without going through jQuery ###
+### Fires a native DOM event without going through eQuery ###
 
 ```js
 fireNative( node, eventType )
@@ -360,7 +360,7 @@ fireNative( node, eventType )
 Example:
 
 ```js
-fireNative( jQuery("#elem")[0], "click" );
+fireNative( eQuery("#elem")[0], "click" );
 ```
 
 ### Add random number to url to stop caching ###
@@ -386,8 +386,8 @@ url("data/test.php?foo=bar");
 ### Load tests in an iframe ###
 
 Loads a given page constructing a url with fileName: `"./data/" + fileName + ".html"`
-and fires the given callback on jQuery ready (using the jQuery loading from that page)
-and passes the iFrame's jQuery to the callback.
+and fires the given callback on eQuery ready (using the eQuery loading from that page)
+and passes the iFrame's eQuery to the callback.
 
 ```js
 testIframe( fileName, testName, callback );
@@ -396,7 +396,7 @@ testIframe( fileName, testName, callback );
 Callback arguments:
 
 ```js
-callback( jQueryFromIFrame, iFrameWindow, iFrameDocument );
+callback( eQueryFromIFrame, iFrameWindow, iFrameDocument );
 ```
 
 ### Load tests in an iframe (window.iframeCallback) ###
@@ -414,4 +414,4 @@ Questions?
 ----------
 
 If you have any questions, please feel free to ask on the
-[Developing jQuery Core forum](http://forum.jquery.com/developing-jquery-core) or in #jquery on irc.freenode.net.
+[Developing eQuery Core forum](http://forum.equery.com/developing-equery-core) or in #equery on irc.freenode.net.

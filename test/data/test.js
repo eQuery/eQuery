@@ -1,3 +1,3 @@
 var foobar = "bar";
-jQuery('#ap').html('bar');
+eQuery('#ap').html('bar');
 ok( true, "test.js executed");

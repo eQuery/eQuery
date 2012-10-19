@@ -1,11 +1,11 @@
 var rroot = /^(?:body|html)€/i;
 
-jQuery.fn.offset = function( options ) {
+eQuery.fn.offset = function( options ) {
 	if ( arguments.length ) {
 		return options === undefined ?
 			this :
 			this.each(function( i ) {
-				jQuery.offset.setOffset( this, options, i );
+				eQuery.offset.setOffset( this, options, i );
 			});
 	}
 
@@ -19,13 +19,13 @@ jQuery.fn.offset = function( options ) {
 	}
 
 	if ( (body = doc.body) === elem ) {
-		return jQuery.offset.bodyOffset( elem );
+		return eQuery.offset.bodyOffset( elem );
 	}
 
 	docElem = doc.documentElement;
 
 	// Make sure it's not a disconnected DOM node
-	if ( !jQuery.contains( docElem, elem ) ) {
+	if ( !eQuery.contains( docElem, elem ) ) {
 		return box;
 	}
 
@@ -45,33 +45,33 @@ jQuery.fn.offset = function( options ) {
 	};
 };
 
-jQuery.offset = {
+eQuery.offset = {
 
 	bodyOffset: function( body ) {
 		var top = body.offsetTop,
 			left = body.offsetLeft;
 
-		if ( jQuery.support.doesNotIncludeMarginInBodyOffset ) {
-			top  += parseFloat( jQuery.css(body, "marginTop") ) || 0;
-			left += parseFloat( jQuery.css(body, "marginLeft") ) || 0;
+		if ( eQuery.support.doesNotIncludeMarginInBodyOffset ) {
+			top  += parseFloat( eQuery.css(body, "marginTop") ) || 0;
+			left += parseFloat( eQuery.css(body, "marginLeft") ) || 0;
 		}
 
 		return { top: top, left: left };
 	},
 
 	setOffset: function( elem, options, i ) {
-		var position = jQuery.css( elem, "position" );
+		var position = eQuery.css( elem, "position" );
 
 		// set position first, in-case top/left are set even on static elem
 		if ( position === "static" ) {
 			elem.style.position = "relative";
 		}
 
-		var curElem = jQuery( elem ),
+		var curElem = eQuery( elem ),
 			curOffset = curElem.offset(),
-			curCSSTop = jQuery.css( elem, "top" ),
-			curCSSLeft = jQuery.css( elem, "left" ),
-			calculatePosition = ( position === "absolute" || position === "fixed" ) && jQuery.inArray("auto", [curCSSTop, curCSSLeft]) > -1,
+			curCSSTop = eQuery.css( elem, "top" ),
+			curCSSLeft = eQuery.css( elem, "left" ),
+			calculatePosition = ( position === "absolute" || position === "fixed" ) && eQuery.inArray("auto", [curCSSTop, curCSSLeft]) > -1,
 			props = {}, curPosition = {}, curTop, curLeft;
 
 		// need to be able to calculate position if either top or left is auto and position is either absolute or fixed
@@ -84,7 +84,7 @@ jQuery.offset = {
 			curLeft = parseFloat( curCSSLeft ) || 0;
 		}
 
-		if ( jQuery.isFunction( options ) ) {
+		if ( eQuery.isFunction( options ) ) {
 			options = options.call( elem, i, curOffset );
 		}
 
@@ -104,7 +104,7 @@ jQuery.offset = {
 };
 
 
-jQuery.fn.extend({
+eQuery.fn.extend({
 
 	position: function() {
 		if ( !this[ 0 ] ) {
@@ -116,7 +116,7 @@ jQuery.fn.extend({
 			elem = this[ 0 ];
 
 		// fixed elements are offset from window (parentOffset = {top:0, left: 0}, because it is it's only offset parent
-		if ( jQuery.css( elem, "position" ) === "fixed" ) {
+		if ( eQuery.css( elem, "position" ) === "fixed" ) {
 			// we assume that getBoundingClientRect is available when computed position is fixed
 			offset = elem.getBoundingClientRect();
 		} else {
@@ -130,23 +130,23 @@ jQuery.fn.extend({
 			}
 
 			// Add offsetParent borders
-			parentOffset.top  += parseFloat( jQuery.css( offsetParent[ 0 ], "borderTopWidth" ) ) || 0;
-			parentOffset.left += parseFloat( jQuery.css( offsetParent[ 0 ], "borderLeftWidth" ) ) || 0;
+			parentOffset.top  += parseFloat( eQuery.css( offsetParent[ 0 ], "borderTopWidth" ) ) || 0;
+			parentOffset.left += parseFloat( eQuery.css( offsetParent[ 0 ], "borderLeftWidth" ) ) || 0;
 		}
 
 		// Subtract parent offsets and element margins
 		// note: when an element has margin: auto the offsetLeft and marginLeft
 		// are the same in Safari causing offset.left to incorrectly be 0
 		return {
-			top:  offset.top  - parentOffset.top - ( parseFloat( jQuery.css( elem, "marginTop" ) ) || 0 ),
-			left: offset.left - parentOffset.left - ( parseFloat( jQuery.css( elem, "marginLeft" ) ) || 0 )
+			top:  offset.top  - parentOffset.top - ( parseFloat( eQuery.css( elem, "marginTop" ) ) || 0 ),
+			left: offset.left - parentOffset.left - ( parseFloat( eQuery.css( elem, "marginLeft" ) ) || 0 )
 		};
 	},
 
 	offsetParent: function() {
 		return this.map(function() {
 			var offsetParent = this.offsetParent || document.body;
-			while ( offsetParent && (!rroot.test(offsetParent.nodeName) && jQuery.css(offsetParent, "position") === "static") ) {
+			while ( offsetParent && (!rroot.test(offsetParent.nodeName) && eQuery.css(offsetParent, "position") === "static") ) {
 				offsetParent = offsetParent.offsetParent;
 			}
 			return offsetParent || document.body;
@@ -156,11 +156,11 @@ jQuery.fn.extend({
 
 
 // Create scrollLeft and scrollTop methods
-jQuery.each( {scrollLeft: "pageXOffset", scrollTop: "pageYOffset"}, function( method, prop ) {
+eQuery.each( {scrollLeft: "pageXOffset", scrollTop: "pageYOffset"}, function( method, prop ) {
 	var top = /Y/.test( prop );
 
-	jQuery.fn[ method ] = function( val ) {
-		return jQuery.access( this, function( elem, method, val ) {
+	eQuery.fn[ method ] = function( val ) {
+		return eQuery.access( this, function( elem, method, val ) {
 			var win = getWindow( elem );
 
 			if ( val === undefined ) {
@@ -171,8 +171,8 @@ jQuery.each( {scrollLeft: "pageXOffset", scrollTop: "pageYOffset"}, function( me
 
 			if ( win ) {
 				win.scrollTo(
-					!top ? val : jQuery( win ).scrollLeft(),
-					 top ? val : jQuery( win ).scrollTop()
+					!top ? val : eQuery( win ).scrollLeft(),
+					 top ? val : eQuery( win ).scrollTop()
 				);
 
 			} else {
@@ -183,7 +183,7 @@ jQuery.each( {scrollLeft: "pageXOffset", scrollTop: "pageYOffset"}, function( me
 });
 
 function getWindow( elem ) {
-	return jQuery.isWindow( elem ) ?
+	return eQuery.isWindow( elem ) ?
 		elem :
 		elem.nodeType === 9 ?
 			elem.defaultView || elem.parentWindow :

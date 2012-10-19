@@ -1,24 +1,24 @@
 {
-	"name": "jquery",
-	"title": "jQuery",
+	"name": "equery",
+	"title": "eQuery",
 	"description": "JavaScript library for DOM operations",
 	"version": "1.8.3pre",
-	"homepage": "http://jquery.com",
+	"homepage": "http://equery.com",
 	"author": {
-		"name": "jQuery Foundation and other contributors",
-		"url": "https://github.com/jquery/jquery/blob/master/AUTHORS.txt"
+		"name": "eQuery Foundation and other contributors",
+		"url": "https://github.com/equery/equery/blob/master/AUTHORS.txt"
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/jquery/jquery.git"
+		"url": "https://github.com/equery/equery.git"
 	},
 	"bugs": {
-		"url": "http://bugs.jquery.com"
+		"url": "http://bugs.equery.com"
 	},
 	"licenses": [
 		{
 			"type": "MIT",
-			"url": "https://github.com/jquery/jquery/blob/master/MIT-LICENSE.txt"
+			"url": "https://github.com/equery/equery/blob/master/MIT-LICENSE.txt"
 		}
 	],
 	"dependencies": {},

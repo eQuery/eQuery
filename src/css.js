@@ -45,7 +45,7 @@ function vendorPropName( style, name ) {
 
 function isHidden( elem, el ) {
 	elem = el || elem;
-	return jQuery.css( elem, "display" ) === "none" || !jQuery.contains( elem.ownerDocument, elem );
+	return eQuery.css( elem, "display" ) === "none" || !eQuery.contains( elem.ownerDocument, elem );
 }
 
 function showHide( elements, show ) {
@@ -59,7 +59,7 @@ function showHide( elements, show ) {
 		if ( !elem.style ) {
 			continue;
 		}
-		values[ index ] = jQuery._data( elem, "olddisplay" );
+		values[ index ] = eQuery._data( elem, "olddisplay" );
 		if ( show ) {
 			// Reset the inline display of this element to learn if it is
 			// being hidden by cascaded rules or not
@@ -71,13 +71,13 @@ function showHide( elements, show ) {
 			// in a stylesheet to whatever the default browser style is
 			// for such an element
 			if ( elem.style.display === "" && isHidden( elem ) ) {
-				values[ index ] = jQuery._data( elem, "olddisplay", css_defaultDisplay(elem.nodeName) );
+				values[ index ] = eQuery._data( elem, "olddisplay", css_defaultDisplay(elem.nodeName) );
 			}
 		} else {
 			display = curCSS( elem, "display" );
 
 			if ( !values[ index ] && display !== "none" ) {
-				jQuery._data( elem, "olddisplay", display );
+				eQuery._data( elem, "olddisplay", display );
 			}
 		}
 	}
@@ -97,12 +97,12 @@ function showHide( elements, show ) {
 	return elements;
 }
 
-jQuery.fn.extend({
+eQuery.fn.extend({
 	css: function( name, value ) {
-		return jQuery.access( this, function( elem, name, value ) {
+		return eQuery.access( this, function( elem, name, value ) {
 			return value !== undefined ?
-				jQuery.style( elem, name, value ) :
-				jQuery.css( elem, name );
+				eQuery.style( elem, name, value ) :
+				eQuery.css( elem, name );
 		}, name, value, arguments.length > 1 );
 	},
 	show: function() {
@@ -116,15 +116,15 @@ jQuery.fn.extend({
 
 		return this.each(function() {
 			if ( bool ? state : isHidden( this ) ) {
-				jQuery( this ).show();
+				eQuery( this ).show();
 			} else {
-				jQuery( this ).hide();
+				eQuery( this ).hide();
 			}
 		});
 	}
 });
 
-jQuery.extend({
+eQuery.extend({
 	// Add in style property hooks for overriding the default
 	// behavior of getting and setting a style property
 	cssHooks: {
@@ -156,7 +156,7 @@ jQuery.extend({
 	// setting or getting the value
 	cssProps: {
 		// normalize float css property
-		"float": jQuery.support.cssFloat ? "cssFloat" : "styleFloat"
+		"float": eQuery.support.cssFloat ? "cssFloat" : "styleFloat"
 	},
 
 	// Get and set the style property on a DOM Node
@@ -168,14 +168,14 @@ jQuery.extend({
 
 		// Make sure that we're working with the right name
 		var ret, type, hooks,
-			origName = jQuery.camelCase( name ),
+			origName = eQuery.camelCase( name ),
 			style = elem.style;
 
-		name = jQuery.cssProps[ origName ] || ( jQuery.cssProps[ origName ] = vendorPropName( style, origName ) );
+		name = eQuery.cssProps[ origName ] || ( eQuery.cssProps[ origName ] = vendorPropName( style, origName ) );
 
 		// gets hook for the prefixed version
 		// followed by the unprefixed version
-		hooks = jQuery.cssHooks[ name ] || jQuery.cssHooks[ origName ];
+		hooks = eQuery.cssHooks[ name ] || eQuery.cssHooks[ origName ];
 
 		// Check if we're setting a value
 		if ( value !== undefined ) {
@@ -183,7 +183,7 @@ jQuery.extend({
 
 			// convert relative number strings (+= or -=) to relative numbers. #7345
 			if ( type === "string" && (ret = rrelNum.exec( value )) ) {
-				value = ( ret[1] + 1 ) * ret[2] + parseFloat( jQuery.css( elem, name ) );
+				value = ( ret[1] + 1 ) * ret[2] + parseFloat( eQuery.css( elem, name ) );
 				// Fixes bug #9237
 				type = "number";
 			}
@@ -194,7 +194,7 @@ jQuery.extend({
 			}
 
 			// If a number was passed in, add 'px' to the (except for certain CSS properties)
-			if ( type === "number" && !jQuery.cssNumber[ origName ] ) {
+			if ( type === "number" && !eQuery.cssNumber[ origName ] ) {
 				value += "px";
 			}
 
@@ -220,14 +220,14 @@ jQuery.extend({
 
 	css: function( elem, name, numeric, extra ) {
 		var val, num, hooks,
-			origName = jQuery.camelCase( name );
+			origName = eQuery.camelCase( name );
 
 		// Make sure that we're working with the right name
-		name = jQuery.cssProps[ origName ] || ( jQuery.cssProps[ origName ] = vendorPropName( elem.style, origName ) );
+		name = eQuery.cssProps[ origName ] || ( eQuery.cssProps[ origName ] = vendorPropName( elem.style, origName ) );
 
 		// gets hook for the prefixed version
 		// followed by the unprefixed version
-		hooks = jQuery.cssHooks[ name ] || jQuery.cssHooks[ origName ];
+		hooks = eQuery.cssHooks[ name ] || eQuery.cssHooks[ origName ];
 
 		// If a hook was provided get the computed value from there
 		if ( hooks && "get" in hooks ) {
@@ -247,7 +247,7 @@ jQuery.extend({
 		// Return, converting to number if forced or a qualifier was provided and val looks numeric
 		if ( numeric || extra !== undefined ) {
 			num = parseFloat( val );
-			return numeric || jQuery.isNumeric( num ) ? num || 0 : val;
+			return numeric || eQuery.isNumeric( num ) ? num || 0 : val;
 		}
 		return val;
 	},
@@ -287,8 +287,8 @@ if ( window.getComputedStyle ) {
 			// getPropertyValue is only needed for .css('filter') in IE9, see #12537
 			ret = computed.getPropertyValue( name ) || computed[ name ];
 
-			if ( ret === "" && !jQuery.contains( elem.ownerDocument, elem ) ) {
-				ret = jQuery.style( elem, name );
+			if ( ret === "" && !eQuery.contains( elem.ownerDocument, elem ) ) {
+				ret = eQuery.style( elem, name );
 			}
 
 			// A tribute to the "awesome hack by Dean Edwards"
@@ -373,9 +373,9 @@ function augmentWidthOrHeight( elem, name, extra, isBorderBox ) {
 	for ( ; i < 4; i += 2 ) {
 		// both box models exclude margin, so add it if we want it
 		if ( extra === "margin" ) {
-			// we use jQuery.css instead of curCSS here
+			// we use eQuery.css instead of curCSS here
 			// because of the reliableMarginRight CSS hook!
-			val += jQuery.css( elem, extra + cssExpand[ i ], true );
+			val += eQuery.css( elem, extra + cssExpand[ i ], true );
 		}
 
 		// From this point on we use curCSS for maximum performance (relevant in animations)
@@ -408,7 +408,7 @@ function getWidthOrHeight( elem, name, extra ) {
 	// Start with offset property, which is equivalent to the border-box value
 	var val = name === "width" ? elem.offsetWidth : elem.offsetHeight,
 		valueIsBorderBox = true,
-		isBorderBox = jQuery.support.boxSizing && jQuery.css( elem, "boxSizing" ) === "border-box";
+		isBorderBox = eQuery.support.boxSizing && eQuery.css( elem, "boxSizing" ) === "border-box";
 
 	// some non-html elements return undefined for offsetWidth, so check for null/undefined
 	// svg - https://bugzilla.mozilla.org/show_bug.cgi?id=649285
@@ -427,7 +427,7 @@ function getWidthOrHeight( elem, name, extra ) {
 
 		// we need the check for style in case a browser which returns unreliable values
 		// for getComputedStyle silently falls back to the reliable elem.style
-		valueIsBorderBox = isBorderBox && ( jQuery.support.boxSizingReliable || val === elem.style[ name ] );
+		valueIsBorderBox = isBorderBox && ( eQuery.support.boxSizingReliable || val === elem.style[ name ] );
 
 		// Normalize "", auto, and prepare for extra
 		val = parseFloat( val ) || 0;
@@ -451,7 +451,7 @@ function css_defaultDisplay( nodeName ) {
 		return elemdisplay[ nodeName ];
 	}
 
-	var elem = jQuery( "<" + nodeName + ">" ).appendTo( document.body ),
+	var elem = eQuery( "<" + nodeName + ">" ).appendTo( document.body ),
 		display = elem.css("display");
 	elem.remove();
 
@@ -460,7 +460,7 @@ function css_defaultDisplay( nodeName ) {
 	if ( display === "none" || display === "" ) {
 		// Use the already-created iframe if possible
 		iframe = document.body.appendChild(
-			iframe || jQuery.extend( document.createElement("iframe"), {
+			iframe || eQuery.extend( document.createElement("iframe"), {
 				frameBorder: 0,
 				width: 0,
 				height: 0
@@ -488,14 +488,14 @@ function css_defaultDisplay( nodeName ) {
 	return display;
 }
 
-jQuery.each([ "height", "width" ], function( i, name ) {
-	jQuery.cssHooks[ name ] = {
+eQuery.each([ "height", "width" ], function( i, name ) {
+	eQuery.cssHooks[ name ] = {
 		get: function( elem, computed, extra ) {
 			if ( computed ) {
 				// certain elements can have dimension info if we invisibly show them
 				// however, it must have a current display style that would benefit from this
 				if ( elem.offsetWidth === 0 && rdisplayswap.test( curCSS( elem, "display" ) ) ) {
-					return jQuery.swap( elem, cssShow, function() {
+					return eQuery.swap( elem, cssShow, function() {
 						return getWidthOrHeight( elem, name, extra );
 					});
 				} else {
@@ -510,15 +510,15 @@ jQuery.each([ "height", "width" ], function( i, name ) {
 					elem,
 					name,
 					extra,
-					jQuery.support.boxSizing && jQuery.css( elem, "boxSizing" ) === "border-box"
+					eQuery.support.boxSizing && eQuery.css( elem, "boxSizing" ) === "border-box"
 				) : 0
 			);
 		}
 	};
 });
 
-if ( !jQuery.support.opacity ) {
-	jQuery.cssHooks.opacity = {
+if ( !eQuery.support.opacity ) {
+	eQuery.cssHooks.opacity = {
 		get: function( elem, computed ) {
 			// IE uses filters for opacity
 			return ropacity.test( (computed && elem.currentStyle ? elem.currentStyle.filter : elem.style.filter) || "" ) ?
@@ -529,7 +529,7 @@ if ( !jQuery.support.opacity ) {
 		set: function( elem, value ) {
 			var style = elem.style,
 				currentStyle = elem.currentStyle,
-				opacity = jQuery.isNumeric( value ) ? "alpha(opacity=" + value * 100 + ")" : "",
+				opacity = eQuery.isNumeric( value ) ? "alpha(opacity=" + value * 100 + ")" : "",
 				filter = currentStyle && currentStyle.filter || style.filter || "";
 
 			// IE has trouble with opacity if it does not have layout
@@ -537,7 +537,7 @@ if ( !jQuery.support.opacity ) {
 			style.zoom = 1;
 
 			// if setting opacity to 1, and no other filters exist - attempt to remove filter attribute #6652
-			if ( value >= 1 && jQuery.trim( filter.replace( ralpha, "" ) ) === "" &&
+			if ( value >= 1 && eQuery.trim( filter.replace( ralpha, "" ) ) === "" &&
 				style.removeAttribute ) {
 
 				// Setting style.filter to null, "" & " " still leave "filter:" in the cssText
@@ -561,13 +561,13 @@ if ( !jQuery.support.opacity ) {
 
 // These hooks cannot be added until DOM ready because the support test
 // for it is not run until after DOM ready
-jQuery(function() {
-	if ( !jQuery.support.reliableMarginRight ) {
-		jQuery.cssHooks.marginRight = {
+eQuery(function() {
+	if ( !eQuery.support.reliableMarginRight ) {
+		eQuery.cssHooks.marginRight = {
 			get: function( elem, computed ) {
 				// WebKit Bug 13343 - getComputedStyle returns wrong value for margin-right
 				// Work around by temporarily setting element display to inline-block
-				return jQuery.swap( elem, { "display": "inline-block" }, function() {
+				return eQuery.swap( elem, { "display": "inline-block" }, function() {
 					if ( computed ) {
 						return curCSS( elem, "marginRight" );
 					}
@@ -579,14 +579,14 @@ jQuery(function() {
 	// Webkit bug: https://bugs.webkit.org/show_bug.cgi?id=29084
 	// getComputedStyle returns percent when specified for top/left/bottom/right
 	// rather than make the css module depend on the offset module, we just check for it here
-	if ( !jQuery.support.pixelPosition && jQuery.fn.position ) {
-		jQuery.each( [ "top", "left" ], function( i, prop ) {
-			jQuery.cssHooks[ prop ] = {
+	if ( !eQuery.support.pixelPosition && eQuery.fn.position ) {
+		eQuery.each( [ "top", "left" ], function( i, prop ) {
+			eQuery.cssHooks[ prop ] = {
 				get: function( elem, computed ) {
 					if ( computed ) {
 						var ret = curCSS( elem, prop );
 						// if curCSS returns percentage, fallback to offset
-						return rnumnonpx.test( ret ) ? jQuery( elem ).position()[ prop ] + "px" : ret;
+						return rnumnonpx.test( ret ) ? eQuery( elem ).position()[ prop ] + "px" : ret;
 					}
 				}
 			};
@@ -595,23 +595,23 @@ jQuery(function() {
 
 });
 
-if ( jQuery.expr && jQuery.expr.filters ) {
-	jQuery.expr.filters.hidden = function( elem ) {
-		return ( elem.offsetWidth === 0 && elem.offsetHeight === 0 ) || (!jQuery.support.reliableHiddenOffsets && ((elem.style && elem.style.display) || curCSS( elem, "display" )) === "none");
+if ( eQuery.expr && eQuery.expr.filters ) {
+	eQuery.expr.filters.hidden = function( elem ) {
+		return ( elem.offsetWidth === 0 && elem.offsetHeight === 0 ) || (!eQuery.support.reliableHiddenOffsets && ((elem.style && elem.style.display) || curCSS( elem, "display" )) === "none");
 	};
 
-	jQuery.expr.filters.visible = function( elem ) {
-		return !jQuery.expr.filters.hidden( elem );
+	eQuery.expr.filters.visible = function( elem ) {
+		return !eQuery.expr.filters.hidden( elem );
 	};
 }
 
 // These hooks are used by animate to expand properties
-jQuery.each({
+eQuery.each({
 	margin: "",
 	padding: "",
 	border: "Width"
 }, function( prefix, suffix ) {
-	jQuery.cssHooks[ prefix + suffix ] = {
+	eQuery.cssHooks[ prefix + suffix ] = {
 		expand: function( value ) {
 			var i,
 
@@ -629,6 +629,6 @@ jQuery.each({
 	};
 
 	if ( !rmargin.test( prefix ) ) {
-		jQuery.cssHooks[ prefix + suffix ].set = setPositiveNumber;
+		eQuery.cssHooks[ prefix + suffix ].set = setPositiveNumber;
 	}
 });

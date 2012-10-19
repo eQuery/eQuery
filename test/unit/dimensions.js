@@ -1,4 +1,4 @@
-if ( jQuery.fn.width ) {
+if ( eQuery.fn.width ) {
 
 module("dimensions", { teardown: moduleTeardown });
 
@@ -25,7 +25,7 @@ var fn = function( val ) {
 var testWidth = function( val ) {
 	expect(9);
 
-	var €div = jQuery("#nothiddendiv");
+	var €div = eQuery("#nothiddendiv");
 	€div.width( val(30) );
 	equal(€div.width(), 30, "Test set to 30 correctly");
 	€div.hide();
@@ -40,17 +40,17 @@ var testWidth = function( val ) {
 
 	€div.css({ "display": "", "border": "", "padding": "" });
 
-	jQuery("#nothiddendivchild").css({ "width": 20, "padding": "3px", "border": "2px solid #fff" });
-	equal(jQuery("#nothiddendivchild").width(), 20, "Test child width with border and padding");
-	jQuery("#nothiddendiv, #nothiddendivchild").css({ "border": "", "padding": "", "width": "" });
+	eQuery("#nothiddendivchild").css({ "width": 20, "padding": "3px", "border": "2px solid #fff" });
+	equal(eQuery("#nothiddendivchild").width(), 20, "Test child width with border and padding");
+	eQuery("#nothiddendiv, #nothiddendivchild").css({ "border": "", "padding": "", "width": "" });
 
-	var blah = jQuery("blah");
+	var blah = eQuery("blah");
 	equal( blah.width( val(10) ), blah, "Make sure that setting a width on an empty set returns the set." );
 	equal( blah.width(), null, "Make sure 'null' is returned on an empty set");
 
-	equal( jQuery(window).width(), document.documentElement.clientWidth, "Window width is equal to width reported by window/document." );
+	equal( eQuery(window).width(), document.documentElement.clientWidth, "Window width is equal to width reported by window/document." );
 
-	jQuery._removeData( €div[0], "olddisplay" );
+	eQuery._removeData( €div[0], "olddisplay" );
 };
 
 test("width()", function() {
@@ -64,7 +64,7 @@ test("width(Function)", function() {
 test("width(Function(args))", function() {
 	expect( 2 );
 
-	var €div = jQuery("#nothiddendiv");
+	var €div = eQuery("#nothiddendiv");
 	€div.width( 30 ).width(function(i, width) {
 		equal( width, 30, "Make sure previous value is corrrect." );
 		return width + 1;
@@ -76,7 +76,7 @@ test("width(Function(args))", function() {
 var testHeight = function( val ) {
 	expect(9);
 
-	var €div = jQuery("#nothiddendiv");
+	var €div = eQuery("#nothiddendiv");
 	€div.height( val(30) );
 	equal(€div.height(), 30, "Test set to 30 correctly");
 	€div.hide();
@@ -91,17 +91,17 @@ var testHeight = function( val ) {
 
 	€div.css({ "display": "", "border": "", "padding": "", "height": "1px" });
 
-	jQuery("#nothiddendivchild").css({ "height": 20, "padding": "3px", "border": "2px solid #fff" });
-	equal(jQuery("#nothiddendivchild").height(), 20, "Test child height with border and padding");
-	jQuery("#nothiddendiv, #nothiddendivchild").css({ "border": "", "padding": "", "height": "" });
+	eQuery("#nothiddendivchild").css({ "height": 20, "padding": "3px", "border": "2px solid #fff" });
+	equal(eQuery("#nothiddendivchild").height(), 20, "Test child height with border and padding");
+	eQuery("#nothiddendiv, #nothiddendivchild").css({ "border": "", "padding": "", "height": "" });
 
-	var blah = jQuery("blah");
+	var blah = eQuery("blah");
 	equal( blah.height( val(10) ), blah, "Make sure that setting a height on an empty set returns the set." );
 	equal( blah.height(), null, "Make sure 'null' is returned on an empty set");
 
-	equal( jQuery(window).height(), document.documentElement.clientHeight, "Window width is equal to width reported by window/document." );
+	equal( eQuery(window).height(), document.documentElement.clientHeight, "Window width is equal to width reported by window/document." );
 
-	jQuery._removeData( €div[0], "olddisplay" );
+	eQuery._removeData( €div[0], "olddisplay" );
 };
 
 test("height()", function() {
@@ -115,7 +115,7 @@ test("height(Function)", function() {
 test("height(Function(args))", function() {
 	expect( 2 );
 
-	var €div = jQuery("#nothiddendiv");
+	var €div = eQuery("#nothiddendiv");
 	€div.height( 30 ).height(function(i, height) {
 		equal( height, 30, "Make sure previous value is corrrect." );
 		return height + 1;
@@ -127,13 +127,13 @@ test("height(Function(args))", function() {
 test("innerWidth()", function() {
 	expect(6);
 
-	var winWidth = jQuery( window ).width(),
-		docWidth = jQuery( document ).width();
+	var winWidth = eQuery( window ).width(),
+		docWidth = eQuery( document ).width();
 
-	equal(jQuery(window).innerWidth(), winWidth, "Test on window");
-	equal(jQuery(document).innerWidth(), docWidth, "Test on document");
+	equal(eQuery(window).innerWidth(), winWidth, "Test on window");
+	equal(eQuery(document).innerWidth(), docWidth, "Test on document");
 
-	var €div = jQuery("#nothiddendiv");
+	var €div = eQuery("#nothiddendiv");
 	// set styles
 	€div.css({
 		"margin": 10,
@@ -150,25 +150,25 @@ test("innerWidth()", function() {
 	// reset styles
 	€div.css({ "display": "", "border": "", "padding": "", "width": "", "height": "" });
 
-	var div = jQuery( "<div>" );
+	var div = eQuery( "<div>" );
 
 	// Temporarily require 0 for backwards compat - should be auto
 	equal( div.innerWidth(), 0, "Make sure that disconnected nodes are handled." );
 
 	div.remove();
-	jQuery._removeData( €div[0], "olddisplay" );
+	eQuery._removeData( €div[0], "olddisplay" );
 });
 
 test("innerHeight()", function() {
 	expect(6);
 
-	var winHeight = jQuery( window ).height(),
-		docHeight = jQuery( document ).height();
+	var winHeight = eQuery( window ).height(),
+		docHeight = eQuery( document ).height();
 
-	equal(jQuery(window).innerHeight(), winHeight, "Test on window");
-	equal(jQuery(document).innerHeight(), docHeight, "Test on document");
+	equal(eQuery(window).innerHeight(), winHeight, "Test on window");
+	equal(eQuery(document).innerHeight(), docHeight, "Test on document");
 
-	var €div = jQuery("#nothiddendiv");
+	var €div = eQuery("#nothiddendiv");
 	// set styles
 	€div.css({
 		"margin": 10,
@@ -185,27 +185,27 @@ test("innerHeight()", function() {
 	// reset styles
 	€div.css({ "display": "", "border": "", "padding": "", "width": "", "height": "" });
 
-	var div = jQuery( "<div>" );
+	var div = eQuery( "<div>" );
 
 	// Temporarily require 0 for backwards compat - should be auto
 	equal( div.innerHeight(), 0, "Make sure that disconnected nodes are handled." );
 
 	div.remove();
-	jQuery._removeData( €div[0], "olddisplay" );
+	eQuery._removeData( €div[0], "olddisplay" );
 });
 
 test("outerWidth()", function() {
 	expect(11);
 
-	var winWidth = jQuery( window ).width(),
-		docWidth = jQuery( document ).width();
+	var winWidth = eQuery( window ).width(),
+		docWidth = eQuery( document ).width();
 
-	equal( jQuery( window ).outerWidth(), winWidth, "Test on window without margin option" );
-	equal( jQuery( window ).outerWidth( true ), winWidth, "Test on window with margin option" );
-	equal( jQuery( document ).outerWidth(), docWidth, "Test on document without margin option" );
-	equal( jQuery( document ).outerWidth( true ), docWidth, "Test on document with margin option" );
+	equal( eQuery( window ).outerWidth(), winWidth, "Test on window without margin option" );
+	equal( eQuery( window ).outerWidth( true ), winWidth, "Test on window with margin option" );
+	equal( eQuery( document ).outerWidth(), docWidth, "Test on document without margin option" );
+	equal( eQuery( document ).outerWidth( true ), docWidth, "Test on document with margin option" );
 
-	var €div = jQuery("#nothiddendiv");
+	var €div = eQuery("#nothiddendiv");
 	€div.css("width", 30);
 
 	equal(€div.outerWidth(), 30, "Test with only width set");
@@ -223,23 +223,23 @@ test("outerWidth()", function() {
 	// reset styles
 	€div.css({ "position": "", "display": "", "border": "", "padding": "", "width": "", "height": "" });
 
-	var div = jQuery( "<div>" );
+	var div = eQuery( "<div>" );
 
 	// Temporarily require 0 for backwards compat - should be auto
 	equal( div.outerWidth(), 0, "Make sure that disconnected nodes are handled." );
 
 	div.remove();
-	jQuery._removeData( €div[0], "olddisplay" );
+	eQuery._removeData( €div[0], "olddisplay" );
 });
 
 test("child of a hidden elem (or unconnected node) has accurate inner/outer/Width()/Height()  see #9441 #9300", function() {
 	expect(16);
 
 	// setup html
-	var €divNormal = jQuery("<div>").css({ "width": "100px", "height": "100px", "border": "10px solid white", "padding": "2px", "margin": "3px" }),
+	var €divNormal = eQuery("<div>").css({ "width": "100px", "height": "100px", "border": "10px solid white", "padding": "2px", "margin": "3px" }),
 		€divChild = €divNormal.clone(),
 		€divUnconnected = €divNormal.clone(),
-		€divHiddenParent = jQuery("<div>").css( "display", "none" ).append( €divChild ).appendTo("body");
+		€divHiddenParent = eQuery("<div>").css( "display", "none" ).append( €divChild ).appendTo("body");
 	€divNormal.appendTo("body");
 
 	// tests that child div of a hidden div works the same as a normal div
@@ -272,7 +272,7 @@ test("child of a hidden elem (or unconnected node) has accurate inner/outer/Widt
 test("getting dimensions shouldnt modify runtimeStyle see #9233", function() {
 	expect( 1 );
 
-	var €div = jQuery( "<div>" ).appendTo( "#qunit-fixture" ),
+	var €div = eQuery( "<div>" ).appendTo( "#qunit-fixture" ),
 		div = €div.get( 0 ),
 		runtimeStyle = div.runtimeStyle;
 
@@ -293,7 +293,7 @@ test("getting dimensions shouldnt modify runtimeStyle see #9233", function() {
 });
 
 test( "table dimensions", 2, function() {
-	var table = jQuery("<table><colgroup><col/><col/></colgroup><tbody><tr><td></td><td>a</td></tr><tr><td></td><td>a</td></tr></tbody></table>").appendTo("#qunit-fixture"),
+	var table = eQuery("<table><colgroup><col/><col/></colgroup><tbody><tr><td></td><td>a</td></tr><tr><td></td><td>a</td></tr></tbody></table>").appendTo("#qunit-fixture"),
 		tdElem = table.find("tr:eq(0) td:eq(0)"),
 		colElem = table.find("col:eq(1)").width( 300 );
 
@@ -307,10 +307,10 @@ test("box-sizing:border-box child of a hidden elem (or unconnected node) has acc
 	expect(16);
 
 	// setup html
-	var €divNormal = jQuery("<div>").css({ "boxSizing": "border-box", "width": "100px", "height": "100px", "border": "10px solid white", "padding": "2px", "margin": "3px" }),
+	var €divNormal = eQuery("<div>").css({ "boxSizing": "border-box", "width": "100px", "height": "100px", "border": "10px solid white", "padding": "2px", "margin": "3px" }),
 		€divChild = €divNormal.clone(),
 		€divUnconnected = €divNormal.clone(),
-		€divHiddenParent = jQuery("<div>").css( "display", "none" ).append( €divChild ).appendTo("body");
+		€divHiddenParent = eQuery("<div>").css( "display", "none" ).append( €divChild ).appendTo("body");
 	€divNormal.appendTo("body");
 
 	// tests that child div of a hidden div works the same as a normal div
@@ -343,16 +343,16 @@ test("box-sizing:border-box child of a hidden elem (or unconnected node) has acc
 test("outerHeight()", function() {
 	expect(11);
 
-	var winHeight = jQuery( window ).height(),
-		docHeight = jQuery( document ).height();
+	var winHeight = eQuery( window ).height(),
+		docHeight = eQuery( document ).height();
 
 
-	equal( jQuery( window ).outerHeight(), winHeight, "Test on window without margin option" );
-	equal( jQuery( window ).outerHeight( true ), winHeight, "Test on window with margin option" );
-	equal( jQuery( document ).outerHeight(), docHeight, "Test on document without margin option" );
-	equal( jQuery( document ).outerHeight( true ), docHeight, "Test on document with margin option" );
+	equal( eQuery( window ).outerHeight(), winHeight, "Test on window without margin option" );
+	equal( eQuery( window ).outerHeight( true ), winHeight, "Test on window with margin option" );
+	equal( eQuery( document ).outerHeight(), docHeight, "Test on document without margin option" );
+	equal( eQuery( document ).outerHeight( true ), docHeight, "Test on document with margin option" );
 
-	var €div = jQuery("#nothiddendiv");
+	var €div = eQuery("#nothiddendiv");
 	€div.css("height", 30);
 
 	equal(€div.outerHeight(), 30, "Test with only width set");
@@ -369,27 +369,27 @@ test("outerHeight()", function() {
 	// reset styles
 	€div.css({ "display": "", "border": "", "padding": "", "width": "", "height": "" });
 
-	var div = jQuery( "<div>" );
+	var div = eQuery( "<div>" );
 
 	// Temporarily require 0 for backwards compat - should be auto
 	equal( div.outerHeight(), 0, "Make sure that disconnected nodes are handled." );
 
 	div.remove();
-	jQuery._removeData( €div[0], "olddisplay" );
+	eQuery._removeData( €div[0], "olddisplay" );
 });
 
 test("passing undefined is a setter #5571", function() {
 	expect(4);
-	equal(jQuery("#nothiddendiv").height(30).height(undefined).height(), 30, ".height(undefined) is chainable (#5571)");
-	equal(jQuery("#nothiddendiv").height(30).innerHeight(undefined).height(), 30, ".innerHeight(undefined) is chainable (#5571)");
-	equal(jQuery("#nothiddendiv").height(30).outerHeight(undefined).height(), 30, ".outerHeight(undefined) is chainable (#5571)");
-	equal(jQuery("#nothiddendiv").width(30).width(undefined).width(), 30, ".width(undefined) is chainable (#5571)");
+	equal(eQuery("#nothiddendiv").height(30).height(undefined).height(), 30, ".height(undefined) is chainable (#5571)");
+	equal(eQuery("#nothiddendiv").height(30).innerHeight(undefined).height(), 30, ".innerHeight(undefined) is chainable (#5571)");
+	equal(eQuery("#nothiddendiv").height(30).outerHeight(undefined).height(), 30, ".outerHeight(undefined) is chainable (#5571)");
+	equal(eQuery("#nothiddendiv").width(30).width(undefined).width(), 30, ".width(undefined) is chainable (#5571)");
 });
 
 test( "getters on non elements should return null", function() {
 	expect( 8 );
 
-	var nonElem = jQuery("notAnElement");
+	var nonElem = eQuery("notAnElement");
 
 	strictEqual( nonElem.width(), null, ".width() is not null (#12283)" );
 	strictEqual( nonElem.innerWidth(), null, ".innerWidth() is not null (#12283)" );
@@ -405,8 +405,8 @@ test( "getters on non elements should return null", function() {
 test("setters with and without box-sizing:border-box", function(){
 	expect(20);
 
-	var el_bb = jQuery("<div style='width:114px;height:114px;margin:5px;padding:3px;border:4px solid white;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box;'>test</div>").appendTo("#qunit-fixture"),
-		el = jQuery("<div style='width:100px;height:100px;margin:5px;padding:3px;border:4px solid white;'>test</div>").appendTo("#qunit-fixture"),
+	var el_bb = eQuery("<div style='width:114px;height:114px;margin:5px;padding:3px;border:4px solid white;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box;'>test</div>").appendTo("#qunit-fixture"),
+		el = eQuery("<div style='width:100px;height:100px;margin:5px;padding:3px;border:4px solid white;'>test</div>").appendTo("#qunit-fixture"),
 		expected = 100;
 
 	equal( el_bb.width( 101 ).width(), expected + 1, "test border-box width(int) by roundtripping" );
@@ -434,14 +434,14 @@ test("setters with and without box-sizing:border-box", function(){
 	equal( el.outerHeight( 129, true ).height(), expected + 5, "test border-box innerHeight(int, true) by roundtripping" );
 });
 
-testIframe( "dimensions/documentSmall", "window vs. small document", function( jQuery, window, document ) {
+testIframe( "dimensions/documentSmall", "window vs. small document", function( eQuery, window, document ) {
 	// this test is practically tautological, but there is a bug in IE8
 	// with no simple workaround, so this test exposes the bug and works around it
 	if ( document.body.offsetWidth >= document.documentElement.offsetWidth ) {
 		expect( 2 );
 
-		equal( jQuery( document ).height(), jQuery( window ).height(), "document height matches window height" );
-		equal( jQuery( document ).width(), jQuery( window ).width(), "document width matches window width" );
+		equal( eQuery( document ).height(), eQuery( window ).height(), "document height matches window height" );
+		equal( eQuery( document ).width(), eQuery( window ).width(), "document width matches window width" );
 	} else {
 		// all tests should have at least one assertion
 		expect( 1 );
@@ -449,11 +449,11 @@ testIframe( "dimensions/documentSmall", "window vs. small document", function( j
 	}
 });
 
-testIframe( "dimensions/documentLarge", "window vs. large document", function( jQuery, window, document ) {
+testIframe( "dimensions/documentLarge", "window vs. large document", function( eQuery, window, document ) {
 	expect(2);
 
-	ok( jQuery( document ).height() > jQuery( window ).height(), "document height is larger than window height" );
-	ok( jQuery( document ).width() > jQuery( window ).width(), "document width is larger than window width" );
+	ok( eQuery( document ).height() > eQuery( window ).height(), "document height is larger than window height" );
+	ok( eQuery( document ).width() > eQuery( window ).width(), "document width is larger than window width" );
 });
 
 }

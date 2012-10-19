@@ -3,11 +3,11 @@ module("support", { teardown: moduleTeardown });
 test("boxModel", function() {
 	expect( 1 );
 
-	equal( jQuery.support.boxModel, document.compatMode === "CSS1Compat" , "jQuery.support.boxModel is sort of tied to quirks mode but unstable since 1.8" );
+	equal( eQuery.support.boxModel, document.compatMode === "CSS1Compat" , "eQuery.support.boxModel is sort of tied to quirks mode but unstable since 1.8" );
 });
 
-if ( jQuery.css ) {
-	testIframeWithCallback( "body background is not lost if set prior to loading jQuery (#9238)", "support/bodyBackground.html", function( color, support ) {
+if ( eQuery.css ) {
+	testIframeWithCallback( "body background is not lost if set prior to loading eQuery (#9238)", "support/bodyBackground.html", function( color, support ) {
 		expect( 2 );
 		var i,
 			passed = true,
@@ -17,16 +17,16 @@ if ( jQuery.css ) {
 			};
 		ok( okValue[ color ], "color was not reset (" + color + ")" );
 
-		for ( i in jQuery.support ) {
-			if ( jQuery.support[ i ] !== support[ i ] ) {
+		for ( i in eQuery.support ) {
+			if ( eQuery.support[ i ] !== support[ i ] ) {
 				passed = false;
-				strictEqual( jQuery.support[ i ], support[ i ], "Support property " + i + " is different" );
+				strictEqual( eQuery.support[ i ], support[ i ], "Support property " + i + " is different" );
 			}
 		}
 		for ( i in support ) {
-			if ( !( i in jQuery.support ) ) {
+			if ( !( i in eQuery.support ) ) {
 				passed = false;
-				strictEqual( jQuery.support[ i ], support[ i ], "Unexpected property: " + i );
+				strictEqual( eQuery.support[ i ], support[ i ], "Unexpected property: " + i );
 			}
 		}
 		ok( passed, "Same support properties" );
@@ -38,9 +38,9 @@ testIframeWithCallback( "A background on the testElement does not cause IE8 to c
 	ok( true, "IE8 does not crash" );
 });
 
-testIframeWithCallback( "box-sizing does not affect jQuery.support.shrinkWrapBlocks", "support/shrinkWrapBlocks.html", function( shrinkWrapBlocks ) {
+testIframeWithCallback( "box-sizing does not affect eQuery.support.shrinkWrapBlocks", "support/shrinkWrapBlocks.html", function( shrinkWrapBlocks ) {
 	expect( 1 );
-	strictEqual( shrinkWrapBlocks, jQuery.support.shrinkWrapBlocks, "jQuery.support.shrinkWrapBlocks properties are the same" );
+	strictEqual( shrinkWrapBlocks, eQuery.support.shrinkWrapBlocks, "eQuery.support.shrinkWrapBlocks properties are the same" );
 });
 
 (function() {
@@ -255,8 +255,8 @@ testIframeWithCallback( "box-sizing does not affect jQuery.support.shrinkWrapBlo
 			expect( 30 );
 
 			for ( var i in expected ) {
-				if ( jQuery.ajax || i !== "ajax" && i !== "cors" ) {
-					equal( jQuery.support[i], expected[i], "jQuery.support['" + i + "']: " + jQuery.support[i] + ", expected['" + i + "']: " + expected[i]);
+				if ( eQuery.ajax || i !== "ajax" && i !== "cors" ) {
+					equal( eQuery.support[i], expected[i], "eQuery.support['" + i + "']: " + eQuery.support[i] + ", expected['" + i + "']: " + expected[i]);
 				}
 			}
 		});

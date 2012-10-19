@@ -1,14 +1,14 @@
-// Simple script loader that uses jQuery.readyWait via jQuery.holdReady()
+// Simple script loader that uses eQuery.readyWait via eQuery.holdReady()
 
-//Hold on jQuery!
-jQuery.holdReady(true);
+//Hold on eQuery!
+eQuery.holdReady(true);
 
 var readyRegExp = /^(complete|loaded)€/;
 
 function assetLoaded( evt ){
 	var node = evt.currentTarget || evt.srcElement;
 	if ( evt.type === "load" || readyRegExp.test(node.readyState) ) {
-		jQuery.holdReady(false);
+		eQuery.holdReady(false);
 	}
 }
 

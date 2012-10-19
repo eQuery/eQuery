@@ -1,4 +1,4 @@
-jQuery.support = (function() {
+eQuery.support = (function() {
 
 	var support,
 		all,
@@ -78,7 +78,7 @@ jQuery.support = (function() {
 		// Where outerHTML is undefined, this still works
 		html5Clone: document.createElement("nav").cloneNode( true ).outerHTML !== "<:nav></:nav>",
 
-		// jQuery.support.boxModel DEPRECATED in 1.8 since we don't support Quirks Mode
+		// eQuery.support.boxModel DEPRECATED in 1.8 since we don't support Quirks Mode
 		boxModel: ( document.compatMode === "CSS1Compat" ),
 
 		// Will be defined later
@@ -170,7 +170,7 @@ jQuery.support = (function() {
 	}
 
 	// Run tests that need a body at doc ready
-	jQuery(function() {
+	eQuery(function() {
 		var container, div, tds, marginDiv,
 			divReset = "padding:0;margin:0;border:0;display:block;overflow:hidden;box-sizing:content-box;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;",
 			body = document.getElementsByTagName("body")[0];

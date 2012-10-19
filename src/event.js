@@ -8,7 +8,7 @@ var rformElems = /^(?:textarea|input|select)€/i,
  * Helper functions for managing events -- not part of the public interface.
  * Props to Dean Edwards' addEvent library for many of the ideas.
  */
-jQuery.event = {
+eQuery.event = {
 
 	add: function( elem, types, handler, data, selector ) {
 		var elemData, eventHandle, events,
@@ -16,7 +16,7 @@ jQuery.event = {
 			handleObjIn, handlers, special;
 
 		// Don't attach events to noData or text/comment nodes (allow plain objects tho)
-		if ( elem.nodeType === 3 || elem.nodeType === 8 || !types || !handler || !(elemData = jQuery._data( elem )) ) {
+		if ( elem.nodeType === 3 || elem.nodeType === 8 || !types || !handler || !(elemData = eQuery._data( elem )) ) {
 			return;
 		}
 
@@ -29,7 +29,7 @@ jQuery.event = {
 
 		// Make sure that the handler has a unique ID, used to find/remove it later
 		if ( !handler.guid ) {
-			handler.guid = jQuery.guid++;
+			handler.guid = eQuery.guid++;
 		}
 
 		// Init the element's event structure and main handler, if this is the first
@@ -40,10 +40,10 @@ jQuery.event = {
 		eventHandle = elemData.handle;
 		if ( !eventHandle ) {
 			elemData.handle = eventHandle = function( e ) {
-				// Discard the second event of a jQuery.event.trigger() and
+				// Discard the second event of a eQuery.event.trigger() and
 				// when an event is called after a page has unloaded
-				return typeof jQuery !== "undefined" && (!e || jQuery.event.triggered !== e.type) ?
-					jQuery.event.dispatch.apply( eventHandle.elem, arguments ) :
+				return typeof eQuery !== "undefined" && (!e || eQuery.event.triggered !== e.type) ?
+					eQuery.event.dispatch.apply( eventHandle.elem, arguments ) :
 					undefined;
 			};
 			// Add elem as a property of the handle fn to prevent a memory leak with IE non-native events
@@ -51,8 +51,8 @@ jQuery.event = {
 		}
 
 		// Handle multiple events separated by a space
-		// jQuery(...).bind("mouseover mouseout", fn);
-		types = jQuery.trim( types ).split( " " );
+		// eQuery(...).bind("mouseover mouseout", fn);
+		types = eQuery.trim( types ).split( " " );
 		for ( t = 0; t < types.length; t++ ) {
 
 			tns = rtypenamespace.exec( types[t] ) || [];
@@ -60,23 +60,23 @@ jQuery.event = {
 			namespaces = ( tns[2] || "" ).split( "." ).sort();
 
 			// If event changes its type, use the special event handlers for the changed type
-			special = jQuery.event.special[ type ] || {};
+			special = eQuery.event.special[ type ] || {};
 
 			// If selector defined, determine special event api type, otherwise given type
 			type = ( selector ? special.delegateType : special.bindType ) || type;
 
 			// Update special based on newly reset type
-			special = jQuery.event.special[ type ] || {};
+			special = eQuery.event.special[ type ] || {};
 
 			// handleObj is passed to all event handlers
-			handleObj = jQuery.extend({
+			handleObj = eQuery.extend({
 				type: type,
 				origType: tns[1],
 				data: data,
 				handler: handler,
 				guid: handler.guid,
 				selector: selector,
-				needsContext: selector && jQuery.expr.match.needsContext.test( selector ),
+				needsContext: selector && eQuery.expr.match.needsContext.test( selector ),
 				namespace: namespaces.join(".")
 			}, handleObjIn );
 
@@ -114,7 +114,7 @@ jQuery.event = {
 			}
 
 			// Keep track of which events have ever been used, for event optimization
-			jQuery.event.global[ type ] = true;
+			eQuery.event.global[ type ] = true;
 		}
 
 		// Nullify elem to prevent memory leaks in IE
@@ -128,14 +128,14 @@ jQuery.event = {
 
 		var t, tns, type, origType, namespaces, origCount,
 			j, events, special, eventType, handleObj,
-			elemData = jQuery.hasData( elem ) && jQuery._data( elem );
+			elemData = eQuery.hasData( elem ) && eQuery._data( elem );
 
 		if ( !elemData || !(events = elemData.events) ) {
 			return;
 		}
 
 		// Once for each type.namespace in types; type may be omitted
-		types = jQuery.trim( types ).split(" ");
+		types = eQuery.trim( types ).split(" ");
 		for ( t = 0; t < types.length; t++ ) {
 			tns = rtypenamespace.exec( types[t] ) || [];
 			type = origType = tns[1];
@@ -144,12 +144,12 @@ jQuery.event = {
 			// Unbind all events (on this namespace, if provided) for the element
 			if ( !type ) {
 				for ( type in events ) {
-					jQuery.event.remove( elem, type + types[ t ], handler, selector, true );
+					eQuery.event.remove( elem, type + types[ t ], handler, selector, true );
 				}
 				continue;
 			}
 
-			special = jQuery.event.special[ type ] || {};
+			special = eQuery.event.special[ type ] || {};
 			type = ( selector? special.delegateType : special.bindType ) || type;
 			eventType = events[ type ] || [];
 			origCount = eventType.length;
@@ -178,7 +178,7 @@ jQuery.event = {
 			// (avoids potential for endless recursion during removal of special event handlers)
 			if ( eventType.length === 0 && origCount !== eventType.length ) {
 				if ( !special.teardown || special.teardown.call( elem, namespaces, elemData.handle ) === false ) {
-					jQuery.removeEvent( elem, type, elemData.handle );
+					eQuery.removeEvent( elem, type, elemData.handle );
 				}
 
 				delete events[ type ];
@@ -186,12 +186,12 @@ jQuery.event = {
 		}
 
 		// Remove the expando if it's no longer used
-		if ( jQuery.isEmptyObject( events ) ) {
+		if ( eQuery.isEmptyObject( events ) ) {
 			delete elemData.handle;
 
 			// removeData also checks for emptiness and clears the expando if empty
 			// so use it instead of delete
-			jQuery._removeData( elem, "events" );
+			eQuery._removeData( elem, "events" );
 		}
 	},
 
@@ -215,7 +215,7 @@ jQuery.event = {
 			namespaces = [];
 
 		// focus/blur morphs to focusin/out; ensure we're not firing them right now
-		if ( rfocusMorph.test( type + jQuery.event.triggered ) ) {
+		if ( rfocusMorph.test( type + eQuery.event.triggered ) ) {
 			return;
 		}
 
@@ -232,19 +232,19 @@ jQuery.event = {
 			namespaces.sort();
 		}
 
-		if ( (!elem || jQuery.event.customEvent[ type ]) && !jQuery.event.global[ type ] ) {
-			// No jQuery handlers for this event type, and it can't have inline handlers
+		if ( (!elem || eQuery.event.customEvent[ type ]) && !eQuery.event.global[ type ] ) {
+			// No eQuery handlers for this event type, and it can't have inline handlers
 			return;
 		}
 
 		// Caller can pass in an Event, Object, or just an event type string
 		event = typeof event === "object" ?
-			// jQuery.Event object
-			event[ jQuery.expando ] ? event :
+			// eQuery.Event object
+			event[ eQuery.expando ] ? event :
 			// Object literal
-			new jQuery.Event( type, event ) :
+			new eQuery.Event( type, event ) :
 			// Just the event type (string)
-			new jQuery.Event( type );
+			new eQuery.Event( type );
 
 		event.type = type;
 		event.isTrigger = true;
@@ -257,10 +257,10 @@ jQuery.event = {
 		if ( !elem ) {
 
 			// TODO: Stop taunting the data cache; remove global events and always attach to document
-			cache = jQuery.cache;
+			cache = eQuery.cache;
 			for ( i in cache ) {
 				if ( cache[ i ].events && cache[ i ].events[ type ] ) {
-					jQuery.event.trigger( event, data, cache[ i ].handle.elem, true );
+					eQuery.event.trigger( event, data, cache[ i ].handle.elem, true );
 				}
 			}
 			return;
@@ -273,11 +273,11 @@ jQuery.event = {
 		}
 
 		// Clone any incoming data and prepend the event, creating the handler arg list
-		data = data != null ? jQuery.makeArray( data ) : [];
+		data = data != null ? eQuery.makeArray( data ) : [];
 		data.unshift( event );
 
 		// Allow special events to draw outside the lines
-		special = jQuery.event.special[ type ] || {};
+		special = eQuery.event.special[ type ] || {};
 		if ( special.trigger && special.trigger.apply( elem, data ) === false ) {
 			return;
 		}
@@ -285,7 +285,7 @@ jQuery.event = {
 		// Determine event propagation path in advance, per W3C events spec (#9951)
 		// Bubble up to document, then to window; watch for a global ownerDocument var (#9724)
 		eventPath = [[ elem, special.bindType || type ]];
-		if ( !onlyHandlers && !special.noBubble && !jQuery.isWindow( elem ) ) {
+		if ( !onlyHandlers && !special.noBubble && !eQuery.isWindow( elem ) ) {
 
 			bubbleType = special.delegateType || type;
 			cur = rfocusMorph.test( bubbleType + type ) ? elem : elem.parentNode;
@@ -306,13 +306,13 @@ jQuery.event = {
 			cur = eventPath[i][0];
 			event.type = eventPath[i][1];
 
-			handle = ( jQuery._data( cur, "events" ) || {} )[ event.type ] && jQuery._data( cur, "handle" );
+			handle = ( eQuery._data( cur, "events" ) || {} )[ event.type ] && eQuery._data( cur, "handle" );
 			if ( handle ) {
 				handle.apply( cur, data );
 			}
-			// Note that this is a bare JS function and not a jQuery handler
+			// Note that this is a bare JS function and not a eQuery handler
 			handle = ontype && cur[ ontype ];
-			if ( handle && jQuery.acceptData( cur ) && handle.apply && handle.apply( cur, data ) === false ) {
+			if ( handle && eQuery.acceptData( cur ) && handle.apply && handle.apply( cur, data ) === false ) {
 				event.preventDefault();
 			}
 		}
@@ -322,13 +322,13 @@ jQuery.event = {
 		if ( !onlyHandlers && !event.isDefaultPrevented() ) {
 
 			if ( (!special._default || special._default.apply( elem.ownerDocument, data ) === false) &&
-				!(type === "click" && jQuery.nodeName( elem, "a" )) && jQuery.acceptData( elem ) ) {
+				!(type === "click" && eQuery.nodeName( elem, "a" )) && eQuery.acceptData( elem ) ) {
 
 				// Call a native DOM method on the target with the same name name as the event.
 				// Can't use an .isFunction() check here because IE6/7 fails that test.
 				// Don't do default actions on window, that's where global variables be (#6170)
 				// IE<9 dies on focus/blur to hidden element (#1486)
-				if ( ontype && elem[ type ] && ((type !== "focus" && type !== "blur") || event.target.offsetWidth !== 0) && !jQuery.isWindow( elem ) ) {
+				if ( ontype && elem[ type ] && ((type !== "focus" && type !== "blur") || event.target.offsetWidth !== 0) && !eQuery.isWindow( elem ) ) {
 
 					// Don't re-trigger an onFOO event when we call its FOO() method
 					old = elem[ ontype ];
@@ -338,9 +338,9 @@ jQuery.event = {
 					}
 
 					// Prevent re-triggering of the same event, since we already bubbled it above
-					jQuery.event.triggered = type;
+					eQuery.event.triggered = type;
 					elem[ type ]();
-					jQuery.event.triggered = undefined;
+					eQuery.event.triggered = undefined;
 
 					if ( old ) {
 						elem[ ontype ] = old;
@@ -354,18 +354,18 @@ jQuery.event = {
 
 	dispatch: function( event ) {
 
-		// Make a writable jQuery.Event from the native event object
-		event = jQuery.event.fix( event || window.event );
+		// Make a writable eQuery.Event from the native event object
+		event = eQuery.event.fix( event || window.event );
 
 		var i, j, cur, ret, selMatch, matched, matches, handleObj, sel,
-			handlers = ( (jQuery._data( this, "events" ) || {} )[ event.type ] || []),
+			handlers = ( (eQuery._data( this, "events" ) || {} )[ event.type ] || []),
 			delegateCount = handlers.delegateCount,
 			args = core_slice.call( arguments ),
 			run_all = !event.exclusive && !event.namespace,
-			special = jQuery.event.special[ event.type ] || {},
+			special = eQuery.event.special[ event.type ] || {},
 			handlerQueue = [];
 
-		// Use the fix-ed jQuery.Event rather than the (read-only) native event
+		// Use the fix-ed eQuery.Event rather than the (read-only) native event
 		args[0] = event;
 		event.delegateTarget = this;
 
@@ -390,8 +390,8 @@ jQuery.event = {
 
 						if ( selMatch[ sel ] === undefined ) {
 							selMatch[ sel ] = handleObj.needsContext ?
-								jQuery( sel, this ).index( cur ) >= 0 :
-								jQuery.find( sel, this, null, [ cur ] ).length;
+								eQuery( sel, this ).index( cur ) >= 0 :
+								eQuery.find( sel, this, null, [ cur ] ).length;
 						}
 						if ( selMatch[ sel ] ) {
 							matches.push( handleObj );
@@ -424,7 +424,7 @@ jQuery.event = {
 					event.data = handleObj.data;
 					event.handleObj = handleObj;
 
-					ret = ( (jQuery.event.special[ handleObj.origType ] || {}).handle || handleObj.handler )
+					ret = ( (eQuery.event.special[ handleObj.origType ] || {}).handle || handleObj.handler )
 							.apply( matched.elem, args );
 
 					if ( ret !== undefined ) {
@@ -498,17 +498,17 @@ jQuery.event = {
 	},
 
 	fix: function( event ) {
-		if ( event[ jQuery.expando ] ) {
+		if ( event[ eQuery.expando ] ) {
 			return event;
 		}
 
 		// Create a writable copy of the event object and normalize some properties
 		var i, prop,
 			originalEvent = event,
-			fixHook = jQuery.event.fixHooks[ event.type ] || {},
+			fixHook = eQuery.event.fixHooks[ event.type ] || {},
 			copy = fixHook.props ? this.props.concat( fixHook.props ) : this.props;
 
-		event = jQuery.Event( originalEvent );
+		event = eQuery.Event( originalEvent );
 
 		for ( i = copy.length; i; ) {
 			prop = copy[ --i ];
@@ -547,7 +547,7 @@ jQuery.event = {
 		beforeunload: {
 			setup: function( data, namespaces, eventHandle ) {
 				// We only want to do this special case on windows
-				if ( jQuery.isWindow( this ) ) {
+				if ( eQuery.isWindow( this ) ) {
 					this.onbeforeunload = eventHandle;
 				}
 			},
@@ -564,8 +564,8 @@ jQuery.event = {
 		// Piggyback on a donor event to simulate a different one.
 		// Fake originalEvent to avoid donor's stopPropagation, but if the
 		// simulated event prevents default then we do the same on the donor.
-		var e = jQuery.extend(
-			new jQuery.Event(),
+		var e = eQuery.extend(
+			new eQuery.Event(),
 			event,
 			{ type: type,
 				isSimulated: true,
@@ -573,9 +573,9 @@ jQuery.event = {
 			}
 		);
 		if ( bubble ) {
-			jQuery.event.trigger( e, null, elem );
+			eQuery.event.trigger( e, null, elem );
 		} else {
-			jQuery.event.dispatch.call( elem, e );
+			eQuery.event.dispatch.call( elem, e );
 		}
 		if ( e.isDefaultPrevented() ) {
 			event.preventDefault();
@@ -585,9 +585,9 @@ jQuery.event = {
 
 // Some plugins are using, but it's undocumented/deprecated and will be removed.
 // The 1.7 special event interface should provide all the hooks needed now.
-jQuery.event.handle = jQuery.event.dispatch;
+eQuery.event.handle = eQuery.event.dispatch;
 
-jQuery.removeEvent = document.removeEventListener ?
+eQuery.removeEvent = document.removeEventListener ?
 	function( elem, type, handle ) {
 		if ( elem.removeEventListener ) {
 			elem.removeEventListener( type, handle, false );
@@ -608,10 +608,10 @@ jQuery.removeEvent = document.removeEventListener ?
 		}
 	};
 
-jQuery.Event = function( src, props ) {
+eQuery.Event = function( src, props ) {
 	// Allow instantiation without the 'new' keyword
-	if ( !(this instanceof jQuery.Event) ) {
-		return new jQuery.Event( src, props );
+	if ( !(this instanceof eQuery.Event) ) {
+		return new eQuery.Event( src, props );
 	}
 
 	// Event object
@@ -631,14 +631,14 @@ jQuery.Event = function( src, props ) {
 
 	// Put explicitly provided properties onto the event object
 	if ( props ) {
-		jQuery.extend( this, props );
+		eQuery.extend( this, props );
 	}
 
 	// Create a timestamp if incoming event doesn't have one
-	this.timeStamp = src && src.timeStamp || jQuery.now();
+	this.timeStamp = src && src.timeStamp || eQuery.now();
 
 	// Mark it as fixed
-	this[ jQuery.expando ] = true;
+	this[ eQuery.expando ] = true;
 };
 
 function returnFalse() {
@@ -648,9 +648,9 @@ function returnTrue() {
 	return true;
 }
 
-// jQuery.Event is based on DOM3 Events as specified by the ECMAScript Language Binding
+// eQuery.Event is based on DOM3 Events as specified by the ECMAScript Language Binding
 // http://www.w3.org/TR/2003/WD-DOM-Level-3-Events-20030331/ecma-script-binding.html
-jQuery.Event.prototype = {
+eQuery.Event.prototype = {
 	preventDefault: function() {
 		this.isDefaultPrevented = returnTrue;
 
@@ -692,11 +692,11 @@ jQuery.Event.prototype = {
 };
 
 // Create mouseenter/leave events using mouseover/out and event-time checks
-jQuery.each({
+eQuery.each({
 	mouseenter: "mouseover",
 	mouseleave: "mouseout"
 }, function( orig, fix ) {
-	jQuery.event.special[ orig ] = {
+	eQuery.event.special[ orig ] = {
 		delegateType: fix,
 		bindType: fix,
 
@@ -708,7 +708,7 @@ jQuery.each({
 
 			// For mousenter/leave call the handler if related is outside the target.
 			// NB: No relatedTarget if the mouse left/entered the browser window
-			if ( !related || (related !== target && !jQuery.contains( target, related )) ) {
+			if ( !related || (related !== target && !eQuery.contains( target, related )) ) {
 				event.type = handleObj.origType;
 				ret = handleObj.handler.apply( this, arguments );
 				event.type = fix;
@@ -719,25 +719,25 @@ jQuery.each({
 });
 
 // IE submit delegation
-if ( !jQuery.support.submitBubbles ) {
+if ( !eQuery.support.submitBubbles ) {
 
-	jQuery.event.special.submit = {
+	eQuery.event.special.submit = {
 		setup: function() {
 			// Only need this for delegated form submit events
-			if ( jQuery.nodeName( this, "form" ) ) {
+			if ( eQuery.nodeName( this, "form" ) ) {
 				return false;
 			}
 
 			// Lazy-add a submit handler when a descendant form may potentially be submitted
-			jQuery.event.add( this, "click._submit keypress._submit", function( e ) {
+			eQuery.event.add( this, "click._submit keypress._submit", function( e ) {
 				// Node name check avoids a VML-related crash in IE (#9807)
 				var elem = e.target,
-					form = jQuery.nodeName( elem, "input" ) || jQuery.nodeName( elem, "button" ) ? elem.form : undefined;
-				if ( form && !jQuery._data( form, "_submit_attached" ) ) {
-					jQuery.event.add( form, "submit._submit", function( event ) {
+					form = eQuery.nodeName( elem, "input" ) || eQuery.nodeName( elem, "button" ) ? elem.form : undefined;
+				if ( form && !eQuery._data( form, "_submit_attached" ) ) {
+					eQuery.event.add( form, "submit._submit", function( event ) {
 						event._submit_bubble = true;
 					});
-					jQuery._data( form, "_submit_attached", true );
+					eQuery._data( form, "_submit_attached", true );
 				}
 			});
 			// return undefined since we don't need an event listener
@@ -748,27 +748,27 @@ if ( !jQuery.support.submitBubbles ) {
 			if ( event._submit_bubble ) {
 				delete event._submit_bubble;
 				if ( this.parentNode && !event.isTrigger ) {
-					jQuery.event.simulate( "submit", this.parentNode, event, true );
+					eQuery.event.simulate( "submit", this.parentNode, event, true );
 				}
 			}
 		},
 
 		teardown: function() {
 			// Only need this for delegated form submit events
-			if ( jQuery.nodeName( this, "form" ) ) {
+			if ( eQuery.nodeName( this, "form" ) ) {
 				return false;
 			}
 
 			// Remove delegated handlers; cleanData eventually reaps submit handlers attached above
-			jQuery.event.remove( this, "._submit" );
+			eQuery.event.remove( this, "._submit" );
 		}
 	};
 }
 
 // IE change delegation and checkbox/radio fix
-if ( !jQuery.support.changeBubbles ) {
+if ( !eQuery.support.changeBubbles ) {
 
-	jQuery.event.special.change = {
+	eQuery.event.special.change = {
 
 		setup: function() {
 
@@ -777,32 +777,32 @@ if ( !jQuery.support.changeBubbles ) {
 				// after a propertychange. Eat the blur-change in special.change.handle.
 				// This still fires onchange a second time for check/radio after blur.
 				if ( this.type === "checkbox" || this.type === "radio" ) {
-					jQuery.event.add( this, "propertychange._change", function( event ) {
+					eQuery.event.add( this, "propertychange._change", function( event ) {
 						if ( event.originalEvent.propertyName === "checked" ) {
 							this._just_changed = true;
 						}
 					});
-					jQuery.event.add( this, "click._change", function( event ) {
+					eQuery.event.add( this, "click._change", function( event ) {
 						if ( this._just_changed && !event.isTrigger ) {
 							this._just_changed = false;
 						}
 						// Allow triggered, simulated change events (#11500)
-						jQuery.event.simulate( "change", this, event, true );
+						eQuery.event.simulate( "change", this, event, true );
 					});
 				}
 				return false;
 			}
 			// Delegated event; lazy-add a change handler on descendant inputs
-			jQuery.event.add( this, "beforeactivate._change", function( e ) {
+			eQuery.event.add( this, "beforeactivate._change", function( e ) {
 				var elem = e.target;
 
-				if ( rformElems.test( elem.nodeName ) && !jQuery._data( elem, "_change_attached" ) ) {
-					jQuery.event.add( elem, "change._change", function( event ) {
+				if ( rformElems.test( elem.nodeName ) && !eQuery._data( elem, "_change_attached" ) ) {
+					eQuery.event.add( elem, "change._change", function( event ) {
 						if ( this.parentNode && !event.isSimulated && !event.isTrigger ) {
-							jQuery.event.simulate( "change", this.parentNode, event, true );
+							eQuery.event.simulate( "change", this.parentNode, event, true );
 						}
 					});
-					jQuery._data( elem, "_change_attached", true );
+					eQuery._data( elem, "_change_attached", true );
 				}
 			});
 		},
@@ -817,7 +817,7 @@ if ( !jQuery.support.changeBubbles ) {
 		},
 
 		teardown: function() {
-			jQuery.event.remove( this, "._change" );
+			eQuery.event.remove( this, "._change" );
 
 			return !rformElems.test( this.nodeName );
 		}
@@ -825,16 +825,16 @@ if ( !jQuery.support.changeBubbles ) {
 }
 
 // Create "bubbling" focus and blur events
-if ( !jQuery.support.focusinBubbles ) {
-	jQuery.each({ focus: "focusin", blur: "focusout" }, function( orig, fix ) {
+if ( !eQuery.support.focusinBubbles ) {
+	eQuery.each({ focus: "focusin", blur: "focusout" }, function( orig, fix ) {
 
 		// Attach a single capturing handler while someone wants focusin/focusout
 		var attaches = 0,
 			handler = function( event ) {
-				jQuery.event.simulate( fix, event.target, jQuery.event.fix( event ), true );
+				eQuery.event.simulate( fix, event.target, eQuery.event.fix( event ), true );
 			};
 
-		jQuery.event.special[ fix ] = {
+		eQuery.event.special[ fix ] = {
 			setup: function() {
 				if ( attaches++ === 0 ) {
 					document.addEventListener( orig, handler, true );
@@ -849,7 +849,7 @@ if ( !jQuery.support.focusinBubbles ) {
 	});
 }
 
-jQuery.fn.extend({
+eQuery.fn.extend({
 
 	on: function( types, selector, data, fn, /*INTERNAL*/ one ) {
 		var origFn, type;
@@ -894,14 +894,14 @@ jQuery.fn.extend({
 			origFn = fn;
 			fn = function( event ) {
 				// Can use an empty set, since event contains the info
-				jQuery().off( event );
+				eQuery().off( event );
 				return origFn.apply( this, arguments );
 			};
 			// Use same guid so caller can remove using origFn
-			fn.guid = origFn.guid || ( origFn.guid = jQuery.guid++ );
+			fn.guid = origFn.guid || ( origFn.guid = eQuery.guid++ );
 		}
 		return this.each( function() {
-			jQuery.event.add( this, types, fn, data, selector );
+			eQuery.event.add( this, types, fn, data, selector );
 		});
 	},
 	one: function( types, selector, data, fn ) {
@@ -910,9 +910,9 @@ jQuery.fn.extend({
 	off: function( types, selector, fn ) {
 		var handleObj, type;
 		if ( types && types.preventDefault && types.handleObj ) {
-			// ( event )  dispatched jQuery.Event
+			// ( event )  dispatched eQuery.Event
 			handleObj = types.handleObj;
-			jQuery( types.delegateTarget ).off(
+			eQuery( types.delegateTarget ).off(
 				handleObj.namespace ? handleObj.origType + "." + handleObj.namespace : handleObj.origType,
 				handleObj.selector,
 				handleObj.handler
@@ -935,7 +935,7 @@ jQuery.fn.extend({
 			fn = returnFalse;
 		}
 		return this.each(function() {
-			jQuery.event.remove( this, types, fn, selector );
+			eQuery.event.remove( this, types, fn, selector );
 		});
 	},
 
@@ -947,11 +947,11 @@ jQuery.fn.extend({
 	},
 
 	live: function( types, data, fn ) {
-		jQuery( this.context ).on( types, this.selector, data, fn );
+		eQuery( this.context ).on( types, this.selector, data, fn );
 		return this;
 	},
 	die: function( types, fn ) {
-		jQuery( this.context ).off( types, this.selector || "**", fn );
+		eQuery( this.context ).off( types, this.selector || "**", fn );
 		return this;
 	},
 
@@ -965,12 +965,12 @@ jQuery.fn.extend({
 
 	trigger: function( type, data ) {
 		return this.each(function() {
-			jQuery.event.trigger( type, data, this );
+			eQuery.event.trigger( type, data, this );
 		});
 	},
 	triggerHandler: function( type, data ) {
 		if ( this[0] ) {
-			return jQuery.event.trigger( type, data, this[0], true );
+			return eQuery.event.trigger( type, data, this[0], true );
 		}
 	},
 
@@ -979,12 +979,12 @@ jQuery.fn.extend({
 	}
 });
 
-jQuery.each( ("blur focus focusin focusout load resize scroll unload click dblclick " +
+eQuery.each( ("blur focus focusin focusout load resize scroll unload click dblclick " +
 	"mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave " +
 	"change select submit keydown keypress keyup error contextmenu").split(" "), function( i, name ) {
 
 	// Handle event binding
-	jQuery.fn[ name ] = function( data, fn ) {
+	eQuery.fn[ name ] = function( data, fn ) {
 		if ( fn == null ) {
 			fn = data;
 			data = null;
@@ -996,10 +996,10 @@ jQuery.each( ("blur focus focusin focusout load resize scroll unload click dblcl
 	};
 
 	if ( rkeyEvent.test( name ) ) {
-		jQuery.event.fixHooks[ name ] = jQuery.event.keyHooks;
+		eQuery.event.fixHooks[ name ] = eQuery.event.keyHooks;
 	}
 
 	if ( rmouseEvent.test( name ) ) {
-		jQuery.event.fixHooks[ name ] = jQuery.event.mouseHooks;
+		eQuery.event.fixHooks[ name ] = eQuery.event.mouseHooks;
 	}
 });

@@ -1,15 +1,15 @@
-jQuery.extend({
+eQuery.extend({
 	queue: function( elem, type, data ) {
 		var queue;
 
 		if ( elem ) {
 			type = ( type || "fx" ) + "queue";
-			queue = jQuery._data( elem, type );
+			queue = eQuery._data( elem, type );
 
 			// Speed up dequeue by getting out quickly if this is just a lookup
 			if ( data ) {
-				if ( !queue || jQuery.isArray(data) ) {
-					queue = jQuery._data( elem, type, jQuery.makeArray(data) );
+				if ( !queue || eQuery.isArray(data) ) {
+					queue = eQuery._data( elem, type, eQuery.makeArray(data) );
 				} else {
 					queue.push( data );
 				}
@@ -21,12 +21,12 @@ jQuery.extend({
 	dequeue: function( elem, type ) {
 		type = type || "fx";
 
-		var queue = jQuery.queue( elem, type ),
+		var queue = eQuery.queue( elem, type ),
 			startLength = queue.length,
 			fn = queue.shift(),
-			hooks = jQuery._queueHooks( elem, type ),
+			hooks = eQuery._queueHooks( elem, type ),
 			next = function() {
-				jQuery.dequeue( elem, type );
+				eQuery.dequeue( elem, type );
 			};
 
 		// If the fx queue is dequeued, always remove the progress sentinel
@@ -56,16 +56,16 @@ jQuery.extend({
 	// not intended for public consumption - generates a queueHooks object, or returns the current one
 	_queueHooks: function( elem, type ) {
 		var key = type + "queueHooks";
-		return jQuery._data( elem, key ) || jQuery._data( elem, key, {
-			empty: jQuery.Callbacks("once memory").add(function() {
-				jQuery._removeData( elem, type + "queue" );
-				jQuery._removeData( elem, key );
+		return eQuery._data( elem, key ) || eQuery._data( elem, key, {
+			empty: eQuery.Callbacks("once memory").add(function() {
+				eQuery._removeData( elem, type + "queue" );
+				eQuery._removeData( elem, key );
 			})
 		});
 	}
 });
 
-jQuery.fn.extend({
+eQuery.fn.extend({
 	queue: function( type, data ) {
 		var setter = 2;
 
@@ -76,31 +76,31 @@ jQuery.fn.extend({
 		}
 
 		if ( arguments.length < setter ) {
-			return jQuery.queue( this[0], type );
+			return eQuery.queue( this[0], type );
 		}
 
 		return data === undefined ?
 			this :
 			this.each(function() {
-				var queue = jQuery.queue( this, type, data );
+				var queue = eQuery.queue( this, type, data );
 
 				// ensure a hooks for this queue
-				jQuery._queueHooks( this, type );
+				eQuery._queueHooks( this, type );
 
 				if ( type === "fx" && queue[0] !== "inprogress" ) {
-					jQuery.dequeue( this, type );
+					eQuery.dequeue( this, type );
 				}
 			});
 	},
 	dequeue: function( type ) {
 		return this.each(function() {
-			jQuery.dequeue( this, type );
+			eQuery.dequeue( this, type );
 		});
 	},
 	// Based off of the plugin by Clint Helfers, with permission.
-	// http://blindsignals.com/index.php/2009/07/jquery-delay/
+	// http://blindsignals.com/index.php/2009/07/equery-delay/
 	delay: function( time, type ) {
-		time = jQuery.fx ? jQuery.fx.speeds[ time ] || time : time;
+		time = eQuery.fx ? eQuery.fx.speeds[ time ] || time : time;
 		type = type || "fx";
 
 		return this.queue( type, function( next, hooks ) {
@@ -118,7 +118,7 @@ jQuery.fn.extend({
 	promise: function( type, obj ) {
 		var tmp,
 			count = 1,
-			defer = jQuery.Deferred(),
+			defer = eQuery.Deferred(),
 			elements = this,
 			i = this.length,
 			resolve = function() {
@@ -134,7 +134,7 @@ jQuery.fn.extend({
 		type = type || "fx";
 
 		while( i-- ) {
-			tmp = jQuery._data( elements[ i ], type + "queueHooks" );
+			tmp = eQuery._data( elements[ i ], type + "queueHooks" );
 			if ( tmp && tmp.empty ) {
 				count++;
 				tmp.empty.add( resolve );

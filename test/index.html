@@ -3,7 +3,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-	<title>jQuery Test Suite</title>
+	<title>eQuery Test Suite</title>
 	<link rel="Stylesheet" media="screen" href="qunit/qunit/qunit.css" />
 	<link rel="Stylesheet" media="screen" href="data/testsuite.css" />
 	<!-- Includes -->
@@ -15,11 +15,11 @@
 	<!-- Nullifies querySelectorAll if noqsa=true is present -->
 	<script>
 		(function() {
-			var src = "../dist/jquery.js";
+			var src = "../dist/equery.js";
 
 			QUnit.config.urlConfig.push( "min" );
 			if ( QUnit.urlParams.min ) {
-				src = "../dist/jquery.min.js";
+				src = "../dist/equery.min.js";
 			}
 
 			QUnit.config.urlConfig.push( "noqsa" );
@@ -58,7 +58,7 @@
 	</script>
 
 	<script>
-		// html5shiv, enabling HTML5 elements to be used with jQuery
+		// html5shiv, enabling HTML5 elements to be used with eQuery
 		( "abbr article aside audio bdi canvas data datalist details figcaption figure footer header hgroup " +
 			"mark meter nav output progress section summary time video"
 		).replace(/\w+/g, function(n) {
@@ -68,7 +68,7 @@
 </head>
 
 <body id="body">
-	<h1 id="qunit-header"><a href="/jquery/test/index.html">jQuery Test Suite</a></h1>
+	<h1 id="qunit-header"><a href="/equery/test/index.html">eQuery Test Suite</a></h1>
 	<h2 id="qunit-banner"></h2>
 	<div id="qunit-testrunner-toolbar"></div>
 	<h2 id="qunit-userAgent"></h2>

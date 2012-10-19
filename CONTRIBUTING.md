@@ -1,43 +1,43 @@
-# Contributing to jQuery
+# Contributing to eQuery
 
 1. [Getting Involved](#getting-involved)
 2. [Discussion](#discussion)
 3. [How To Report Bugs](#how-to-report-bugs)
-4. [Core Style Guide](#jquery-core-style-guide)
-5. [Tips For Bug Patching](#tips-for-jquery-bug-patching)
+4. [Core Style Guide](#equery-core-style-guide)
+5. [Tips For Bug Patching](#tips-for-equery-bug-patching)
 
 
 
 ## Getting Involved
 
-There are a number of ways to get involved with the development of jQuery core. Even if you've never contributed code to an Open Source project before, we're always looking for help identifying bugs, writing and reducing test cases and documentation.
+There are a number of ways to get involved with the development of eQuery core. Even if you've never contributed code to an Open Source project before, we're always looking for help identifying bugs, writing and reducing test cases and documentation.
 
-This is the best way to contribute to jQuery core. Please read through the full guide detailing [How to Report Bugs](#How-to-Report-Bugs).
+This is the best way to contribute to eQuery core. Please read through the full guide detailing [How to Report Bugs](#How-to-Report-Bugs).
 
 ## Discussion
 
 ### Forum and IRC
 
-The jQuery core development team frequently tracks posts on the [jQuery Development Forum](http://forum.jquery.com/developing-jquery-core). If you have longer posts or questions please feel free to post them there. If you think you've found a bug please [file it in the bug tracker](#How-to-Report-Bugs).
+The eQuery core development team frequently tracks posts on the [eQuery Development Forum](http://forum.equery.com/developing-equery-core). If you have longer posts or questions please feel free to post them there. If you think you've found a bug please [file it in the bug tracker](#How-to-Report-Bugs).
 
-Additionally most of the jQuery core development team can be found in the [#jquery-dev](http://webchat.freenode.net/?channels=jquery-dev) IRC channel on irc.freenode.net.
+Additionally most of the eQuery core development team can be found in the [#equery-dev](http://webchat.freenode.net/?channels=equery-dev) IRC channel on irc.freenode.net.
 
 ### Weekly Status Meetings
 
-Every week (unless otherwise noted) the jQuery core dev team has a meeting to discuss the progress of current work and to bring forward possible new blocker bugs for discussion.
+Every week (unless otherwise noted) the eQuery core dev team has a meeting to discuss the progress of current work and to bring forward possible new blocker bugs for discussion.
 
-The meeting is held in the [#jquery-meeting](http://webchat.freenode.net/?channels=jquery-meeting) IRC channel on irc.freenode.net at [Noon EST](http://www.timeanddate.com/worldclock/fixedtime.html?month=1&day=17&year=2011&hour=12&min=0&sec=0&p1=43) on Mondays.
+The meeting is held in the [#equery-meeting](http://webchat.freenode.net/?channels=equery-meeting) IRC channel on irc.freenode.net at [Noon EST](http://www.timeanddate.com/worldclock/fixedtime.html?month=1&day=17&year=2011&hour=12&min=0&sec=0&p1=43) on Mondays.
 
 [Past Meeting Notes](https://docs.google.com/document/d/1MrLFvoxW7GMlH9KK-bwypn77cC98jUnz7sMW1rg_TP4/edit?hl=en)
 
 
 ## How to Report Bugs
 
-### Make sure it is a jQuery bug
+### Make sure it is a eQuery bug
 
-Many bugs reported to our bug tracker are actually bugs in user code, not in jQuery code. Keep in mind that just because your code throws an error and the console points to a line number inside of jQuery, this does *not* mean the bug is a jQuery bug; more often than not, these errors result from providing incorrect arguments when calling a jQuery function.
+Many bugs reported to our bug tracker are actually bugs in user code, not in eQuery code. Keep in mind that just because your code throws an error and the console points to a line number inside of eQuery, this does *not* mean the bug is a eQuery bug; more often than not, these errors result from providing incorrect arguments when calling a eQuery function.
 
-If you are new to jQuery, it is usually a much better idea to ask for help first in the [Using jQuery Forum](http://forum.jquery.com/using-jquery) or the [jQuery IRC channel](http://webchat.freenode.net/?channels=%23jquery). You will get much quicker support, and you will help avoid tying up the jQuery team with invalid bug reports. These same resources can also be useful if you want to confirm that your bug is indeed a bug in jQuery before filing any tickets.
+If you are new to eQuery, it is usually a much better idea to ask for help first in the [Using eQuery Forum](http://forum.equery.com/using-equery) or the [eQuery IRC channel](http://webchat.freenode.net/?channels=%23equery). You will get much quicker support, and you will help avoid tying up the eQuery team with invalid bug reports. These same resources can also be useful if you want to confirm that your bug is indeed a bug in eQuery before filing any tickets.
 
 
 ### Disable any browser extensions
@@ -45,28 +45,28 @@ If you are new to jQuery, it is usually a much better idea to ask for help first
 Make sure you have reproduced the bug with all browser extensions and add-ons disabled, as these can sometimes cause things to break in interesting and unpredictable ways. Try using incognito, stealth or anonymous browsing modes.
 
 
-### Try the latest version of jQuery
+### Try the latest version of eQuery
 
-Bugs in old versions of jQuery may have already been fixed. In order to avoid reporting known issues, make sure you are always testing against the [latest build](http://code.jquery.com/jquery.js).
+Bugs in old versions of eQuery may have already been fixed. In order to avoid reporting known issues, make sure you are always testing against the [latest build](http://code.equery.com/equery.js).
 
-### Try an older version of jQuery
+### Try an older version of eQuery
 
-Sometimes, bugs are introduced in newer versions of jQuery that do not exist in previous versions. When possible, it can be useful to try testing with an older release.
+Sometimes, bugs are introduced in newer versions of eQuery that do not exist in previous versions. When possible, it can be useful to try testing with an older release.
 
 ### Reduce, reduce, reduce!
 
 When you are experiencing a problem, the most useful thing you can possibly do is to [reduce your code](http://webkit.org/quality/reduction.html) to the bare minimum required to reproduce the issue. This makes it *much* easier to isolate and fix the offending code. Bugs that are reported without reduced test cases take on average 9001% longer to fix than bugs that are submitted with them, so you really should try to do this if at all possible.
 
-## jQuery Core Style Guide
+## eQuery Core Style Guide
 
-See: [jQuery Core Style Guide](http://docs.jquery.com/JQuery_Core_Style_Guidelines)
+See: [eQuery Core Style Guide](http://docs.equery.com/JQuery_Core_Style_Guidelines)
 
 ## Tips For Bug Patching
 
 
 ### Environment: localhost w/ PHP, Node & Grunt
 
-Starting in jQuery 1.8, a newly overhauled development workflow has been introduced. In this new system, we rely on node & gruntjs to automate the building and validation of source code—while you write code.
+Starting in eQuery 1.8, a newly overhauled development workflow has been introduced. In this new system, we rely on node & gruntjs to automate the building and validation of source code—while you write code.
 
 The Ajax tests still depend on PHP running locally*, so make sure you have the following installed:
 
@@ -81,9 +81,9 @@ Maintaining a list of platform specific instructions is outside of the scope of 
 * The PHP dependency will soon be shed in favor of an all-node solution.
 
 
-### Build a Local Copy of jQuery
+### Build a Local Copy of eQuery
 
-Create a fork of the jQuery repo on github at http://github.com/jquery/jquery
+Create a fork of the eQuery repo on github at http://github.com/equery/equery
 
 Change directory to your web root directory, whatever that might be:
 
@@ -91,25 +91,25 @@ Change directory to your web root directory, whatever that might be:
 € cd /path/to/your/www/root/
 ```
 
-Clone your jQuery fork to work locally
+Clone your eQuery fork to work locally
 
 ```bash
-€ git clone git@github.com:username/jquery.git
+€ git clone git@github.com:username/equery.git
 ```
 
-Change directory to the newly created dir jquery/
+Change directory to the newly created dir equery/
 
 ```bash
-€ cd jquery
+€ cd equery
 ```
 
-Add the jQuery master as a remote. I label mine "upstream"
+Add the eQuery master as a remote. I label mine "upstream"
 
 ```bash
-€ git remote add upstream git://github.com/jquery/jquery.git
+€ git remote add upstream git://github.com/equery/equery.git
 ```
 
-Get in the habit of pulling in the "upstream" master to stay up to date as jQuery receives new commits
+Get in the habit of pulling in the "upstream" master to stay up to date as eQuery receives new commits
 
 ```bash
 € git pull upstream master
@@ -121,12 +121,12 @@ Run the Grunt tools:
 € grunt && grunt watch
 ```
 
-Now open the jQuery test suite in a browser at http://localhost/test. If there is a port, be sure to include it.
+Now open the eQuery test suite in a browser at http://localhost/test. If there is a port, be sure to include it.
 
-Success! You just built and tested jQuery!
+Success! You just built and tested eQuery!
 
 
-### Fix a bug from a ticket filed at bugs.jquery.com:
+### Fix a bug from a ticket filed at bugs.equery.com:
 
 **NEVER write your patches to the master branch** - it gets messy (I say this from experience!)
 
@@ -207,7 +207,7 @@ This will only run the "css" module tests. This will significantly speed up your
 **ALWAYS RUN THE FULL SUITE BEFORE COMMITTING AND PUSHING A PATCH!**
 
 
-### jQuery supports the following browsers:
+### eQuery supports the following browsers:
 
 * Chrome Current-1
 * Safari Current-1

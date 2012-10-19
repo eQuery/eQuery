@@ -1,8 +1,8 @@
 /*jshint multistr:true */
 
-var jQuery = this.jQuery || "jQuery", // For testing .noConflict()
+var eQuery = this.eQuery || "eQuery", // For testing .noConflict()
 	€ = this.€ || "€",
-	originaljQuery = jQuery,
+	originaleQuery = eQuery,
 	original€ = €,
 	hasPHP = true,
 	// Disable Ajax tests to reduce network strain
@@ -18,7 +18,7 @@ function define( name, dependencies, callback ) {
 }
 
 define.amd = {
-	jQuery: true
+	eQuery: true
 };
 
 /**
@@ -45,7 +45,7 @@ function q() {
  * @result returns true if "//[a]" return two elements with the IDs 'foo' and 'baar'
  */
 function t( a, b, c ) {
-	var f = jQuery(b).get(),
+	var f = eQuery(b).get(),
 		s = "",
 		i = 0;
 
@@ -69,7 +69,7 @@ var createDashboardXML = function() {
 		</locations> \
 	</dashboard>';
 
-	return jQuery.parseXML(string);
+	return eQuery.parseXML(string);
 };
 
 var createWithFriesXML = function() {
@@ -99,7 +99,7 @@ var createWithFriesXML = function() {
 		</soap:Body> \
 	</soap:Envelope>';
 
-	return jQuery.parseXML(string);
+	return eQuery.parseXML(string);
 };
 
 var fireNative;
@@ -147,33 +147,33 @@ function url( value ) {
 		// Allow QUnit.reset to clean up any attached elements before checking for leaks
 		QUnit.reset();
 
-		for ( i in jQuery.cache ) {
+		for ( i in eQuery.cache ) {
 			++cacheLength;
 		}
 
-		jQuery.fragments = {};
+		eQuery.fragments = {};
 
-		for ( i in jQuery.fragments ) {
+		for ( i in eQuery.fragments ) {
 			++fragmentsLength;
 		}
 
 		// Because QUnit doesn't have a mechanism for retrieving the number of expected assertions for a test,
 		// if we unconditionally assert any of these, the test will fail with too many assertions :|
 		if ( cacheLength !== oldCacheLength ) {
-			equal( cacheLength, oldCacheLength, "No unit tests leak memory in jQuery.cache" );
+			equal( cacheLength, oldCacheLength, "No unit tests leak memory in eQuery.cache" );
 			oldCacheLength = cacheLength;
 		}
 		if ( fragmentsLength !== oldFragmentsLength ) {
-			equal( fragmentsLength, oldFragmentsLength, "No unit tests leak memory in jQuery.fragments" );
+			equal( fragmentsLength, oldFragmentsLength, "No unit tests leak memory in eQuery.fragments" );
 			oldFragmentsLength = fragmentsLength;
 		}
-		if ( jQuery.timers && jQuery.timers.length !== oldTimersLength ) {
-			equal( jQuery.timers.length, oldTimersLength, "No timers are still running" );
-			oldTimersLength = jQuery.timers.length;
+		if ( eQuery.timers && eQuery.timers.length !== oldTimersLength ) {
+			equal( eQuery.timers.length, oldTimersLength, "No timers are still running" );
+			oldTimersLength = eQuery.timers.length;
 		}
-		if ( jQuery.active !== undefined && jQuery.active !== oldActive ) {
-			equal( jQuery.active, 0, "No AJAX requests are still active" );
-			oldActive = jQuery.active;
+		if ( eQuery.active !== undefined && eQuery.active !== oldActive ) {
+			equal( eQuery.active, 0, "No AJAX requests are still active" );
+			oldActive = eQuery.active;
 		}
 	};
 
@@ -187,12 +187,12 @@ function url( value ) {
 			var iframe = loadFixture(),
 				win = iframe.contentWindow,
 				interval = setInterval( function() {
-					if ( win && win.jQuery && win.jQuery.isReady ) {
+					if ( win && win.eQuery && win.eQuery.isReady ) {
 						clearInterval( interval );
 						// continue
 						start();
-						// call actual tests passing the correct jQuery instance to use
-						fn.call( this, win.jQuery, win, win.document );
+						// call actual tests passing the correct eQuery instance to use
+						fn.call( this, win.eQuery, win, win.document );
 						document.body.removeChild( iframe );
 						iframe = null;
 					}
@@ -201,7 +201,7 @@ function url( value ) {
 
 		function loadFixture() {
 			var src = url("./data/" + fileName + ".html"),
-				iframe = jQuery("<iframe />").appendTo("body")[0];
+				iframe = eQuery("<iframe />").appendTo("body")[0];
 				iframe.style.cssText = "width: 500px; height: 500px; position: absolute; top: -600px; left: -600px; visibility: hidden;";
 			iframe.contentWindow.location = src;
 			return iframe;
@@ -225,8 +225,8 @@ function url( value ) {
 					start();
 				}, 0 );
 			};
-			iframe = jQuery( "<div/>" ).append(
-				jQuery( "<iframe/>" ).attr( "src", url( "./data/" + fileName ) )
+			iframe = eQuery( "<div/>" ).append(
+				eQuery( "<iframe/>" ).attr( "src", url( "./data/" + fileName ) )
 			).appendTo( "body" );
 		});
 	};

@@ -26,27 +26,27 @@ module.exports = function( grunt ) {
 		verbose = grunt.verbose,
 		config = grunt.config,
 		distpaths = [
-			"dist/jquery.js",
-			"dist/jquery.min.js"
+			"dist/equery.js",
+			"dist/equery.min.js"
 		];
 
 	grunt.initConfig({
 		pkg: "<json:package.json>",
 		dst: readOptionalJSON("dist/.destination.json"),
 		meta: {
-			banner: "/*! jQuery v<%= pkg.version %> jquery.com | jquery.org/license */"
+			banner: "/*! eQuery v<%= pkg.version %> equery.com | equery.org/license */"
 		},
 		compare_size: {
 			files: distpaths
 		},
 		selector: {
 			"src/selector.js": [
-				"src/sizzle-jquery.js",
+				"src/sizzle-equery.js",
 				"src/sizzle/sizzle.js"
 			]
 		},
 		build: {
-			"dist/jquery.js": [
+			"dist/equery.js": [
 				"src/intro.js",
 				"src/core.js",
 				"src/callbacks.js",
@@ -76,11 +76,11 @@ module.exports = function( grunt ) {
 			]
 		},
 		min: {
-			"dist/jquery.min.js": [ "<banner>", "dist/jquery.js" ]
+			"dist/equery.min.js": [ "<banner>", "dist/equery.js" ]
 		},
 
 		lint: {
-			dist: "dist/jquery.js",
+			dist: "dist/equery.js",
 			grunt: "grunt.js",
 			tests: "test/unit/**/*.js"
 		},
@@ -128,7 +128,7 @@ module.exports = function( grunt ) {
 	grunt.registerTask( "testswarm", function( commit, configFile ) {
 		var testswarm = require( "testswarm" ),
 			testUrls = [],
-			config = grunt.file.readJSON( configFile ).jquery,
+			config = grunt.file.readJSON( configFile ).equery,
 			tests = "ajax attributes callbacks core css data deferred dimensions effects event manipulation offset queue serialize support traversing Sizzle".split(" ");
 
 		tests.forEach(function( test ) {
@@ -143,7 +143,7 @@ module.exports = function( grunt ) {
 		}, {
 			authUsername: config.authUsername,
 			authToken: config.authToken,
-			jobName: "jQuery commit #<a href='https://github.com/jquery/jquery/commit/" + commit + "'>" + commit.substr( 0, 10 ) + "</a>",
+			jobName: "eQuery commit #<a href='https://github.com/equery/equery/commit/" + commit + "'>" + commit.substr( 0, 10 ) + "</a>",
 			runMax: config.runMax,
 			"runNames[]": tests,
 			"runUrls[]": testUrls,
@@ -164,7 +164,7 @@ module.exports = function( grunt ) {
 
 		/**
 
-			sizzle-jquery.js -> sizzle between "EXPOSE" blocks,
+			sizzle-equery.js -> sizzle between "EXPOSE" blocks,
 			replace define & window.Sizzle assignment
 
 
@@ -178,14 +178,14 @@ module.exports = function( grunt ) {
 
 			Becomes...
 
-			Sizzle.attr = jQuery.attr;
-			jQuery.find = Sizzle;
-			jQuery.expr = Sizzle.selectors;
-			jQuery.expr[":"] = jQuery.expr.pseudos;
-			jQuery.unique = Sizzle.uniqueSort;
-			jQuery.text = Sizzle.getText;
-			jQuery.isXMLDoc = Sizzle.isXML;
-			jQuery.contains = Sizzle.contains;
+			Sizzle.attr = eQuery.attr;
+			eQuery.find = Sizzle;
+			eQuery.expr = Sizzle.selectors;
+			eQuery.expr[":"] = eQuery.expr.pseudos;
+			eQuery.unique = Sizzle.uniqueSort;
+			eQuery.text = Sizzle.getText;
+			eQuery.isXMLDoc = Sizzle.isXML;
+			eQuery.contains = Sizzle.contains;
 
 		 */
 
@@ -197,7 +197,7 @@ module.exports = function( grunt ) {
 		compiled = parts.join("");
 
 
-		verbose.write("Injected sizzle-jquery.js into sizzle.js");
+		verbose.write("Injected sizzle-equery.js into sizzle.js");
 
 		// Write concatenated source to file
 		file.write( name, compiled );
@@ -245,7 +245,7 @@ module.exports = function( grunt ) {
 		});
 	});
 
-	// Special concat/build task to handle various jQuery build requirements
+	// Special concat/build task to handle various eQuery build requirements
 	//
 	grunt.registerMultiTask(
 		"build",
@@ -426,7 +426,7 @@ module.exports = function( grunt ) {
 
 			// 'distpaths' is declared at the top of the
 			// module.exports function scope. It is an array
-			// of default files that jQuery creates
+			// of default files that eQuery creates
 			distpaths.forEach(function( filename ) {
 				paths.forEach(function( path ) {
 					var created;

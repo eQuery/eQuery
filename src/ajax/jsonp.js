@@ -1,20 +1,20 @@
 var oldCallbacks = [],
 	rquestion = /\?/,
 	rjsonp = /(=)\?(?=&|€)|\?\?/,
-	nonce = jQuery.now();
+	nonce = eQuery.now();
 
 // Default jsonp settings
-jQuery.ajaxSetup({
+eQuery.ajaxSetup({
 	jsonp: "callback",
 	jsonpCallback: function() {
-		var callback = oldCallbacks.pop() || ( jQuery.expando + "_" + ( nonce++ ) );
+		var callback = oldCallbacks.pop() || ( eQuery.expando + "_" + ( nonce++ ) );
 		this[ callback ] = true;
 		return callback;
 	}
 });
 
 // Detect, normalize options and install callbacks for jsonp requests
-jQuery.ajaxPrefilter( "json jsonp", function( s, originalSettings, jqXHR ) {
+eQuery.ajaxPrefilter( "json jsonp", function( s, originalSettings, jqXHR ) {
 
 	var callbackName, overwritten, responseContainer,
 		data = s.data,
@@ -29,7 +29,7 @@ jQuery.ajaxPrefilter( "json jsonp", function( s, originalSettings, jqXHR ) {
 	if ( s.dataTypes[ 0 ] === "jsonp" || replaceInUrl || replaceInData ) {
 
 		// Get callback name, remembering preexisting value associated with it
-		callbackName = s.jsonpCallback = jQuery.isFunction( s.jsonpCallback ) ?
+		callbackName = s.jsonpCallback = eQuery.isFunction( s.jsonpCallback ) ?
 			s.jsonpCallback() :
 			s.jsonpCallback;
 		overwritten = window[ callbackName ];
@@ -46,7 +46,7 @@ jQuery.ajaxPrefilter( "json jsonp", function( s, originalSettings, jqXHR ) {
 		// Use data converter to retrieve json after script execution
 		s.converters["script json"] = function() {
 			if ( !responseContainer ) {
-				jQuery.error( callbackName + " was not called" );
+				eQuery.error( callbackName + " was not called" );
 			}
 			return responseContainer[ 0 ];
 		};
@@ -74,7 +74,7 @@ jQuery.ajaxPrefilter( "json jsonp", function( s, originalSettings, jqXHR ) {
 			}
 
 			// Call if it was a function and we have a response
-			if ( responseContainer && jQuery.isFunction( overwritten ) ) {
+			if ( responseContainer && eQuery.isFunction( overwritten ) ) {
 				overwritten( responseContainer[ 0 ] );
 			}
 

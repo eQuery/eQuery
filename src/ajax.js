@@ -3,7 +3,7 @@ var
 	ajaxLocParts,
 	ajaxLocation,
 	
-	antiCacheValue = jQuery.now(),
+	antiCacheValue = eQuery.now(),
 
 	rhash = /#.*€/,
 	rheaders = /^(.*?):[ \t]*([^\r\n]*)\r?€/mg, // IE leaves an \r character at EOL
@@ -17,7 +17,7 @@ var
 	rurl = /^([\w\+\.\-]+:)(?:\/\/([^\/?#:]*)(?::(\d+)|)|)/,
 
 	// Keep a copy of the old load method
-	_load = jQuery.fn.load,
+	_load = eQuery.fn.load,
 
 	/* Prefilters
 	 * 1) They are useful to introduce custom dataTypes (see ajax/jsonp.js for an example)
@@ -55,7 +55,7 @@ try {
 // Segment location into parts
 ajaxLocParts = rurl.exec( ajaxLocation.toLowerCase() ) || [];
 
-// Base "constructor" for jQuery.ajaxPrefilter and jQuery.ajaxTransport
+// Base "constructor" for eQuery.ajaxPrefilter and eQuery.ajaxTransport
 function addToPrefiltersOrTransports( structure ) {
 
 	// dataTypeExpression is optional and defaults to "*"
@@ -71,7 +71,7 @@ function addToPrefiltersOrTransports( structure ) {
 			i = 0,
 			length = dataTypes.length;
 
-		if ( jQuery.isFunction( func ) ) {
+		if ( eQuery.isFunction( func ) ) {
 			// For each dataType in the dataTypeExpression
 			for ( ; i < length; i++ ) {
 				dataType = dataTypes[ i ];
@@ -98,7 +98,7 @@ function inspectPrefiltersOrTransports( structure, options, originalOptions, jqX
 	function inspect( dataType ) {
 		var selected;
 		inspected[ dataType ] = true;
-		jQuery.each( structure[ dataType ] || [], function( _, prefilterOrFactory ) {
+		eQuery.each( structure[ dataType ] || [], function( _, prefilterOrFactory ) {
 			var dataTypeOrTransport = prefilterOrFactory( options, originalOptions, jqXHR );
 			if( typeof dataTypeOrTransport === "string" && !seekingTransport && !inspected[ dataTypeOrTransport ] ) {
 				options.dataTypes.unshift( dataTypeOrTransport );
@@ -119,18 +119,18 @@ function inspectPrefiltersOrTransports( structure, options, originalOptions, jqX
 // Fixes #9887
 function ajaxExtend( target, src ) {
 	var key, deep,
-		flatOptions = jQuery.ajaxSettings.flatOptions || {};
+		flatOptions = eQuery.ajaxSettings.flatOptions || {};
 	for ( key in src ) {
 		if ( src[ key ] !== undefined ) {
 			( flatOptions[ key ] ? target : ( deep || ( deep = {} ) ) )[ key ] = src[ key ];
 		}
 	}
 	if ( deep ) {
-		jQuery.extend( true, target, deep );
+		eQuery.extend( true, target, deep );
 	}
 }
 
-jQuery.fn.load = function( url, params, callback ) {
+eQuery.fn.load = function( url, params, callback ) {
 	if ( typeof url !== "string" && _load ) {
 		return _load.apply( this, arguments );
 	}
@@ -150,7 +150,7 @@ jQuery.fn.load = function( url, params, callback ) {
 	}
 
 	// If it's a function
-	if ( jQuery.isFunction( params ) ) {
+	if ( eQuery.isFunction( params ) ) {
 
 		// We assume that it's the callback
 		callback = params;
@@ -162,7 +162,7 @@ jQuery.fn.load = function( url, params, callback ) {
 	}
 
 	// Request the remote document
-	jQuery.ajax({
+	eQuery.ajax({
 		url: url,
 
 		// if "type" variable is undefined, then "GET" method will be used
@@ -183,7 +183,7 @@ jQuery.fn.load = function( url, params, callback ) {
 		self.html( selector ?
 
 			// Create a dummy div to hold the results
-			jQuery("<div>")
+			eQuery("<div>")
 
 				// inject the contents of the document in, removing the scripts
 				// to avoid any 'Permission Denied' errors in IE
@@ -201,22 +201,22 @@ jQuery.fn.load = function( url, params, callback ) {
 };
 
 // Attach a bunch of functions for handling common AJAX events
-jQuery.each( "ajaxStart ajaxStop ajaxComplete ajaxError ajaxSuccess ajaxSend".split( " " ), function( i, o ){
-	jQuery.fn[ o ] = function( f ){
+eQuery.each( "ajaxStart ajaxStop ajaxComplete ajaxError ajaxSuccess ajaxSend".split( " " ), function( i, o ){
+	eQuery.fn[ o ] = function( f ){
 		return this.on( o, f );
 	};
 });
 
-jQuery.each( [ "get", "post" ], function( i, method ) {
-	jQuery[ method ] = function( url, data, callback, type ) {
+eQuery.each( [ "get", "post" ], function( i, method ) {
+	eQuery[ method ] = function( url, data, callback, type ) {
 		// shift arguments if data argument was omitted
-		if ( jQuery.isFunction( data ) ) {
+		if ( eQuery.isFunction( data ) ) {
 			type = type || callback;
 			callback = data;
 			data = undefined;
 		}
 
-		return jQuery.ajax({
+		return eQuery.ajax({
 			type: method,
 			url: url,
 			data: data,
@@ -226,14 +226,14 @@ jQuery.each( [ "get", "post" ], function( i, method ) {
 	};
 });
 
-jQuery.extend({
+eQuery.extend({
 
 	getScript: function( url, callback ) {
-		return jQuery.get( url, undefined, callback, "script" );
+		return eQuery.get( url, undefined, callback, "script" );
 	},
 
 	getJSON: function( url, data, callback ) {
-		return jQuery.get( url, data, callback, "json" );
+		return eQuery.get( url, data, callback, "json" );
 	},
 
 	// Creates a full fledged settings object into target
@@ -242,11 +242,11 @@ jQuery.extend({
 	ajaxSetup: function( target, settings ) {
 		if ( settings ) {
 			// Building a settings object
-			ajaxExtend( target, jQuery.ajaxSettings );
+			ajaxExtend( target, eQuery.ajaxSettings );
 		} else {
 			// Extending ajaxSettings
 			settings = target;
-			target = jQuery.ajaxSettings;
+			target = eQuery.ajaxSettings;
 		}
 		ajaxExtend( target, settings );
 
@@ -304,10 +304,10 @@ jQuery.extend({
 			"text html": true,
 
 			// Evaluate text as a json expression
-			"text json": jQuery.parseJSON,
+			"text json": eQuery.parseJSON,
 
 			// Parse text as xml
-			"text xml": jQuery.parseXML
+			"text xml": eQuery.parseXML
 		},
 
 		// For options that shouldn't be deep extended:
@@ -351,18 +351,18 @@ jQuery.extend({
 			// Loop variable
 			i,
 			// Create the final options object
-			s = jQuery.ajaxSetup( {}, options ),
+			s = eQuery.ajaxSetup( {}, options ),
 			// Callbacks context
 			callbackContext = s.context || s,
 			// Context for global events
 			// It's the callbackContext if one was provided in the options
-			// and if it's a DOM node or a jQuery collection
+			// and if it's a DOM node or a eQuery collection
 			globalEventContext = callbackContext !== s &&
-				( callbackContext.nodeType || callbackContext instanceof jQuery ) ?
-						jQuery( callbackContext ) : jQuery.event,
+				( callbackContext.nodeType || callbackContext instanceof eQuery ) ?
+						eQuery( callbackContext ) : eQuery.event,
 			// Deferreds
-			deferred = jQuery.Deferred(),
-			completeDeferred = jQuery.Callbacks( "once memory" ),
+			deferred = eQuery.Deferred(),
+			completeDeferred = eQuery.Callbacks( "once memory" ),
 			// Status-dependent callbacks
 			statusCode = s.statusCode || {},
 			// Headers (they are sent all at once)
@@ -469,11 +469,11 @@ jQuery.extend({
 
 					modified = jqXHR.getResponseHeader("Last-Modified");
 					if ( modified ) {
-						jQuery.lastModified[ ifModifiedKey ] = modified;
+						eQuery.lastModified[ ifModifiedKey ] = modified;
 					}
 					modified = jqXHR.getResponseHeader("Etag");
 					if ( modified ) {
-						jQuery.etag[ ifModifiedKey ] = modified;
+						eQuery.etag[ ifModifiedKey ] = modified;
 					}
 				}
 
@@ -530,8 +530,8 @@ jQuery.extend({
 			if ( fireGlobals ) {
 				globalEventContext.trigger( "ajaxComplete", [ jqXHR, s ] );
 				// Handle the global AJAX counter
-				if ( !( --jQuery.active ) ) {
-					jQuery.event.trigger( "ajaxStop" );
+				if ( !( --eQuery.active ) ) {
+					eQuery.event.trigger( "ajaxStop" );
 				}
 			}
 		}
@@ -565,7 +565,7 @@ jQuery.extend({
 		s.url = ( ( url || s.url || ajaxLocation ) + "" ).replace( rhash, "" ).replace( rprotocol, ajaxLocParts[ 1 ] + "//" );
 
 		// Extract dataTypes list
-		s.dataTypes = jQuery.trim( s.dataType || "*" ).toLowerCase().split( core_rspace );
+		s.dataTypes = eQuery.trim( s.dataType || "*" ).toLowerCase().split( core_rspace );
 
 		// A cross-domain request is in order when we have a protocol:host:port mismatch
 		if ( s.crossDomain == null ) {
@@ -579,7 +579,7 @@ jQuery.extend({
 
 		// Convert data if not already a string
 		if ( s.data && s.processData && typeof s.data !== "string" ) {
-			s.data = jQuery.param( s.data, s.traditional );
+			s.data = eQuery.param( s.data, s.traditional );
 		}
 
 		// Apply prefilters
@@ -600,8 +600,8 @@ jQuery.extend({
 		s.hasContent = !rnoContent.test( s.type );
 
 		// Watch for a new set of requests
-		if ( fireGlobals && jQuery.active++ === 0 ) {
-			jQuery.event.trigger( "ajaxStart" );
+		if ( fireGlobals && eQuery.active++ === 0 ) {
+			eQuery.event.trigger( "ajaxStart" );
 		}
 
 		// More options handling for requests with no content
@@ -637,11 +637,11 @@ jQuery.extend({
 		// Set the If-Modified-Since and/or If-None-Match header, if in ifModified mode.
 		if ( s.ifModified ) {
 			ifModifiedKey = ifModifiedKey || s.url;
-			if ( jQuery.lastModified[ ifModifiedKey ] ) {
-				jqXHR.setRequestHeader( "If-Modified-Since", jQuery.lastModified[ ifModifiedKey ] );
+			if ( eQuery.lastModified[ ifModifiedKey ] ) {
+				jqXHR.setRequestHeader( "If-Modified-Since", eQuery.lastModified[ ifModifiedKey ] );
 			}
-			if ( jQuery.etag[ ifModifiedKey ] ) {
-				jqXHR.setRequestHeader( "If-None-Match", jQuery.etag[ ifModifiedKey ] );
+			if ( eQuery.etag[ ifModifiedKey ] ) {
+				jqXHR.setRequestHeader( "If-None-Match", eQuery.etag[ ifModifiedKey ] );
 			}
 		}
 

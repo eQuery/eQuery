@@ -1,41 +1,41 @@
-if ( jQuery.fx ) {
+if ( eQuery.fx ) {
 
 module("effects", { teardown: moduleTeardown });
 
 test("sanity check", function() {
 	expect(1);
-	ok( jQuery("#dl:visible, #qunit-fixture:visible, #foo:visible").length === 3, "QUnit state is correct for testing effects" );
+	ok( eQuery("#dl:visible, #qunit-fixture:visible, #foo:visible").length === 3, "QUnit state is correct for testing effects" );
 });
 
 test("show()", function() {
 	expect(26);
 
-	var hiddendiv = jQuery("div.hidden");
+	var hiddendiv = eQuery("div.hidden");
 
 	hiddendiv.hide().show();
 
 	equal( hiddendiv.css("display"), "block", "Make sure a pre-hidden div is visible." );
 
-	var div = jQuery("<div>").hide().appendTo("#qunit-fixture").show();
+	var div = eQuery("<div>").hide().appendTo("#qunit-fixture").show();
 
 	equal( div.css("display"), "block", "Make sure pre-hidden divs show" );
 
 	QUnit.reset();
 
-	hiddendiv = jQuery("div.hidden");
+	hiddendiv = eQuery("div.hidden");
 
-	equal(jQuery.css( hiddendiv[0], "display"), "none", "hiddendiv is display: none");
+	equal(eQuery.css( hiddendiv[0], "display"), "none", "hiddendiv is display: none");
 
 	hiddendiv.css("display", "block");
-	equal(jQuery.css( hiddendiv[0], "display"), "block", "hiddendiv is display: block");
+	equal(eQuery.css( hiddendiv[0], "display"), "block", "hiddendiv is display: block");
 
 	hiddendiv.show();
-	equal(jQuery.css( hiddendiv[0], "display"), "block", "hiddendiv is display: block");
+	equal(eQuery.css( hiddendiv[0], "display"), "block", "hiddendiv is display: block");
 
 	hiddendiv.css("display","");
 
 	var pass = true;
-	div = jQuery("#qunit-fixture div");
+	div = eQuery("#qunit-fixture div");
 	div.show().each(function(){
 		if ( this.style.display == "none" ) {
 			pass = false;
@@ -49,7 +49,7 @@ test("show()", function() {
 		"false speed": false
 	};
 
-	jQuery.each(speeds, function(name, speed) {
+	eQuery.each(speeds, function(name, speed) {
 		pass = true;
 		div.hide().show(speed).each(function() {
 			if ( this.style.display == "none" ) {
@@ -59,7 +59,7 @@ test("show()", function() {
 		ok( pass, "Show with " + name);
 	});
 
-	jQuery.each(speeds, function(name, speed) {
+	eQuery.each(speeds, function(name, speed) {
 	pass = true;
 	div.hide().show(speed, function() {
 			pass = false;
@@ -68,10 +68,10 @@ test("show()", function() {
 	});
 
 	// #show-tests * is set display: none in CSS
-	jQuery("#qunit-fixture").append("<div id='show-tests'><div><p><a href='#'></a></p><code></code><pre></pre><span></span></div><table><thead><tr><th></th></tr></thead><tbody><tr><td></td></tr></tbody></table><ul><li></li></ul></div><table id='test-table'></table>");
+	eQuery("#qunit-fixture").append("<div id='show-tests'><div><p><a href='#'></a></p><code></code><pre></pre><span></span></div><table><thead><tr><th></th></tr></thead><tbody><tr><td></td></tr></tbody></table><ul><li></li></ul></div><table id='test-table'></table>");
 
-	var old = jQuery("#test-table").show().css("display") !== "table";
-	jQuery("#test-table").remove();
+	var old = eQuery("#test-table").show().css("display") !== "table";
+	eQuery("#test-table").remove();
 
 	var test = {
 		"div"      : "block",
@@ -90,16 +90,16 @@ test("show()", function() {
 		"li"       : old ? "block" : "list-item"
 	};
 
-	jQuery.each(test, function(selector, expected) {
-		var elem = jQuery(selector, "#show-tests").show();
+	eQuery.each(test, function(selector, expected) {
+		var elem = eQuery(selector, "#show-tests").show();
 		equal( elem.css("display"), expected, "Show using correct display type for " + selector );
 	});
 
-	jQuery("#show-tests").remove();
+	eQuery("#show-tests").remove();
 
 	// Make sure that showing or hiding a text node doesn't cause an error
-	jQuery("<div>test</div> text <span>test</span>").show().remove();
-	jQuery("<div>test</div> text <span>test</span>").hide().remove();
+	eQuery("<div>test</div> text <span>test</span>").show().remove();
+	eQuery("<div>test</div> text <span>test</span>").hide().remove();
 });
 
 test("show(Number) - other displays", function() {
@@ -108,11 +108,11 @@ test("show(Number) - other displays", function() {
 	stop();
 
 	// #show-tests * is set display: none in CSS
-	jQuery("#qunit-fixture").append("<div id='show-tests'><div><p><a href='#'></a></p><code></code><pre></pre><span></span></div><table><thead><tr><th></th></tr></thead><tbody><tr><td></td></tr></tbody></table><ul><li></li></ul></div><table id='test-table'></table>");
+	eQuery("#qunit-fixture").append("<div id='show-tests'><div><p><a href='#'></a></p><code></code><pre></pre><span></span></div><table><thead><tr><th></th></tr></thead><tbody><tr><td></td></tr></tbody></table><ul><li></li></ul></div><table id='test-table'></table>");
 
-	var old = jQuery("#test-table").show().css("display") !== "table",
+	var old = eQuery("#test-table").show().css("display") !== "table",
 		num = 0;
-	jQuery("#test-table").remove();
+	eQuery("#test-table").remove();
 
 	var test = {
 		"div"      : "block",
@@ -131,8 +131,8 @@ test("show(Number) - other displays", function() {
 		"li"       : old ? "block" : "list-item"
 	};
 
-	jQuery.each(test, function(selector, expected) {
-		var elem = jQuery(selector, "#show-tests").show(1, function() {
+	eQuery.each(test, function(selector, expected) {
+		var elem = eQuery(selector, "#show-tests").show(1, function() {
 			equal( elem.css("display"), expected, "Show using correct display type for " + selector );
 			if ( ++num === 15 ) {
 				start();
@@ -140,7 +140,7 @@ test("show(Number) - other displays", function() {
 		});
 	});
 
-	jQuery("#show-tests").remove();
+	eQuery("#show-tests").remove();
 });
 
 
@@ -152,9 +152,9 @@ test("Persist correct display value", function() {
 	stop();
 
 	// #show-tests * is set display: none in CSS
-	jQuery("#qunit-fixture").append("<div id='show-tests'><span style='position:absolute;'>foo</span></div>");
+	eQuery("#qunit-fixture").append("<div id='show-tests'><span style='position:absolute;'>foo</span></div>");
 
-	var €span = jQuery("#show-tests span"),
+	var €span = eQuery("#show-tests span"),
 		displayNone = €span.css("display"),
 		display = "", num = 0;
 
@@ -180,8 +180,8 @@ test("animate(Hash, Object, Function)", function() {
 	expect(1);
 	stop();
 	var hash = {opacity: "show"};
-	var hashCopy = jQuery.extend({}, hash);
-	jQuery("#foo").animate(hash, 0, function() {
+	var hashCopy = eQuery.extend({}, hash);
+	eQuery("#foo").animate(hash, 0, function() {
 		equal( hash.opacity, hashCopy.opacity, "Check if animate changed the hash parameter" );
 		start();
 	});
@@ -190,7 +190,7 @@ test("animate(Hash, Object, Function)", function() {
 test("animate negative height", function() {
 	expect(1);
 	stop();
-	jQuery("#foo").animate({ height: -100 }, 100, function() {
+	eQuery("#foo").animate({ height: -100 }, 100, function() {
 		equal( this.offsetHeight, 0, "Verify height." );
 		start();
 	});
@@ -199,8 +199,8 @@ test("animate negative height", function() {
 test("animate negative margin", function() {
 	expect(1);
 	stop();
-	jQuery("#foo").animate({ "marginTop": -100 }, 100, function() {
-		equal( jQuery(this).css("marginTop"), "-100px", "Verify margin." );
+	eQuery("#foo").animate({ "marginTop": -100 }, 100, function() {
+		equal( eQuery(this).css("marginTop"), "-100px", "Verify margin." );
 		start();
 	});
 });
@@ -208,8 +208,8 @@ test("animate negative margin", function() {
 test("animate negative margin with px", function() {
 	expect(1);
 	stop();
-	jQuery("#foo").animate({ marginTop: "-100px" }, 100, function() {
-		equal( jQuery(this).css("marginTop"), "-100px", "Verify margin." );
+	eQuery("#foo").animate({ marginTop: "-100px" }, 100, function() {
+		equal( eQuery(this).css("marginTop"), "-100px", "Verify margin." );
 		start();
 	});
 });
@@ -217,8 +217,8 @@ test("animate negative margin with px", function() {
 test("animate negative padding", function() {
 	expect(1);
 	stop();
-	jQuery("#foo").animate({ "paddingBottom": -100 }, 100, function() {
-		equal( jQuery(this).css("paddingBottom"), "0px", "Verify paddingBottom." );
+	eQuery("#foo").animate({ "paddingBottom": -100 }, 100, function() {
+		equal( eQuery(this).css("paddingBottom"), "0px", "Verify paddingBottom." );
 		start();
 	});
 });
@@ -226,16 +226,16 @@ test("animate negative padding", function() {
 test("animate block as inline width/height", function() {
 	expect(3);
 
-	var span = jQuery("<span>").css("display", "inline-block").appendTo("body"),
+	var span = eQuery("<span>").css("display", "inline-block").appendTo("body"),
 		expected = span.css("display");
 
 	span.remove();
 
-	if ( jQuery.support.inlineBlockNeedsLayout || expected === "inline-block" ) {
+	if ( eQuery.support.inlineBlockNeedsLayout || expected === "inline-block" ) {
 		stop();
 
-		jQuery("#foo").css({ display: "inline", width: "", height: "" }).animate({ width: 42, height: 42 }, 100, function() {
-			equal( jQuery(this).css("display"), jQuery.support.inlineBlockNeedsLayout ? "inline" : "inline-block", "inline-block was set on non-floated inline element when animating width/height" );
+		eQuery("#foo").css({ display: "inline", width: "", height: "" }).animate({ width: 42, height: 42 }, 100, function() {
+			equal( eQuery(this).css("display"), eQuery.support.inlineBlockNeedsLayout ? "inline" : "inline-block", "inline-block was set on non-floated inline element when animating width/height" );
 			equal( this.offsetWidth, 42, "width was animated" );
 			equal( this.offsetHeight, 42, "height was animated" );
 			start();
@@ -252,18 +252,18 @@ test("animate block as inline width/height", function() {
 test("animate native inline width/height", function() {
 	expect(3);
 
-	var span = jQuery("<span>").css("display", "inline-block").appendTo("body"),
+	var span = eQuery("<span>").css("display", "inline-block").appendTo("body"),
 		expected = span.css("display");
 
 	span.remove();
 
-	if ( jQuery.support.inlineBlockNeedsLayout || expected === "inline-block" ) {
+	if ( eQuery.support.inlineBlockNeedsLayout || expected === "inline-block" ) {
 		stop();
-		jQuery("#foo").css({ display: "", width: "", height: "" })
+		eQuery("#foo").css({ display: "", width: "", height: "" })
 			.append("<span>text</span>")
 			.children("span")
 				.animate({ width: 42, height: 42 }, 100, function() {
-					equal( jQuery(this).css("display"), "inline-block", "inline-block was set on non-floated inline element when animating width/height" );
+					equal( eQuery(this).css("display"), "inline-block", "inline-block was set on non-floated inline element when animating width/height" );
 					equal( this.offsetWidth, 42, "width was animated" );
 					equal( this.offsetHeight, 42, "height was animated" );
 					start();
@@ -280,8 +280,8 @@ test("animate native inline width/height", function() {
 test("animate block width/height", function() {
 	expect(3);
 	stop();
-	jQuery("#foo").css({ display: "block", width: 20, height: 20 }).animate({ width: 42, height: 42 }, 100, function() {
-		equal( jQuery(this).css("display"), "block", "inline-block was not set on block element when animating width/height" );
+	eQuery("#foo").css({ display: "block", width: 20, height: 20 }).animate({ width: 42, height: 42 }, 100, function() {
+		equal( eQuery(this).css("display"), "block", "inline-block was not set on block element when animating width/height" );
 		equal( this.offsetWidth, 42, "width was animated" );
 		equal( this.offsetHeight, 42, "height was animated" );
 		start();
@@ -292,10 +292,10 @@ test("animate table width/height", function() {
 	expect(1);
 	stop();
 
-	var displayMode = jQuery("#table").css("display") !== "table" ? "block" : "table";
+	var displayMode = eQuery("#table").css("display") !== "table" ? "block" : "table";
 
-	jQuery("#table").animate({ width: 42, height: 42 }, 100, function() {
-		equal( jQuery(this).css("display"), displayMode, "display mode is correct" );
+	eQuery("#table").animate({ width: 42, height: 42 }, 100, function() {
+		equal( eQuery(this).css("display"), displayMode, "display mode is correct" );
 		start();
 	});
 });
@@ -303,7 +303,7 @@ test("animate table width/height", function() {
 test("animate table-row width/height", function() {
 	expect(3);
 	stop();
-	var tr = jQuery("#table")
+	var tr = eQuery("#table")
 		.attr({ "cellspacing": 0, "cellpadding": 0, "border": 0 })
 		.html("<tr style='height:42px;'><td style='padding:0;'><div style='width:20px;height:20px;'></div></td></tr>")
 		.find("tr");
@@ -312,7 +312,7 @@ test("animate table-row width/height", function() {
 	var displayMode = tr.css("display") !== "table-row" ? "block" : "table-row";
 
 	tr.animate({ width: 10, height: 10 }, 100, function() {
-		equal( jQuery(this).css("display"), displayMode, "display mode is correct" );
+		equal( eQuery(this).css("display"), displayMode, "display mode is correct" );
 		equal( this.offsetWidth, 20, "width animated to shrink wrap point" );
 		equal( this.offsetHeight, 20, "height animated to shrink wrap point" );
 		start();
@@ -322,7 +322,7 @@ test("animate table-row width/height", function() {
 test("animate table-cell width/height", function() {
 	expect(3);
 	stop();
-	var td = jQuery("#table")
+	var td = eQuery("#table")
 		.attr({ "cellspacing": 0, "cellpadding": 0, "border": 0 })
 		.html("<tr><td style='width:42px;height:42px;padding:0;'><div style='width:20px;height:20px;'></div></td></tr>")
 		.find("td");
@@ -331,7 +331,7 @@ test("animate table-cell width/height", function() {
 	var displayMode = td.css("display") !== "table-cell" ? "block" : "table-cell";
 
 	td.animate({ width: 10, height: 10 }, 100, function() {
-		equal( jQuery(this).css("display"), displayMode, "display mode is correct" );
+		equal( eQuery(this).css("display"), displayMode, "display mode is correct" );
 		equal( this.offsetWidth, 20, "width animated to shrink wrap point" );
 		equal( this.offsetHeight, 20, "height animated to shrink wrap point" );
 		start();
@@ -341,12 +341,12 @@ test("animate table-cell width/height", function() {
 test("animate percentage(%) on width/height", function() {
 	expect( 2 );
 
-	var €div = jQuery("<div style='position:absolute;top:-999px;left:-999px;width:60px;height:60px;'><div style='width:50%;height:50%;'></div></div>")
+	var €div = eQuery("<div style='position:absolute;top:-999px;left:-999px;width:60px;height:60px;'><div style='width:50%;height:50%;'></div></div>")
 		.appendTo("#qunit-fixture").children("div");
 
 	stop();
 	€div.animate({ width: "25%", height: "25%" }, 13, function() {
-		var €this = jQuery(this);
+		var €this = eQuery(this);
 		equal( €this.css("width"), "15px", "Width was animated to 15px rather than 25px");
 		equal( €this.css("height"), "15px", "Height was animated to 15px rather than 25px");
 		start();
@@ -356,7 +356,7 @@ test("animate percentage(%) on width/height", function() {
 test("animate resets overflow-x and overflow-y when finished", function() {
 	expect(2);
 	stop();
-	jQuery("#foo")
+	eQuery("#foo")
 		.css({ display: "block", width: 20, height: 20, overflowX: "visible", overflowY: "auto" })
 		.animate({ width: 42, height: 42 }, 100, function() {
 			equal( this.style.overflowX, "visible", "overflow-x is visible" );
@@ -372,7 +372,7 @@ test("animate option (queue === false)", function () {
 
 	var order = [];
 
-	var €foo = jQuery("#foo");
+	var €foo = eQuery("#foo");
 	€foo.animate({width:"100px"}, 3000, function () {
 		// should finish after unqueued animation so second
 		order.push(2);
@@ -388,7 +388,7 @@ test("animate option (queue === false)", function () {
 
 asyncTest( "animate option { queue: false }", function() {
 	expect( 2 );
-	var foo = jQuery( "#foo" );
+	var foo = eQuery( "#foo" );
 
 	foo.animate({
 		fontSize: "2em"
@@ -406,7 +406,7 @@ asyncTest( "animate option { queue: false }", function() {
 
 asyncTest( "animate option { queue: true }", function() {
 	expect( 2 );
-	var foo = jQuery( "#foo" );
+	var foo = eQuery( "#foo" );
 
 	foo.animate({
 		fontSize: "2em"
@@ -424,7 +424,7 @@ asyncTest( "animate option { queue: true }", function() {
 
 asyncTest( "animate option { queue: 'name' }", function() {
 	expect( 5 );
-	var foo = jQuery( "#foo" ),
+	var foo = eQuery( "#foo" ),
 		origWidth = parseFloat( foo.css("width") ),
 		order = [];
 
@@ -459,7 +459,7 @@ asyncTest( "animate option { queue: 'name' }", function() {
 test("animate with no properties", function() {
 	expect(2);
 
-	var divs = jQuery("div"), count = 0;
+	var divs = eQuery("div"), count = 0;
 
 	divs.animate({}, function(){
 		count++;
@@ -469,7 +469,7 @@ test("animate with no properties", function() {
 
 	stop();
 
-	var foo = jQuery("#foo");
+	var foo = eQuery("#foo");
 
 	foo.animate({});
 	foo.animate({top: 10}, 100, function(){
@@ -483,9 +483,9 @@ test("animate duration 0", function() {
 
 	stop();
 
-	var €elems = jQuery([{ a:0 },{ a:0 }]), counter = 0;
+	var €elems = eQuery([{ a:0 },{ a:0 }]), counter = 0;
 
-	equal( jQuery.timers.length, 0, "Make sure no animation was running from another test" );
+	equal( eQuery.timers.length, 0, "Make sure no animation was running from another test" );
 
 	€elems.eq(0).animate( {a:1}, 0, function(){
 		ok( true, "Animate a simple property." );
@@ -493,7 +493,7 @@ test("animate duration 0", function() {
 	});
 
 	// Failed until [6115]
-	equal( jQuery.timers.length, 0, "Make sure synchronic animations are not left on jQuery.timers" );
+	equal( eQuery.timers.length, 0, "Make sure synchronic animations are not left on eQuery.timers" );
 
 	equal( counter, 1, "One synchronic animations" );
 
@@ -515,7 +515,7 @@ test("animate duration 0", function() {
 		start();
 	});
 
-	var €elem = jQuery("<div />");
+	var €elem = eQuery("<div />");
 	€elem.show(0, function(){
 		ok(true, "Show callback with no duration");
 	});
@@ -531,7 +531,7 @@ test("animate hyphenated properties", function() {
 	expect(1);
 	stop();
 
-	jQuery("#foo")
+	eQuery("#foo")
 		.css("font-size", 10)
 		.animate({"font-size": 20}, 200, function() {
 			equal( this.style.fontSize, "20px", "The font-size property was animated." );
@@ -545,7 +545,7 @@ test("animate non-element", function() {
 
 	var obj = { test: 0 };
 
-	jQuery(obj).animate({test: 200}, 200, function(){
+	eQuery(obj).animate({test: 200}, 200, function(){
 		equal( obj.test, 200, "The custom property should be modified." );
 		start();
 	});
@@ -555,7 +555,7 @@ test("stop()", function() {
 	expect( 4 );
 	stop();
 
-	var €foo = jQuery("#foo"),
+	var €foo = eQuery("#foo"),
 		tests = 2,
 		w = 0;
 
@@ -579,8 +579,8 @@ test("stop()", function() {
 		}, 100);
 	}, 100);
 
-	var €one = jQuery("#fadein");
-	var €two = jQuery("#show");
+	var €one = eQuery("#fadein");
+	var €two = eQuery("#show");
 	€one.fadeTo(100, 0, function() {
 		€one.stop();
 	});
@@ -600,7 +600,7 @@ test("stop() - several in queue", function() {
 	expect(3);
 	stop();
 
-	var €foo = jQuery("#foo");
+	var €foo = eQuery("#foo");
 	var w = 0;
 	€foo.hide().css( "width", 200 ).css("width");
 
@@ -625,7 +625,7 @@ test("stop(clearQueue)", function() {
 	expect(4);
 	stop();
 
-	var €foo = jQuery("#foo");
+	var €foo = eQuery("#foo");
 	var w = 0;
 	€foo.hide().css( "width", 200 ).css("width");
 
@@ -652,7 +652,7 @@ test("stop(clearQueue, gotoEnd)", function() {
 	expect(1);
 	stop();
 
-	var €foo = jQuery("#foo");
+	var €foo = eQuery("#foo");
 	var w = 0;
 	€foo.hide().css( "width", 200 ).css("width");
 
@@ -680,7 +680,7 @@ test("stop(clearQueue, gotoEnd)", function() {
 
 asyncTest( "stop( queue, ..., ... ) - Stop single queues", function() {
 	expect( 3 );
-	var foo = jQuery( "#foo" ),
+	var foo = eQuery( "#foo" ),
 		saved;
 
 	foo.css( "width", 200 ).css( "height", 200 );
@@ -715,7 +715,7 @@ asyncTest( "stop( queue, ..., ... ) - Stop single queues", function() {
 
 test("toggle()", function() {
 	expect(6);
-	var x = jQuery("#foo");
+	var x = eQuery("#foo");
 	ok( x.is(":visible"), "is visible" );
 	x.toggle();
 	ok( x.is(":hidden"), "is hidden" );
@@ -730,18 +730,18 @@ test("toggle()", function() {
 	ok( x.is(":visible"), "is visible again" );
 });
 
-jQuery.checkOverflowDisplay = function(){
-	var o = jQuery.css( this, "overflow" );
+eQuery.checkOverflowDisplay = function(){
+	var o = eQuery.css( this, "overflow" );
 
 	equal(o, "visible", "Overflow should be visible: " + o);
-	equal(jQuery.css( this, "display" ), "inline", "Display shouldn't be tampered with.");
+	equal(eQuery.css( this, "display" ), "inline", "Display shouldn't be tampered with.");
 
-	jQuery(this).remove();
+	eQuery(this).remove();
 	start();
 };
 
-test( "jQuery.fx.prototype.cur() - <1.8 Back Compat", 7, function() {
-	var div = jQuery( "<div></div>" ).appendTo( "#qunit-fixture" ).css({
+test( "eQuery.fx.prototype.cur() - <1.8 Back Compat", 7, function() {
+	var div = eQuery( "<div></div>" ).appendTo( "#qunit-fixture" ).css({
 			color: "#ABC",
 			border: "5px solid black",
 			left: "auto",
@@ -749,13 +749,13 @@ test( "jQuery.fx.prototype.cur() - <1.8 Back Compat", 7, function() {
 		})[0];
 
 	equal(
-		( new jQuery.fx( div, {}, "color" ) ).cur(),
-		jQuery.css( div, "color" ),
-		"Return the same value as jQuery.css for complex properties (bug #7912)"
+		( new eQuery.fx( div, {}, "color" ) ).cur(),
+		eQuery.css( div, "color" ),
+		"Return the same value as eQuery.css for complex properties (bug #7912)"
 	);
 
 	strictEqual(
-		( new jQuery.fx( div, {}, "borderLeftWidth" ) ).cur(),
+		( new eQuery.fx( div, {}, "borderLeftWidth" ) ).cur(),
 		5,
 		"Return simple values parsed as Float"
 	);
@@ -764,7 +764,7 @@ test( "jQuery.fx.prototype.cur() - <1.8 Back Compat", 7, function() {
 	// this fakes a "" return
 	// hook now gets called twice because Tween will grab the current
 	// value as it is being newed
-	jQuery.cssHooks.backgroundPosition = {
+	eQuery.cssHooks.backgroundPosition = {
 		get: function() {
 			ok( true, "hook used" );
 			return "";
@@ -772,112 +772,112 @@ test( "jQuery.fx.prototype.cur() - <1.8 Back Compat", 7, function() {
 	};
 
 	strictEqual(
-		( new jQuery.fx( div, {}, "backgroundPosition" ) ).cur(),
+		( new eQuery.fx( div, {}, "backgroundPosition" ) ).cur(),
 		0,
-		"Return 0 when jQuery.css returns an empty string"
+		"Return 0 when eQuery.css returns an empty string"
 	);
 
-	delete jQuery.cssHooks.backgroundPosition;
+	delete eQuery.cssHooks.backgroundPosition;
 
 	strictEqual(
-		( new jQuery.fx( div, {}, "left" ) ).cur(),
+		( new eQuery.fx( div, {}, "left" ) ).cur(),
 		0,
-		"Return 0 when jQuery.css returns 'auto'"
+		"Return 0 when eQuery.css returns 'auto'"
 	);
 
 	equal(
-		( new jQuery.fx( div, {}, "marginBottom" ) ).cur(),
+		( new eQuery.fx( div, {}, "marginBottom" ) ).cur(),
 		-11000,
 		"support negative values < -10000 (bug #7193)"
 	);
 
-	jQuery( div ).remove();
+	eQuery( div ).remove();
 });
 
 test("JS Overflow and Display", function() {
 	expect(2);
 	stop();
-	jQuery.makeTest( "JS Overflow and Display" )
+	eQuery.makeTest( "JS Overflow and Display" )
 		.addClass("widewidth")
 		.css({ overflow: "visible", display: "inline" })
 		.addClass("widewidth")
 		.text("Some sample text.")
 		.before("text before")
 		.after("text after")
-		.animate({ opacity: 0.5 }, "slow", jQuery.checkOverflowDisplay);
+		.animate({ opacity: 0.5 }, "slow", eQuery.checkOverflowDisplay);
 });
 
 test("CSS Overflow and Display", function() {
 	expect(2);
 	stop();
-	jQuery.makeTest( "CSS Overflow and Display" )
+	eQuery.makeTest( "CSS Overflow and Display" )
 		.addClass("overflow inline")
 		.addClass("widewidth")
 		.text("Some sample text.")
 		.before("text before")
 		.after("text after")
-		.animate({ opacity: 0.5 }, "slow", jQuery.checkOverflowDisplay);
+		.animate({ opacity: 0.5 }, "slow", eQuery.checkOverflowDisplay);
 });
 
-jQuery.each({
+eQuery.each({
 	"CSS Auto": function( elem, prop ) {
-		jQuery( elem ).addClass( "auto" + prop )
+		eQuery( elem ).addClass( "auto" + prop )
 			.text( "This is a long string of text." );
 		return "";
 	},
 	"JS Auto": function( elem, prop ) {
-		jQuery( elem ).css( prop, "" )
+		eQuery( elem ).css( prop, "" )
 			.text( "This is a long string of text." );
 		return "";
 	},
 	"CSS 100": function( elem, prop ) {
-		jQuery( elem ).addClass( "large" + prop );
+		eQuery( elem ).addClass( "large" + prop );
 		return "";
 	},
 	"JS 100": function( elem, prop ) {
-		jQuery( elem ).css( prop, prop === "opacity" ? 1 : "100px" );
+		eQuery( elem ).css( prop, prop === "opacity" ? 1 : "100px" );
 		return prop === "opacity" ? 1 : 100;
 	},
 	"CSS 50": function( elem, prop ) {
-		jQuery( elem ).addClass( "med" + prop );
+		eQuery( elem ).addClass( "med" + prop );
 		return "";
 	},
 	"JS 50": function( elem, prop ) {
-		jQuery( elem ).css( prop, prop === "opacity" ? 0.50 : "50px" );
+		eQuery( elem ).css( prop, prop === "opacity" ? 0.50 : "50px" );
 		return prop === "opacity" ? 0.5 : 50;
 	},
 	"CSS 0": function( elem, prop ) {
-		jQuery( elem ).addClass( "no" + prop );
+		eQuery( elem ).addClass( "no" + prop );
 		return "";
 	},
 	"JS 0": function( elem, prop ) {
-		jQuery( elem ).css( prop, prop === "opacity" ? 0 : "0px" );
+		eQuery( elem ).css( prop, prop === "opacity" ? 0 : "0px" );
 		return 0;
 	}
 }, function( fn, f ) {
-	jQuery.each({
+	eQuery.each({
 		"show": function( elem, prop ) {
-			jQuery( elem ).hide( ).addClass( "wide" + prop );
+			eQuery( elem ).hide( ).addClass( "wide" + prop );
 			return "show";
 		},
 		"hide": function( elem, prop ) {
-			jQuery( elem ).addClass( "wide" + prop );
+			eQuery( elem ).addClass( "wide" + prop );
 			return "hide";
 		},
 		"100": function( elem, prop ) {
-			jQuery( elem ).addClass( "wide" + prop );
+			eQuery( elem ).addClass( "wide" + prop );
 			return prop == "opacity" ? 1 : 100;
 		},
 		"50": function( elem, prop ) {
 			return prop == "opacity" ? 0.50 : 50;
 		},
 		"0": function( elem, prop ) {
-			jQuery( elem ).addClass( "noback" );
+			eQuery( elem ).addClass( "noback" );
 			return 0;
 		}
 	}, function( tn, t ) {
 		test(fn + " to " + tn, function() {
-			var elem = jQuery.makeTest( fn + " to " + tn );
+			var elem = eQuery.makeTest( fn + " to " + tn );
 
 			var t_w = t( elem, "width" );
 			var f_w = f( elem, "width" );
@@ -909,7 +909,7 @@ jQuery.each({
 
 			elem.animate(anim, 50);
 
-			jQuery.when( elem ).done(function( elem ) {
+			eQuery.when( elem ).done(function( elem ) {
 
 				elem = elem[ 0 ];
 
@@ -925,9 +925,9 @@ jQuery.each({
 					ok( f_h === "" ? elem.style.height === f_h : elem.style.height.indexOf( f_h ) === 0, "Height must be reset to " + f_h + ": " + elem.style.height );
 				}
 
-				var cur_o = jQuery.style(elem, "opacity");
+				var cur_o = eQuery.style(elem, "opacity");
 
-				if ( f_o !== jQuery.css(elem, "opacity") ) {
+				if ( f_o !== eQuery.css(elem, "opacity") ) {
 					f_o = f( elem, "opacity" );
 				}
 
@@ -952,13 +952,13 @@ jQuery.each({
 				if ( t_o.constructor == Number ) {
 					equal( cur_o, t_o, "Final opacity should be " + t_o + ": " + cur_o );
 
-					ok( jQuery.css(elem, "opacity") !== "" || cur_o == t_o, "Opacity should be explicitly set to " + t_o + ", is instead: " + cur_o );
+					ok( eQuery.css(elem, "opacity") !== "" || cur_o == t_o, "Opacity should be explicitly set to " + t_o + ", is instead: " + cur_o );
 				}
 
 				if ( t_w.constructor == Number ) {
 					equal( elem.style.width, t_w + "px", "Final width should be " + t_w + ": " + elem.style.width );
 
-					var cur_w = jQuery.css( elem,"width" );
+					var cur_w = eQuery.css( elem,"width" );
 
 					ok( elem.style.width !== "" || cur_w == t_w, "Width should be explicitly set to " + t_w + ", is instead: " + cur_w );
 				}
@@ -966,24 +966,24 @@ jQuery.each({
 				if ( t_h.constructor == Number ) {
 					equal( elem.style.height, t_h + "px", "Final height should be " + t_h + ": " + elem.style.height );
 
-					var cur_h = jQuery.css( elem,"height" );
+					var cur_h = eQuery.css( elem,"height" );
 
 					ok( elem.style.height !== "" || cur_h == t_h, "Height should be explicitly set to " + t_h + ", is instead: " + cur_h );
 				}
 
 				if ( t_h == "show" ) {
-					var old_h = jQuery.css( elem, "height" );
-					jQuery( elem ).append("<br/>Some more text<br/>and some more...");
+					var old_h = eQuery.css( elem, "height" );
+					eQuery( elem ).append("<br/>Some more text<br/>and some more...");
 
 					if ( /Auto/.test( fn ) ) {
-						notEqual( jQuery.css( elem, "height" ), old_h, "Make sure height is auto." );
+						notEqual( eQuery.css( elem, "height" ), old_h, "Make sure height is auto." );
 					} else {
-						equal( jQuery.css( elem, "height" ), old_h, "Make sure height is not auto." );
+						equal( eQuery.css( elem, "height" ), old_h, "Make sure height is not auto." );
 					}
 				}
 
 				// manually remove generated element
-				jQuery( elem ).remove();
+				eQuery( elem ).remove();
 
 				start();
 			});
@@ -991,7 +991,7 @@ jQuery.each({
 	});
 });
 
-jQuery.fn.saveState = function( hiddenOverflow ) {
+eQuery.fn.saveState = function( hiddenOverflow ) {
 	var check = ["opacity", "height", "width", "display", "overflow"];
 	expect(check.length);
 
@@ -999,87 +999,87 @@ jQuery.fn.saveState = function( hiddenOverflow ) {
 	return this.each(function(){
 		var self = this;
 		self.save = {};
-		jQuery.each(check, function( i, c ) {
-			self.save[ c ] = c === "overflow" && hiddenOverflow ? "hidden" : self.style[ c ] || jQuery.css( self, c );
+		eQuery.each(check, function( i, c ) {
+			self.save[ c ] = c === "overflow" && hiddenOverflow ? "hidden" : self.style[ c ] || eQuery.css( self, c );
 		});
 	});
 };
 
 /** @expose */
-jQuery.checkState = function() {
+eQuery.checkState = function() {
 	var self = this;
-	jQuery.each(this.save, function( c, v ) {
-		var cur = self.style[ c ] || jQuery.css( self, c );
+	eQuery.each(this.save, function( c, v ) {
+		var cur = self.style[ c ] || eQuery.css( self, c );
 		equal( cur, v, "Make sure that " + c + " is reset (Old: " + v + " Cur: " + cur + ")");
 	});
 
 	// manually clean data on modified element
-	jQuery._removeData( this, "olddisplay" );
+	eQuery._removeData( this, "olddisplay" );
 
 	start();
 };
 
 // Chaining Tests
 test("Chain fadeOut fadeIn", function() {
-	jQuery("#fadein div").saveState().fadeOut("fast").fadeIn("fast", jQuery.checkState );
+	eQuery("#fadein div").saveState().fadeOut("fast").fadeIn("fast", eQuery.checkState );
 });
 test("Chain fadeIn fadeOut", function() {
-	jQuery("#fadeout div").saveState().fadeIn("fast").fadeOut("fast", jQuery.checkState );
+	eQuery("#fadeout div").saveState().fadeIn("fast").fadeOut("fast", eQuery.checkState );
 });
 
 test("Chain hide show", function() {
-	jQuery("#show div").saveState( jQuery.support.shrinkWrapBlocks ).hide("fast").show("fast", jQuery.checkState );
+	eQuery("#show div").saveState( eQuery.support.shrinkWrapBlocks ).hide("fast").show("fast", eQuery.checkState );
 });
 test("Chain show hide", function() {
-	jQuery("#hide div").saveState( jQuery.support.shrinkWrapBlocks ).show("fast").hide("fast", jQuery.checkState );
+	eQuery("#hide div").saveState( eQuery.support.shrinkWrapBlocks ).show("fast").hide("fast", eQuery.checkState );
 });
 test("Chain show hide with easing and callback", function() {
-	jQuery("#hide div").saveState().show("fast").hide("fast","linear", jQuery.checkState );
+	eQuery("#hide div").saveState().show("fast").hide("fast","linear", eQuery.checkState );
 });
 
 test("Chain toggle in", function() {
-	jQuery("#togglein div").saveState( jQuery.support.shrinkWrapBlocks ).toggle("fast").toggle("fast", jQuery.checkState );
+	eQuery("#togglein div").saveState( eQuery.support.shrinkWrapBlocks ).toggle("fast").toggle("fast", eQuery.checkState );
 });
 test("Chain toggle out", function() {
-	jQuery("#toggleout div").saveState( jQuery.support.shrinkWrapBlocks ).toggle("fast").toggle("fast", jQuery.checkState );
+	eQuery("#toggleout div").saveState( eQuery.support.shrinkWrapBlocks ).toggle("fast").toggle("fast", eQuery.checkState );
 });
 test("Chain toggle out with easing and callback", function() {
-	jQuery("#toggleout div").saveState( jQuery.support.shrinkWrapBlocks ).toggle("fast").toggle("fast","linear", jQuery.checkState );
+	eQuery("#toggleout div").saveState( eQuery.support.shrinkWrapBlocks ).toggle("fast").toggle("fast","linear", eQuery.checkState );
 });
 test("Chain slideDown slideUp", function() {
-	jQuery("#slidedown div").saveState( jQuery.support.shrinkWrapBlocks ).slideDown("fast").slideUp("fast", jQuery.checkState );
+	eQuery("#slidedown div").saveState( eQuery.support.shrinkWrapBlocks ).slideDown("fast").slideUp("fast", eQuery.checkState );
 });
 test("Chain slideUp slideDown", function() {
-	jQuery("#slideup div").saveState( jQuery.support.shrinkWrapBlocks ).slideUp("fast").slideDown("fast", jQuery.checkState );
+	eQuery("#slideup div").saveState( eQuery.support.shrinkWrapBlocks ).slideUp("fast").slideDown("fast", eQuery.checkState );
 });
 test("Chain slideUp slideDown with easing and callback", function() {
-	jQuery("#slideup div").saveState( jQuery.support.shrinkWrapBlocks ).slideUp("fast").slideDown("fast","linear", jQuery.checkState );
+	eQuery("#slideup div").saveState( eQuery.support.shrinkWrapBlocks ).slideUp("fast").slideDown("fast","linear", eQuery.checkState );
 });
 
 test("Chain slideToggle in", function() {
-	jQuery("#slidetogglein div").saveState( jQuery.support.shrinkWrapBlocks ).slideToggle("fast").slideToggle("fast", jQuery.checkState );
+	eQuery("#slidetogglein div").saveState( eQuery.support.shrinkWrapBlocks ).slideToggle("fast").slideToggle("fast", eQuery.checkState );
 });
 test("Chain slideToggle out", function() {
-	jQuery("#slidetoggleout div").saveState( jQuery.support.shrinkWrapBlocks ).slideToggle("fast").slideToggle("fast", jQuery.checkState );
+	eQuery("#slidetoggleout div").saveState( eQuery.support.shrinkWrapBlocks ).slideToggle("fast").slideToggle("fast", eQuery.checkState );
 });
 
 test("Chain fadeToggle in", function() {
-	jQuery("#fadetogglein div").saveState().fadeToggle("fast").fadeToggle("fast", jQuery.checkState );
+	eQuery("#fadetogglein div").saveState().fadeToggle("fast").fadeToggle("fast", eQuery.checkState );
 });
 test("Chain fadeToggle out", function() {
-	jQuery("#fadetoggleout div").saveState().fadeToggle("fast").fadeToggle("fast", jQuery.checkState );
+	eQuery("#fadetoggleout div").saveState().fadeToggle("fast").fadeToggle("fast", eQuery.checkState );
 });
 
 test("Chain fadeTo 0.5 1.0 with easing and callback)", function() {
-	jQuery("#fadeto div").saveState().fadeTo("fast",0.5).fadeTo("fast",1.0,"linear", jQuery.checkState );
+	eQuery("#fadeto div").saveState().fadeTo("fast",0.5).fadeTo("fast",1.0,"linear", eQuery.checkState );
 });
 
-jQuery.makeTest = function( text ){
-	var elem = jQuery("<div></div>")
-		.attr( "id", "test" + jQuery.makeTest.id++ )
+eQuery.makeTest = function( text ){
+	var elem = eQuery("<div></div>")
+		.attr( "id", "test" + eQuery.makeTest.id++ )
 		.addClass("box");
 
-	jQuery("<h4></h4>")
+	eQuery("<h4></h4>")
 		.text( text )
 		.appendTo("#fx-tests")
 		.after( elem );
@@ -1087,25 +1087,25 @@ jQuery.makeTest = function( text ){
 	return elem;
 };
 
-jQuery.makeTest.id = 1;
+eQuery.makeTest.id = 1;
 
-test("jQuery.show('fast') doesn't clear radio buttons (bug #1095)", function () {
+test("eQuery.show('fast') doesn't clear radio buttons (bug #1095)", function () {
 	expect(4);
 	stop();
 
-	var €checkedtest = jQuery("#checkedtest");
-	// IE6 was clearing "checked" in jQuery(elem).show("fast");
+	var €checkedtest = eQuery("#checkedtest");
+	// IE6 was clearing "checked" in eQuery(elem).show("fast");
 	€checkedtest.hide().show("fast", function() {
-		ok( !! jQuery(":radio:first", €checkedtest).attr("checked"), "Check first radio still checked." );
-		ok( ! jQuery(":radio:last", €checkedtest).attr("checked"), "Check last radio still NOT checked." );
-		ok( !! jQuery(":checkbox:first", €checkedtest).attr("checked"), "Check first checkbox still checked." );
-		ok( ! jQuery(":checkbox:last", €checkedtest).attr("checked"), "Check last checkbox still NOT checked." );
+		ok( !! eQuery(":radio:first", €checkedtest).attr("checked"), "Check first radio still checked." );
+		ok( ! eQuery(":radio:last", €checkedtest).attr("checked"), "Check last radio still NOT checked." );
+		ok( !! eQuery(":checkbox:first", €checkedtest).attr("checked"), "Check first checkbox still checked." );
+		ok( ! eQuery(":checkbox:last", €checkedtest).attr("checked"), "Check last checkbox still NOT checked." );
 		start();
 	});
 });
 
-jQuery.expandedEach = jQuery.each;
-jQuery.expandedEach({
+eQuery.expandedEach = eQuery.each;
+eQuery.expandedEach({
 	"slideToggle": function( €elem ) {
 		return parseFloat( €elem.css("height") );
 	},
@@ -1122,8 +1122,8 @@ function( method, defProp ) {
 
 		var animTime = 2000;
 
-		jQuery.each([ "in", "out" ], function( i, type ) {
-			var €elem = jQuery( "#" + method.toLowerCase() + type ),
+		eQuery.each([ "in", "out" ], function( i, type ) {
+			var €elem = eQuery( "#" + method.toLowerCase() + type ),
 				startVal = defProp( €elem );
 
 			€elem[ method ]( animTime );
@@ -1148,7 +1148,7 @@ function( method, defProp ) {
 							equal( defProp( €elem ), startVal, "After doing .stop() halfway through show, check that state has been saved for returning to original property value." );
 
 							// Remove olddisplay data from .hide() call
-							jQuery._removeData( this, "olddisplay" );
+							eQuery._removeData( this, "olddisplay" );
 							start();
 						});
 					}, animTime / 2);
@@ -1173,22 +1173,22 @@ test("animate with per-property easing", function(){
 			c: 100
 		};
 
-	jQuery.easing["_test1"] = function(p) {
+	eQuery.easing["_test1"] = function(p) {
 		_test1_called = true;
 		return p;
 	};
 
-	jQuery.easing["_test2"] = function(p) {
+	eQuery.easing["_test2"] = function(p) {
 		_test2_called = true;
 		return p;
 	};
 
-	jQuery.easing["_default_test"] = function(p) {
+	eQuery.easing["_default_test"] = function(p) {
 		_default_test_called = true;
 		return p;
 	};
 
-	jQuery(data).animate( props, 400, "_default_test", function(){
+	eQuery(data).animate( props, 400, "_default_test", function(){
 		start();
 
 		ok( _test1_called, "Easing function (_test1) called" );
@@ -1209,21 +1209,21 @@ test("animate with CSS shorthand properties", function(){
 		propsBasic = { "padding": "10 20 30" },
 		propsSpecial = { "padding": [ "1 2 3", "_special" ] };
 
-	jQuery.easing._default = function(p) {
+	eQuery.easing._default = function(p) {
 		if ( p >= 1 ) {
 			_default_count++;
 		}
 		return p;
 	};
 
-	jQuery.easing._special = function(p) {
+	eQuery.easing._special = function(p) {
 		if ( p >= 1 ) {
 			_special_count++;
 		}
 		return p;
 	};
 
-	jQuery("#foo")
+	eQuery("#foo")
 		.animate( propsBasic, 200, "_default", function() {
 			equal( this.style.paddingTop, "10px", "padding-top was animated" );
 			equal( this.style.paddingLeft, "20px", "padding-left was animated" );
@@ -1240,9 +1240,9 @@ test("animate with CSS shorthand properties", function(){
 			equal( _default_count, 0, "per-animation default easing not called" );
 			equal( _special_count, 4, "special easing called for each property" );
 
-			jQuery(this).css("padding", "0");
-			delete jQuery.easing._default;
-			delete jQuery.easing._special;
+			eQuery(this).css("padding", "0");
+			delete eQuery.easing._default;
+			delete eQuery.easing._special;
 			start();
 		});
 });
@@ -1252,10 +1252,10 @@ test("hide hidden elements, with animation (bug #7141)", function() {
 	QUnit.reset();
 	stop();
 
-	var div = jQuery("<div style='display:none'></div>").appendTo("#qunit-fixture");
+	var div = eQuery("<div style='display:none'></div>").appendTo("#qunit-fixture");
 	equal( div.css("display"), "none", "Element is hidden by default" );
 	div.hide(1, function () {
-		ok( !jQuery._data(div, "olddisplay"), "olddisplay is undefined after hiding an already-hidden element" );
+		ok( !eQuery._data(div, "olddisplay"), "olddisplay is undefined after hiding an already-hidden element" );
 		div.show(1, function () {
 			equal( div.css("display"), "block", "Show a double-hidden element" );
 			start();
@@ -1265,7 +1265,7 @@ test("hide hidden elements, with animation (bug #7141)", function() {
 
 test("animate unit-less properties (#4966)", 2, function() {
 	stop();
-	var div = jQuery( "<div style='z-index: 0; position: absolute;'></div>" ).appendTo( "#qunit-fixture" );
+	var div = eQuery( "<div style='z-index: 0; position: absolute;'></div>" ).appendTo( "#qunit-fixture" );
 	equal( div.css( "z-index" ), "0", "z-index is 0" );
 	div.animate({ zIndex: 2 }, function() {
 		equal( div.css( "z-index" ), "2", "z-index is 2" );
@@ -1276,7 +1276,7 @@ test("animate unit-less properties (#4966)", 2, function() {
 test( "animate properties missing px w/ opacity as last (#9074)", 2, function() {
 	expect( 6 );
 	stop();
-	var div = jQuery( "<div style='position: absolute; margin-left: 0; left: 0px;'></div>" )
+	var div = eQuery( "<div style='position: absolute; margin-left: 0; left: 0px;'></div>" )
 		.appendTo( "#qunit-fixture" );
 	function cssInt( prop ) {
 		return parseInt( div.css( prop ), 10 );
@@ -1306,10 +1306,10 @@ test("callbacks should fire in correct order (#9100)", function() {
 	stop();
 	var a = 1,
 		cb = 0,
-		€lis = jQuery("<p data-operation='*2'></p><p data-operation='^2'></p>").appendTo("#qunit-fixture")
+		€lis = eQuery("<p data-operation='*2'></p><p data-operation='^2'></p>").appendTo("#qunit-fixture")
 			// The test will always pass if no properties are animated or if the duration is 0
 			.animate({fontSize: 12}, 13, function() {
-				a *= jQuery(this).data("operation") === "*2" ? 2 : a;
+				a *= eQuery(this).data("operation") === "*2" ? 2 : a;
 				cb++;
 				if ( cb === 2 ) {
 					equal( a, 4, "test value has been *2 and _then_ ^2");
@@ -1321,7 +1321,7 @@ test("callbacks should fire in correct order (#9100)", function() {
 asyncTest( "callbacks that throw exceptions will be removed (#5684)", function() {
 	expect( 2 );
 
-	var foo = jQuery( "#foo" );
+	var foo = eQuery( "#foo" );
 
 	function testException() {
 	}
@@ -1334,15 +1334,15 @@ asyncTest( "callbacks that throw exceptions will be removed (#5684)", function()
 	// with any changes internally to these functions.
 
 	// make sure that the standard timer loop will NOT run.
-	jQuery.fx.stop();
+	eQuery.fx.stop();
 
 	setTimeout(function() {
 
 		// the first call to fx.tick should raise the callback exception
-		raises( jQuery.fx.tick, testException, "Exception was thrown" );
+		raises( eQuery.fx.tick, testException, "Exception was thrown" );
 
 		// the second call shouldn't
-		jQuery.fx.tick();
+		eQuery.fx.tick();
 
 		ok( true, "Test completed without throwing a second exception" );
 
@@ -1354,7 +1354,7 @@ test("animate will scale margin properties individually", function() {
 	expect( 2 );
 	stop();
 
-	var foo = jQuery( "#foo" ).css({
+	var foo = eQuery( "#foo" ).css({
 		"margin": 0,
 		"marginLeft": 100
 	});
@@ -1378,16 +1378,16 @@ test("animate will scale margin properties individually", function() {
 });
 
 test("Do not append px to 'fill-opacity' #9548", 1, function() {
-	var €div = jQuery("<div>").appendTo("#qunit-fixture");
+	var €div = eQuery("<div>").appendTo("#qunit-fixture");
 
 	€div.css("fill-opacity", 0).animate({ "fill-opacity": 1.0 }, 0, function () {
-		equal( jQuery(this).css("fill-opacity"), 1, "Do not append px to 'fill-opacity'");
+		equal( eQuery(this).css("fill-opacity"), 1, "Do not append px to 'fill-opacity'");
 		€div.remove();
 	});
 });
 
 // Start 1.8 Animation tests
-asyncTest( "jQuery.Animation( object, props, opts )", 4, function() {
+asyncTest( "eQuery.Animation( object, props, opts )", 4, function() {
 	var testObject = {
 			"foo": 0,
 			"bar": 1,
@@ -1399,7 +1399,7 @@ asyncTest( "jQuery.Animation( object, props, opts )", 4, function() {
 			"width": 200
 		};
 
-	var animation = jQuery.Animation( testObject, testDest, { "duration": 1 });
+	var animation = eQuery.Animation( testObject, testDest, { "duration": 1 });
 	animation.done(function() {
 		for ( var prop in testDest ) {
 			equal( testObject[ prop ], testDest[ prop ], "Animated: " + prop );
@@ -1413,7 +1413,7 @@ asyncTest( "jQuery.Animation( object, props, opts )", 4, function() {
 
 asyncTest( "Animate Option: step: function( percent, tween )", 1, function() {
 	var counter = {};
-	jQuery( "#foo" ).animate({
+	eQuery( "#foo" ).animate({
 		prop1: 1,
 		prop2: 2,
 		prop3: 3
@@ -1437,7 +1437,7 @@ asyncTest( "Animate Option: step: function( percent, tween )", 1, function() {
 });
 
 asyncTest( "Animate callbacks have correct context", 2, function() {
-	var foo = jQuery( "#foo" );
+	var foo = eQuery( "#foo" );
 	foo.animate({
 		height: 10
 	}, 10, function() {
@@ -1452,14 +1452,14 @@ asyncTest( "Animate callbacks have correct context", 2, function() {
 });
 
 asyncTest( "User supplied callback called after show when fx off (#8892)", 2, function() {
-	var foo = jQuery( "#foo" );
-	jQuery.fx.off = true;
+	var foo = eQuery( "#foo" );
+	eQuery.fx.off = true;
 	foo.hide();
 	foo.fadeIn( 500, function() {
-		ok( jQuery( this ).is( ":visible" ), "Element is visible in callback" );
+		ok( eQuery( this ).is( ":visible" ), "Element is visible in callback" );
 		foo.fadeOut( 500, function() {
-			ok( jQuery( this ).is( ":hidden" ), "Element is hidden in callback" );
-			jQuery.fx.off = false;
+			ok( eQuery( this ).is( ":hidden" ), "Element is hidden in callback" );
+			eQuery.fx.off = false;
 			start();
 		});
 	});
@@ -1481,14 +1481,14 @@ test( "animate should set display for disconnected nodes", function() {
 		elems = [
 
 			// parentNode = document fragment
-			jQuery("<div>test</div>"),
+			eQuery("<div>test</div>"),
 
 			// parentNode = null
-			jQuery("<div/>"),
+			eQuery("<div/>"),
 
-			jQuery("<div style='display:inline'/>"),
+			eQuery("<div style='display:inline'/>"),
 
-			jQuery("<div style='display:none'/>")
+			eQuery("<div style='display:none'/>")
 		];
 
 	strictEqual( elems[ 0 ].show()[ 0 ].style.display, "block", "set display with show() for element with parentNode = document fragment" );
@@ -1497,37 +1497,37 @@ test( "animate should set display for disconnected nodes", function() {
 	strictEqual( elems[ 3 ].show()[ 0 ].style.display, "block", "show() should change display if it already set to none" );
 
 	// cleanup
-	jQuery.each( elems, function() {
-		jQuery._removeData( this[ 0 ], "olddisplay" );
+	eQuery.each( elems, function() {
+		eQuery._removeData( this[ 0 ], "olddisplay" );
 	});
 
 	stop();
-	jQuery.each( methods, function( name, opt ) {
-		jQuery.each([
+	eQuery.each( methods, function( name, opt ) {
+		eQuery.each([
 
 			// parentNode = document fragment
-			jQuery("<div>test</div>"),
+			eQuery("<div>test</div>"),
 
 			// parentNode = null
-			jQuery("<div/>")
+			eQuery("<div/>")
 
 		], function() {
 			var callback = [function () {
 					strictEqual( this.style.display, "block", "set display to block with " + name );
 
-					jQuery._removeData( this, "olddisplay" );
+					eQuery._removeData( this, "olddisplay" );
 
 					if ( ++i === 14 ) {
 						start();
 					}
 			}];
-			jQuery.fn[ name ].apply( this, opt.concat( callback ) );
+			eQuery.fn[ name ].apply( this, opt.concat( callback ) );
 		});
 	});
 });
 
 asyncTest("Animation callback should not show animated element as animated (#7157)", 1, function() {
-	var foo = jQuery( "#foo" );
+	var foo = eQuery( "#foo" );
 
 	foo.animate({
 		opacity: 0
@@ -1538,12 +1538,12 @@ asyncTest("Animation callback should not show animated element as animated (#715
 });
 
 asyncTest( "hide called on element within hidden parent should set display to none (#10045)", 3, function() {
-	var hidden = jQuery(".hidden"),
-		elems = jQuery("<div>hide</div><div>hide0</div><div>hide1</div>");
+	var hidden = eQuery(".hidden"),
+		elems = eQuery("<div>hide</div><div>hide0</div><div>hide1</div>");
 
 	hidden.append( elems );
 
-	jQuery.when(
+	eQuery.when(
 		elems.eq( 0 ).hide(),
 		elems.eq( 1 ).hide( 0 ),
 		elems.eq( 2 ).hide( 1 )
@@ -1558,9 +1558,9 @@ asyncTest( "hide called on element within hidden parent should set display to no
 });
 
 asyncTest( "hide, fadeOut and slideUp called on element width height and width = 0 should set display to none", 5, function() {
-	var foo = jQuery("#foo"),
+	var foo = eQuery("#foo"),
 		i = 0,
-		elems = jQuery();
+		elems = eQuery();
 
 	for ( ; i < 5; i++ ) {
 		elems = elems.add("<div style='width:0;height:0;'></div>");
@@ -1568,16 +1568,16 @@ asyncTest( "hide, fadeOut and slideUp called on element width height and width =
 
 	foo.append( elems );
 
-	jQuery.when(
+	eQuery.when(
 		elems.eq( 0 ).hide(),
-		elems.eq( 1 ).hide( jQuery.noop ),
+		elems.eq( 1 ).hide( eQuery.noop ),
 		elems.eq( 2 ).hide( 1 ),
 		elems.eq( 3 ).fadeOut(),
 		elems.eq( 4 ).slideUp()
 	).done(function() {
 		strictEqual( elems.get( 0 ).style.display, "none", "hide() called on element width height and width = 0 should set display to none" );
 		strictEqual( elems.get( 1 ).style.display, "none",
-												"hide( jQuery.noop ) called on element width height and width = 0 should set display to none" );
+												"hide( eQuery.noop ) called on element width height and width = 0 should set display to none" );
 		strictEqual( elems.get( 2 ).style.display, "none", "hide( 1 ) called on element width height and width = 0 should set display to none" );
 		strictEqual( elems.get( 3 ).style.display, "none", "fadeOut() called on element width height and width = 0 should set display to none" );
 		strictEqual( elems.get( 4 ).style.display, "none", "slideUp() called on element width height and width = 0 should set display to none" );
@@ -1587,7 +1587,7 @@ asyncTest( "hide, fadeOut and slideUp called on element width height and width =
 });
 
 asyncTest( "Handle queue:false promises", 10, function() {
-	var foo = jQuery( "#foo" ).clone().andSelf(),
+	var foo = eQuery( "#foo" ).clone().andSelf(),
 		step = 1;
 
 	foo.animate({
@@ -1636,7 +1636,7 @@ asyncTest( "Handle queue:false promises", 10, function() {
 });
 
 asyncTest( "multiple unqueued and promise", 4, function() {
-	var foo = jQuery( "#foo" ),
+	var foo = eQuery( "#foo" ),
 		step = 1;
 	foo.animate({
 		marginLeft: 300
@@ -1668,7 +1668,7 @@ asyncTest( "multiple unqueued and promise", 4, function() {
 });
 
 asyncTest( "animate does not change start value for non-px animation (#7109)", 1, function() {
-	var parent = jQuery( "<div><div></div></div>" ).css({ width: 284, height: 1 }).appendTo( "#qunit-fixture" ),
+	var parent = eQuery( "<div><div></div></div>" ).css({ width: 284, height: 1 }).appendTo( "#qunit-fixture" ),
 		child = parent.children().css({ fontSize: "98.6in", width: "0.01em", height: 1 }),
 		actual = parseFloat( child.css( "width" ) ),
 		computed = [];
@@ -1688,7 +1688,7 @@ asyncTest( "animate does not change start value for non-px animation (#7109)", 1
 });
 
 asyncTest( "non-px animation handles non-numeric start (#11971)", 2, function() {
-	var foo = jQuery("#foo"),
+	var foo = eQuery("#foo"),
 		initial = foo.css("backgroundPositionX");
 
 	if ( !initial ) {
@@ -1706,20 +1706,20 @@ asyncTest( "non-px animation handles non-numeric start (#11971)", 2, function() 
 			}
 
 			if ( parseFloat( initial ) ) {
-				equal( jQuery.style( this, "backgroundPositionX" ), initial, "Numeric start preserved" );
+				equal( eQuery.style( this, "backgroundPositionX" ), initial, "Numeric start preserved" );
 			} else {
-				equal( jQuery.style( this, "backgroundPositionX" ), "0%", "Non-numeric start zeroed" );
+				equal( eQuery.style( this, "backgroundPositionX" ), "0%", "Non-numeric start zeroed" );
 			}
 		},
 		done: function() {
-			equal( jQuery.style( this, "backgroundPositionX" ), "42%", "End reached" );
+			equal( eQuery.style( this, "backgroundPositionX" ), "42%", "End reached" );
 			start();
 		}
 	});
 });
 
 asyncTest("Animation callbacks (#11797)", 15, function() {
-	var targets = jQuery("#foo").children(),
+	var targets = eQuery("#foo").children(),
 		done = false,
 		expectedProgress = 0;
 
@@ -1800,9 +1800,9 @@ asyncTest("Animation callbacks (#11797)", 15, function() {
 });
 
 test( "Animate properly sets overflow hidden when animating width/height (#12117)", 4, function() {
-	jQuery.each( [ "height", "width" ], function( _, prop ) {
-		jQuery.each( [ 100, 0 ], function( _, value ) {
-			var div = jQuery("<div>"),
+	eQuery.each( [ "height", "width" ], function( _, prop ) {
+		eQuery.each( [ 100, 0 ], function( _, value ) {
+			var div = eQuery("<div>"),
 				props = {};
 			props[ prop ] = value;
 			div.animate( props, 1 );
@@ -1814,21 +1814,21 @@ test( "Animate properly sets overflow hidden when animating width/height (#12117
 });
 
 test( "Animations with 0 duration don't ease (#12273)", 1, function() {
-	jQuery.easing.test = function() {
+	eQuery.easing.test = function() {
 		ok( false, "Called easing" );
 	};
 
-	jQuery( "#foo" ).animate({
+	eQuery( "#foo" ).animate({
 		height: 100
 	}, {
 		duration: 0,
 		easing: "test",
 		complete: function() {
-			equal( jQuery( this ).height(), 100, "Height is 100" );
+			equal( eQuery( this ).height(), 100, "Height is 100" );
 		}
 	});
 
-	delete jQuery.easing.test;
+	delete eQuery.easing.test;
 });
 
-} // if ( jQuery.fx )
+} // if ( eQuery.fx )

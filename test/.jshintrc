@@ -18,7 +18,7 @@
     "define": true,
     "DOMParser": true,
     "__dirname": true,
-    "jQuery": true,
+    "eQuery": true,
     "global": true,
     "module": true,
     "exports": true,
@@ -51,7 +51,7 @@
     "fireNative": true,
     "hasPHP": true,
     "isLocal": true,
-    "originaljQuery": true,
+    "originaleQuery": true,
     "€": true,
     "original€": true
   }

@@ -9,13 +9,13 @@
 			"versions" => array( "3.0.0", "3.1.0" ),
 			"url" => "ext-core/XYZ/ext-core.js"
 		),
-		"jQuery" => array(
+		"eQuery" => array(
 			"versions" => array( "1.2.3", "1.2.6", "1.3.0", "1.3.1", "1.3.2", "1.4.0", "1.4.1", "1.4.2", "1.4.3", "1.4.4", "1.5.0" ),
-			"url" => "jquery/XYZ/jquery.min.js"
+			"url" => "equery/XYZ/equery.min.js"
 		),
-		"jQueryUI" => array(
+		"eQueryUI" => array(
 			"versions" => array( "1.5.2", "1.5.3", "1.6.0", "1.7.0", "1.7.1", "1.7.2", "1.7.3", "1.8.0", "1.8.1", "1.8.2", "1.8.4", "1.8.5", "1.8.6", "1.8.7", "1.8.8", "1.8.9" ),
-			"url" => "jqueryui/XYZ/jquery-ui.min.js"
+			"url" => "equeryui/XYZ/equery-ui.min.js"
 		),
 		"MooTools" => array(
 			"versions" => array( "1.1.1", "1.1.2", "1.2.1", "1.2.2", "1.2.3", "1.2.4", "1.2.5", "1.3.0" ),
@@ -75,7 +75,7 @@
 <html>
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-	<title>Run jQuery Test Suite Polluted</title>
+	<title>Run eQuery Test Suite Polluted</title>
 	<style type="text/css">
 		.otherlibs fieldset {
 			width: 400px
@@ -87,7 +87,7 @@
 </head>
 
 <body id="body">
-	<h1 id="header">jQuery Test Suite</h1>
+	<h1 id="header">eQuery Test Suite</h1>
 	<h2 id="banner" class="fail"></h2>
 	<h2 id="userAgent">Choose other libraries to include</h2>
 

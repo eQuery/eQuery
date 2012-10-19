@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /*
- * jQuery Core Release Management
+ * eQuery Core Release Management
  */
 
 // Debugging variables
@@ -18,25 +18,25 @@ var releaseVersion,
 	isBeta,
 	pkg,
 
-	scpURL = "jqadmin@code.origin.jquery.com:/var/www/html/code.jquery.com/",
-	cdnURL = "http://code.origin.jquery.com/",
-	repoURL = "git://github.com/jquery/jquery.git",
+	scpURL = "jqadmin@code.origin.equery.com:/var/www/html/code.equery.com/",
+	cdnURL = "http://code.origin.equery.com/",
+	repoURL = "git://github.com/equery/equery.git",
 	branch = "master",
 
 	// Windows needs the .cmd version but will find the non-.cmd
 	// On Windows, ensure the HOME environment variable is set
 	gruntCmd = process.platform === "win32" ? "grunt.cmd" : "grunt",
 
-	devFile = "dist/jquery.js",
-	minFile = "dist/jquery.min.js",
+	devFile = "dist/equery.js",
+	minFile = "dist/equery.min.js",
 
 	releaseFiles = {
-		"jquery-VER.js": devFile,
-		"jquery-VER.min.js": minFile,
-		"jquery.js": devFile,
-		"jquery-latest.js": devFile,
-		"jquery.min.js": minFile,
-		"jquery-latest.min.js": minFile
+		"equery-VER.js": devFile,
+		"equery-VER.min.js": minFile,
+		"equery.js": devFile,
+		"equery-latest.js": devFile,
+		"equery.min.js": minFile,
+		"equery-latest.min.js": minFile
 	};
 
 steps(
@@ -120,7 +120,7 @@ function makeReleaseCopies( next ) {
 		var builtFile = releaseFiles[ key ],
 			releaseFile = key.replace( /VER/g, releaseVersion );
 
-		// Beta releases don't update the jquery-latest etc. copies
+		// Beta releases don't update the equery-latest etc. copies
 		if ( !isBeta || key !== releaseFile ) {
 			copy( builtFile, releaseFile );
 			finalFiles[ releaseFile ] = builtFile;

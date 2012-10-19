@@ -46,24 +46,24 @@ var output,
 		return "{ " + output.join( ", " ) + " }";
 	}
 
-jQuery.each( tests, function( strFlags, resultString ) {
+eQuery.each( tests, function( strFlags, resultString ) {
 
 		var objectFlags = {};
 
-		jQuery.each( strFlags.split( " " ), function() {
+		eQuery.each( strFlags.split( " " ), function() {
 			if ( this.length ) {
 				objectFlags[ this ] = true;
 			}
 		});
 
-		jQuery.each( filters, function( filterLabel, filter ) {
+		eQuery.each( filters, function( filterLabel, filter ) {
 
-			jQuery.each({
+			eQuery.each({
 				"string": strFlags,
 				"object": objectFlags
 			}, function( flagsTypes, flags ) {
 
-				test( "jQuery.Callbacks( " + showFlags( flags ) + " ) - " + filterLabel, function() {
+				test( "eQuery.Callbacks( " + showFlags( flags ) + " ) - " + filterLabel, function() {
 
 					expect( 21 );
 
@@ -76,7 +76,7 @@ jQuery.each( tests, function( strFlags, resultString ) {
 
 					// Basic binding and firing
 					output = "X";
-					cblist = jQuery.Callbacks( flags );
+					cblist = eQuery.Callbacks( flags );
 					cblist.add(function( str ) {
 						output += str;
 					});
@@ -94,7 +94,7 @@ jQuery.each( tests, function( strFlags, resultString ) {
 
 					// Basic binding and firing (context, arguments)
 					output = "X";
-					cblist = jQuery.Callbacks( flags );
+					cblist = eQuery.Callbacks( flags );
 					cblist.add(function() {
 						equal( this, window, "Basic binding and firing (context)" );
 						output += Array.prototype.join.call( arguments, "" );
@@ -104,7 +104,7 @@ jQuery.each( tests, function( strFlags, resultString ) {
 
 					// fireWith with no arguments
 					output = "";
-					cblist = jQuery.Callbacks( flags );
+					cblist = eQuery.Callbacks( flags );
 					cblist.add(function() {
 						equal( this, window, "fireWith with no arguments (context is window)" );
 						strictEqual( arguments.length, 0, "fireWith with no arguments (no arguments)" );
@@ -113,7 +113,7 @@ jQuery.each( tests, function( strFlags, resultString ) {
 
 					// Basic binding, removing and firing
 					output = "X";
-					cblist = jQuery.Callbacks( flags );
+					cblist = eQuery.Callbacks( flags );
 					cblist.add( outputA, outputB, outputC );
 					cblist.remove( outputB, outputC );
 					cblist.fire();
@@ -121,7 +121,7 @@ jQuery.each( tests, function( strFlags, resultString ) {
 
 					// Empty
 					output = "X";
-					cblist = jQuery.Callbacks( flags );
+					cblist = eQuery.Callbacks( flags );
 					cblist.add( outputA );
 					cblist.add( outputB );
 					cblist.add( outputC );
@@ -131,7 +131,7 @@ jQuery.each( tests, function( strFlags, resultString ) {
 
 					// Locking
 					output = "X";
-					cblist = jQuery.Callbacks( flags );
+					cblist = eQuery.Callbacks( flags );
 					cblist.add(function( str ) {
 						output += str;
 					});
@@ -147,7 +147,7 @@ jQuery.each( tests, function( strFlags, resultString ) {
 
 					// Ordering
 					output = "X";
-					cblist = jQuery.Callbacks( flags );
+					cblist = eQuery.Callbacks( flags );
 					cblist.add(function() {
 						cblist.add( outputC );
 						outputA();
@@ -169,7 +169,7 @@ jQuery.each( tests, function( strFlags, resultString ) {
 
 					// Multiple fire
 					output = "X";
-					cblist = jQuery.Callbacks( flags );
+					cblist = eQuery.Callbacks( flags );
 					cblist.add(function( str ) {
 						output += str;
 					});
@@ -191,7 +191,7 @@ jQuery.each( tests, function( strFlags, resultString ) {
 
 					// Return false
 					output = "X";
-					cblist = jQuery.Callbacks( flags );
+					cblist = eQuery.Callbacks( flags );
 					cblist.add( outputA, function() { return false; }, outputB );
 					cblist.add( outputA );
 					cblist.fire();
@@ -210,7 +210,7 @@ jQuery.each( tests, function( strFlags, resultString ) {
 					handler.method = function() {
 						output += "!";
 					};
-					cblist = jQuery.Callbacks( flags );
+					cblist = eQuery.Callbacks( flags );
 					cblist.add( handler );
 					cblist.add( handler );
 					cblist.fire();
@@ -222,14 +222,14 @@ jQuery.each( tests, function( strFlags, resultString ) {
 
 })();
 
-test( "jQuery.Callbacks( options ) - options are copied", function() {
+test( "eQuery.Callbacks( options ) - options are copied", function() {
 
 	expect( 1 );
 
 	var options = {
 			"unique": true
 		},
-		cb = jQuery.Callbacks( options ),
+		cb = eQuery.Callbacks( options ),
 		count = 0,
 		fn = function() {
 			ok( !( count++ ), "called once" );
@@ -239,11 +239,11 @@ test( "jQuery.Callbacks( options ) - options are copied", function() {
 	cb.fire();
 });
 
-test( "jQuery.Callbacks.fireWith - arguments are copied", function() {
+test( "eQuery.Callbacks.fireWith - arguments are copied", function() {
 
 	expect( 1 );
 
-	var cb = jQuery.Callbacks("memory"),
+	var cb = eQuery.Callbacks("memory"),
 		args = ["hello"];
 
 	cb.fireWith( null, args );
@@ -254,11 +254,11 @@ test( "jQuery.Callbacks.fireWith - arguments are copied", function() {
 	});
 });
 
-test( "jQuery.Callbacks.remove - should remove all instances", function() {
+test( "eQuery.Callbacks.remove - should remove all instances", function() {
 
 	expect( 1 );
 
-	var cb = jQuery.Callbacks();
+	var cb = eQuery.Callbacks();
 
 	function fn() {
 		ok( false, "function wasn't removed" );
@@ -269,11 +269,11 @@ test( "jQuery.Callbacks.remove - should remove all instances", function() {
 	}).remove( fn ).fire();
 });
 
-test( "jQuery.Callbacks() - adding a string doesn't cause a stack overflow", function() {
+test( "eQuery.Callbacks() - adding a string doesn't cause a stack overflow", function() {
 
 	expect( 1 );
 
-	jQuery.Callbacks().add( "hello world" );
+	eQuery.Callbacks().add( "hello world" );
 
 	ok( true, "no stack overflow" );
 });

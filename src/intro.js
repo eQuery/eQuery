@@ -1,13 +1,13 @@
 /*!
- * jQuery JavaScript Library v@VERSION
- * http://jquery.com/
+ * eQuery JavaScript Library v@VERSION
+ * http://equery.com/
  *
  * Includes Sizzle.js
  * http://sizzlejs.com/
  *
- * Copyright 2012 jQuery Foundation and other contributors
+ * Copyright 2012 eQuery Foundation and other contributors
  * Released under the MIT license
- * http://jquery.org/license
+ * http://equery.org/license
  *
  * Date: @DATE
  */

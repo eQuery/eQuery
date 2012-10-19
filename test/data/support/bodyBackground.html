@@ -17,11 +17,11 @@
 </head>
 <body>
 	<div>
-		<script src="../../../dist/jquery.js"></script>
+		<script src="../../../dist/equery.js"></script>
 	</div>
 	<script>
-		jQuery(function() {
-			window.parent.iframeCallback( jQuery( "body" ).css( "backgroundColor" ), jQuery.support );
+		eQuery(function() {
+			window.parent.iframeCallback( eQuery( "body" ).css( "backgroundColor" ), eQuery.support );
 		});
 	</script>
 </body>

@@ -2,20 +2,20 @@ module( "ajax", {
 	teardown: moduleTeardown
 });
 
-if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
+if ( eQuery.ajax && ( !isLocal || hasPHP ) ) {
 
 	var isOpera = !!window.opera;
 
-	test( "jQuery.ajax() - success callbacks", function() {
+	test( "eQuery.ajax() - success callbacks", function() {
 		expect( 8 );
 
-		jQuery.ajaxSetup({
+		eQuery.ajaxSetup({
 			timeout: 0
 		});
 
 		stop();
 
-		jQuery("#foo").ajaxStart(function() {
+		eQuery("#foo").ajaxStart(function() {
 			ok( true, "ajaxStart" );
 		}).ajaxStop(function() {
 			ok( true, "ajaxStop" );
@@ -30,7 +30,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 			ok( true, "ajaxSuccess" );
 		});
 
-		jQuery.ajax({
+		eQuery.ajax({
 			url: url("data/name.html"),
 			beforeSend: function() {
 				ok( true, "beforeSend" );
@@ -47,17 +47,17 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 		});
 	});
 
-	test( "jQuery.ajax() - success callbacks - (url, options) syntax", function() {
+	test( "eQuery.ajax() - success callbacks - (url, options) syntax", function() {
 		expect( 8 );
 
-		jQuery.ajaxSetup({
+		eQuery.ajaxSetup({
 			timeout: 0
 		});
 
 		stop();
 
 		setTimeout(function() {
-			jQuery("#foo").ajaxStart(function() {
+			eQuery("#foo").ajaxStart(function() {
 				ok( true, "ajaxStart" );
 			}).ajaxStop(function() {
 				ok( true, "ajaxStop" );
@@ -72,7 +72,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 				ok( true, "ajaxSuccess" );
 			});
 
-			jQuery.ajax( url("data/name.html"), {
+			eQuery.ajax( url("data/name.html"), {
 				beforeSend: function() {
 					ok( true, "beforeSend" );
 				},
@@ -89,17 +89,17 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 		}, 13 );
 	});
 
-	test( "jQuery.ajax() - success callbacks (late binding)", function() {
+	test( "eQuery.ajax() - success callbacks (late binding)", function() {
 		expect( 8 );
 
-		jQuery.ajaxSetup({
+		eQuery.ajaxSetup({
 			timeout: 0
 		});
 
 		stop();
 
 		setTimeout(function() {
-			jQuery("#foo").ajaxStart(function() {
+			eQuery("#foo").ajaxStart(function() {
 				ok( true, "ajaxStart" );
 			}).ajaxStop(function() {
 				ok( true, "ajaxStop" );
@@ -114,7 +114,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 				ok( true, "ajaxSuccess" );
 			});
 
-			jQuery.ajax({
+			eQuery.ajax({
 				url: url("data/name.html"),
 				beforeSend: function() {
 					ok( true, "beforeSend" );
@@ -129,17 +129,17 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 		}, 13 );
 	});
 
-	test( "jQuery.ajax() - success callbacks (oncomplete binding)", function() {
+	test( "eQuery.ajax() - success callbacks (oncomplete binding)", function() {
 		expect( 8 );
 
-		jQuery.ajaxSetup({
+		eQuery.ajaxSetup({
 			timeout: 0
 		});
 
 		stop();
 
 		setTimeout(function() {
-			jQuery("#foo").ajaxStart(function() {
+			eQuery("#foo").ajaxStart(function() {
 				ok( true, "ajaxStart" );
 			}).ajaxStop(function() {
 				ok( true, "ajaxStop" );
@@ -153,7 +153,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 				ok( true, "ajaxSuccess" );
 			});
 
-			jQuery.ajax({
+			eQuery.ajax({
 				url: url("data/name.html"),
 				beforeSend: function() {
 					ok( true, "beforeSend" );
@@ -173,17 +173,17 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 		}, 13 );
 	});
 
-	test( "jQuery.ajax() - success callbacks (very late binding)", function() {
+	test( "eQuery.ajax() - success callbacks (very late binding)", function() {
 		expect( 8 );
 
-		jQuery.ajaxSetup({
+		eQuery.ajaxSetup({
 			timeout: 0
 		});
 
 		stop();
 
 		setTimeout(function() {
-			jQuery("#foo").ajaxStart(function() {
+			eQuery("#foo").ajaxStart(function() {
 				ok( true, "ajaxStart" );
 			}).ajaxStop(function() {
 				ok( true, "ajaxStop" );
@@ -197,7 +197,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 				ok( true, "ajaxSuccess" );
 			});
 
-			jQuery.ajax({
+			eQuery.ajax({
 				url: url("data/name.html"),
 				beforeSend: function() {
 					ok(true, "beforeSend");
@@ -219,10 +219,10 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 		}, 13 );
 	});
 
-	test( "jQuery.ajax() - success callbacks (order)", function() {
+	test( "eQuery.ajax() - success callbacks (order)", function() {
 		expect( 1 );
 
-		jQuery.ajaxSetup({
+		eQuery.ajaxSetup({
 			timeout: 0
 		});
 
@@ -231,7 +231,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 		var testString = "";
 
 		setTimeout(function() {
-			jQuery.ajax({
+			eQuery.ajax({
 				url: url("data/name.html"),
 				success: function( _1, _2, xhr ) {
 					xhr.success(function() {
@@ -254,11 +254,11 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 		}, 13 );
 	});
 
-	test( "jQuery.ajax() - error callbacks", function() {
+	test( "eQuery.ajax() - error callbacks", function() {
 		expect( 8 );
 		stop();
 
-		jQuery("#foo").ajaxStart(function() {
+		eQuery("#foo").ajaxStart(function() {
 			ok( true, "ajaxStart" );
 		}).ajaxStop(function() {
 			ok( true, "ajaxStop" );
@@ -273,11 +273,11 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 			ok( false, "ajaxSuccess" );
 		});
 
-		jQuery.ajaxSetup({
+		eQuery.ajaxSetup({
 			timeout: 500
 		});
 
-		jQuery.ajax({
+		eQuery.ajax({
 			url: url("data/name.php?wait=5"),
 			beforeSend: function() {
 				ok( true, "beforeSend" );
@@ -294,36 +294,36 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 		});
 	});
 
-	test( "jQuery.ajax - multiple method signatures introduced in 1.5 ( #8107)", function() {
+	test( "eQuery.ajax - multiple method signatures introduced in 1.5 ( #8107)", function() {
 
 		expect( 4 );
 
 		stop();
 
-		jQuery.when(
-			/* jQuery.when arguments start */
-			jQuery.ajax().success(function() {
+		eQuery.when(
+			/* eQuery.when arguments start */
+			eQuery.ajax().success(function() {
 				ok( true, "With no arguments" );
 			}),
-			jQuery.ajax("data/name.html").success(function() {
+			eQuery.ajax("data/name.html").success(function() {
 				ok( true, "With only string URL argument" );
 			}),
-			jQuery.ajax( "data/name.html", {}).success(function() {
+			eQuery.ajax( "data/name.html", {}).success(function() {
 				ok( true, "With string URL param and map" );
 			}),
-			jQuery.ajax({
+			eQuery.ajax({
 				url: "data/name.html"
 			}).success(function() {
 				ok( true, "With only map" );
 			})
-			/* jQuery.when arguments end */
+			/* eQuery.when arguments end */
 		).always(function() {
 			start();
 		});
 
 	});
 
-	test( "jQuery.ajax() - textStatus and errorThrown values", function() {
+	test( "eQuery.ajax() - textStatus and errorThrown values", function() {
 
 		var nb = 2;
 
@@ -341,7 +341,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 		Safari 4.x doesn't have this issue so the test should be re-instated once
 		we drop support for 3.x
 
-		jQuery.ajax({
+		eQuery.ajax({
 			url: url("data/nonExistingURL"),
 			error: function( _, textStatus, errorThrown ) {
 				strictEqual( textStatus, "error", "textStatus is 'error' for 404" );
@@ -351,7 +351,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 		});
 		*/
 
-		jQuery.ajax({
+		eQuery.ajax({
 			url: url("data/name.php?wait=5"),
 			error: function( _, textStatus, errorThrown ) {
 				strictEqual( textStatus, "abort", "textStatus is 'abort' for abort" );
@@ -360,7 +360,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 			}
 		}).abort();
 
-		jQuery.ajax({
+		eQuery.ajax({
 			url: url("data/name.php?wait=5"),
 			error: function( _, textStatus, errorThrown ) {
 				strictEqual( textStatus, "mystatus", "textStatus is 'mystatus' for abort('mystatus')" );
@@ -370,13 +370,13 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 		}).abort("mystatus");
 	});
 
-	test( "jQuery.ajax() - responseText on error", function() {
+	test( "eQuery.ajax() - responseText on error", function() {
 
 		expect( 1 );
 
 		stop();
 
-		jQuery.ajax({
+		eQuery.ajax({
 			url: url("data/errorWithText.php"),
 			error: function( xhr ) {
 				strictEqual( xhr.responseText, "plain text message", "Test jqXHR.responseText is filled for HTTP errors" );
@@ -387,7 +387,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 		});
 	});
 
-	test( ".ajax() - retry with jQuery.ajax( this )", function() {
+	test( ".ajax() - retry with eQuery.ajax( this )", function() {
 
 		expect( 2 );
 
@@ -396,15 +396,15 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 		var previousUrl,
 			firstTime = true;
 
-		jQuery.ajax({
+		eQuery.ajax({
 			url: url("data/errorWithText.php"),
 			error: function() {
 				if ( firstTime ) {
 					firstTime = false;
-					jQuery.ajax( this );
+					eQuery.ajax( this );
 				} else {
-					ok ( true, "Test retrying with jQuery.ajax(this) works" );
-					jQuery.ajax({
+					ok ( true, "Test retrying with eQuery.ajax(this) works" );
+					eQuery.ajax({
 						url: url("data/errorWithText.php"),
 						data: {
 							"x": 1
@@ -419,7 +419,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 							}
 						},
 						error: function() {
-							jQuery.ajax( this );
+							eQuery.ajax( this );
 						}
 					});
 				}
@@ -433,7 +433,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 
 		stop();
 
-		jQuery("#foo").ajaxSend(function( evt, xhr ) {
+		eQuery("#foo").ajaxSend(function( evt, xhr ) {
 			xhr.setRequestHeader( "ajax-send", "test" );
 		});
 
@@ -450,7 +450,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 		}
 		list.push("ajax-send");
 
-		jQuery.ajax( url("data/headers.php?keys=" + list.join("_")), {
+		eQuery.ajax( url("data/headers.php?keys=" + list.join("_")), {
 
 			headers: requestHeaders,
 			success: function( data, _, xhr ) {
@@ -487,7 +487,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 
 		stop();
 
-		jQuery.ajax( url("data/headers.php?keys=accept"), {
+		eQuery.ajax( url("data/headers.php?keys=accept"), {
 			headers: {
 				Accept: "very wrong accept value"
 			},
@@ -518,7 +518,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 			}
 		}
 
-		jQuery.ajax( url("data/headers.php?keys=content-type"), {
+		eQuery.ajax( url("data/headers.php?keys=content-type"), {
 			contentType: "test",
 			success: function( data ) {
 				strictEqual( data, "content-type: test\n", "Test content-type is sent when options.contentType is set" );
@@ -528,7 +528,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 			}
 		});
 
-		jQuery.ajax( url("data/headers.php?keys=content-type" ), {
+		eQuery.ajax( url("data/headers.php?keys=content-type" ), {
 			contentType: false,
 			success: function( data ) {
 				strictEqual( data, "content-type: \n", "Test content-type is not sent when options.contentType===false" );
@@ -543,7 +543,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 	test( ".ajax() - protocol-less urls", function() {
 		expect( 1 );
 
-		jQuery.ajax({
+		eQuery.ajax({
 			url: "//somedomain.com",
 			beforeSend: function( xhr, settings ) {
 				equal( settings.url, location.protocol + "//somedomain.com", "Make sure that the protocol is added." );
@@ -555,7 +555,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 	test( ".ajax() - hash", function() {
 		expect( 3 );
 
-		jQuery.ajax({
+		eQuery.ajax({
 			url: "data/name.html#foo",
 			beforeSend: function( xhr, settings ) {
 				equal( settings.url, "data/name.html", "Make sure that the URL is trimmed." );
@@ -563,7 +563,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 			}
 		});
 
-		jQuery.ajax({
+		eQuery.ajax({
 			url: "data/name.html?abc#foo",
 			beforeSend: function( xhr, settings ) {
 			equal( settings.url, "data/name.html?abc", "Make sure that the URL is trimmed." );
@@ -571,7 +571,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 			}
 		});
 
-		jQuery.ajax({
+		eQuery.ajax({
 			url: "data/name.html?abc#foo",
 			data: {
 				"test": 123
@@ -583,7 +583,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 		});
 	});
 
-	test( "jQuery ajax - cross-domain detection", function() {
+	test( "eQuery ajax - cross-domain detection", function() {
 
 		expect( 7 );
 
@@ -592,7 +592,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 			otherPort = loc.port === 666 ? 667 : 666,
 			otherProtocol = loc.protocol === "http:" ? "https:" : "http:";
 
-		jQuery.ajax({
+		eQuery.ajax({
 			dataType: "jsonp",
 			url: loc.protocol + "//" + loc.host + ":" + samePort,
 			beforeSend: function( _, s ) {
@@ -601,7 +601,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 			}
 		});
 
-		jQuery.ajax({
+		eQuery.ajax({
 			dataType: "jsonp",
 			url: otherProtocol + "//" + loc.host,
 			beforeSend: function( _, s ) {
@@ -610,7 +610,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 			}
 		});
 
-		jQuery.ajax({
+		eQuery.ajax({
 			dataType: "jsonp",
 			url: "app:/path",
 			beforeSend: function( _, s ) {
@@ -619,7 +619,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 			}
 		});
 
-		jQuery.ajax({
+		eQuery.ajax({
 			dataType: "jsonp",
 			url: loc.protocol + "//somewebsitethatdoesnotexist-656329477541.com:" + ( loc.port || 80 ),
 			beforeSend: function( _, s ) {
@@ -628,7 +628,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 			}
 		});
 
-		jQuery.ajax({
+		eQuery.ajax({
 			dataType: "jsonp",
 			url: loc.protocol + "//" + loc.hostname + ":" + otherPort,
 			beforeSend: function( _, s ) {
@@ -637,7 +637,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 			}
 		});
 
-		jQuery.ajax({
+		eQuery.ajax({
 			dataType: "jsonp",
 			url: "about:blank",
 			beforeSend: function( _, s ) {
@@ -646,7 +646,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 			}
 		});
 
-		jQuery.ajax({
+		eQuery.ajax({
 			dataType: "jsonp",
 			url: loc.protocol + "//" + loc.host,
 			crossDomain: true,
@@ -662,7 +662,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 		expect( 6 );
 		stop();
 
-		jQuery("#foo").ajaxStart(function() {
+		eQuery("#foo").ajaxStart(function() {
 			ok( true, "ajaxStart" );
 		}).ajaxStop(function() {
 			ok( true, "ajaxStop" );
@@ -677,16 +677,16 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 			ok( false, "ajaxSuccess" );
 		});
 
-		jQuery("<div/>").load( "data/404.html", function() {
+		eQuery("<div/>").load( "data/404.html", function() {
 			ok( true, "complete" );
 		});
 	});
 
-	test( "jQuery.ajax() - abort", function() {
+	test( "eQuery.ajax() - abort", function() {
 		expect( 8 );
 		stop();
 
-		jQuery("#foo").ajaxStart(function() {
+		eQuery("#foo").ajaxStart(function() {
 			ok( true, "ajaxStart" );
 		}).ajaxStop(function() {
 			ok( true, "ajaxStop" );
@@ -697,7 +697,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 			ok( true, "ajaxComplete" );
 		});
 
-		var xhr = jQuery.ajax({
+		var xhr = eQuery.ajax({
 			url: url("data/name.php?wait=5"),
 			beforeSend: function() {
 				ok( true, "beforeSend" );
@@ -735,13 +735,13 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 			};
 		}
 
-		jQuery("#foo").add( context )
+		eQuery("#foo").add( context )
 			.ajaxSend( event )
 			.ajaxComplete( event )
 			.ajaxError( event )
 			.ajaxSuccess( event );
 
-		jQuery.ajax({
+		eQuery.ajax({
 			url: url("data/name.html"),
 			beforeSend: callback("beforeSend"),
 			success: callback("success"),
@@ -749,7 +749,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 			complete: function() {
 				callback("complete").call( this );
 
-				jQuery.ajax({
+				eQuery.ajax({
 					url: url("data/404.html"),
 					context: context,
 					beforeSend: callback("beforeSend"),
@@ -757,9 +757,9 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 					complete: function() {
 						callback("complete").call( this );
 
-						jQuery("#foo").add( context ).unbind();
+						eQuery("#foo").add( context ).unbind();
 
-						jQuery.ajax({
+						eQuery.ajax({
 							url: url("data/404.html"),
 							beforeSend: nocallback("beforeSend"),
 							error: nocallback("error"),
@@ -775,14 +775,14 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 		});
 	});
 
-	test( "jQuery.ajax context modification", function() {
+	test( "eQuery.ajax context modification", function() {
 		expect( 1 );
 
 		stop();
 
 		var obj = {};
 
-		jQuery.ajax({
+		eQuery.ajax({
 			url: url("data/name.html"),
 			context: obj,
 			beforeSend: function() {
@@ -796,32 +796,32 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 		equal( obj.test, "foo", "Make sure the original object is maintained." );
 	});
 
-	test( "jQuery.ajax context modification through ajaxSetup", function() {
+	test( "eQuery.ajax context modification through ajaxSetup", function() {
 		expect( 4 );
 
 		stop();
 
 		var obj = {};
 
-		jQuery.ajaxSetup({
+		eQuery.ajaxSetup({
 			context: obj
 		});
 
-		strictEqual( jQuery.ajaxSettings.context, obj, "Make sure the context is properly set in ajaxSettings." );
+		strictEqual( eQuery.ajaxSettings.context, obj, "Make sure the context is properly set in ajaxSettings." );
 
-		jQuery.ajax({
+		eQuery.ajax({
 			url: url("data/name.html"),
 			complete: function() {
 				strictEqual( this, obj, "Make sure the original object is maintained." );
-				jQuery.ajax({
+				eQuery.ajax({
 					url: url("data/name.html"),
 					context: {},
 					complete: function() {
 						ok( this !== obj, "Make sure overidding context is possible." );
-						jQuery.ajaxSetup({
+						eQuery.ajaxSetup({
 							context: false
 						});
-						jQuery.ajax({
+						eQuery.ajax({
 							url: url("data/name.html"),
 							beforeSend: function() {
 								this.test = "foo2";
@@ -837,11 +837,11 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 		});
 	});
 
-	test( "jQuery.ajax() - disabled globals", function() {
+	test( "eQuery.ajax() - disabled globals", function() {
 		expect( 3 );
 		stop();
 
-		jQuery("#foo").ajaxStart(function() {
+		eQuery("#foo").ajaxStart(function() {
 			ok( false, "ajaxStart" );
 		}).ajaxStop(function() {
 			ok( false, "ajaxStop" );
@@ -855,7 +855,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 			ok( false, "ajaxSuccess" );
 		});
 
-		jQuery.ajax({
+		eQuery.ajax({
 			global: false,
 			url: url("data/name.html"),
 			beforeSend: function() {
@@ -876,33 +876,33 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 		});
 	});
 
-	test( "jQuery.ajax - xml: non-namespace elements inside namespaced elements", function() {
+	test( "eQuery.ajax - xml: non-namespace elements inside namespaced elements", function() {
 		expect( 3 );
 
 		stop();
 
-		jQuery.ajax({
+		eQuery.ajax({
 			url: url("data/with_fries.xml"),
 			dataType: "xml",
 			success: function( resp ) {
-				equal( jQuery( "properties", resp ).length, 1, "properties in responseXML" );
-				equal( jQuery( "jsconf", resp ).length, 1, "jsconf in responseXML" );
-				equal( jQuery( "thing", resp ).length, 2, "things in responseXML" );
+				equal( eQuery( "properties", resp ).length, 1, "properties in responseXML" );
+				equal( eQuery( "jsconf", resp ).length, 1, "jsconf in responseXML" );
+				equal( eQuery( "thing", resp ).length, 2, "things in responseXML" );
 				start();
 			}
 		});
 	});
 
-	test( "jQuery.ajax - xml: non-namespace elements inside namespaced elements (over JSONP)", function() {
+	test( "eQuery.ajax - xml: non-namespace elements inside namespaced elements (over JSONP)", function() {
 		expect( 3 );
 		stop();
-		jQuery.ajax({
+		eQuery.ajax({
 			url: url("data/with_fries_over_jsonp.php"),
 			dataType: "jsonp xml",
 			success: function( resp ) {
-				equal( jQuery( "properties", resp ).length, 1, "properties in responseXML" );
-				equal( jQuery( "jsconf", resp ).length, 1, "jsconf in responseXML" );
-				equal( jQuery( "thing", resp ).length, 2, "things in responseXML" );
+				equal( eQuery( "properties", resp ).length, 1, "properties in responseXML" );
+				equal( eQuery( "jsconf", resp ).length, 1, "jsconf in responseXML" );
+				equal( eQuery( "thing", resp ).length, 2, "things in responseXML" );
 				start();
 			},
 			error: function( _1, _2, error ) {
@@ -912,18 +912,18 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 		});
 	});
 
-	test( "jQuery.ajax - HEAD requests", function() {
+	test( "eQuery.ajax - HEAD requests", function() {
 		expect( 2 );
 
 		stop();
-		jQuery.ajax({
+		eQuery.ajax({
 			url: url("data/name.html"),
 			type: "HEAD",
 			success: function( data, status, xhr ) {
 				var h = xhr.getAllResponseHeaders();
 				ok( /Date/i.test( h ), "No Date in HEAD response" );
 
-				jQuery.ajax({
+				eQuery.ajax({
 					url: url("data/name.html"),
 					data: {
 						"whip_it": "good"
@@ -940,17 +940,17 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 
 	});
 
-	test( "jQuery.ajax - beforeSend", function() {
+	test( "eQuery.ajax - beforeSend", function() {
 		expect( 1 );
 		stop();
 
 		var check = false;
 
-		jQuery.ajaxSetup({
+		eQuery.ajaxSetup({
 			timeout: 0
 		});
 
-		jQuery.ajax({
+		eQuery.ajax({
 			url: url("data/name.html"),
 			beforeSend: function( xml ) {
 				check = true;
@@ -962,10 +962,10 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 		});
 	});
 
-	test( "jQuery.ajax - beforeSend, cancel request (#2688)", function() {
+	test( "eQuery.ajax - beforeSend, cancel request (#2688)", function() {
 		expect( 2 );
 
-		jQuery.ajax({
+		eQuery.ajax({
 			url: url("data/name.html"),
 			beforeSend: function() {
 				ok( true, "beforeSend got called, canceling" );
@@ -985,9 +985,9 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 		});
 	});
 
-	test( "jQuery.ajax - beforeSend, cancel request manually", function() {
+	test( "eQuery.ajax - beforeSend, cancel request manually", function() {
 		expect( 2 );
-		jQuery.ajax({
+		eQuery.ajax({
 			url: url("data/name.html"),
 			beforeSend: function( xhr ) {
 				ok( true, "beforeSend got called, canceling" );
@@ -1010,7 +1010,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 	window["foobar"] = null;
 	window["testFoo"] = undefined;
 
-	test( "jQuery.ajax - dataType html", function() {
+	test( "eQuery.ajax - dataType html", function() {
 		expect( 5 );
 		stop();
 
@@ -1021,11 +1021,11 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 			start();
 		};
 
-		jQuery.ajax({
+		eQuery.ajax({
 			dataType: "html",
 			url: url("data/test.html"),
 			success: function( data ) {
-				jQuery("#ap").html( data );
+				eQuery("#ap").html( data );
 				ok( data.match( /^html text/ ), "Check content for datatype html" );
 				setTimeout( verifyEvaluation, 600 );
 			}
@@ -1034,7 +1034,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 
 	test( "synchronous request", function() {
 		expect( 1 );
-		var response = jQuery.ajax({
+		var response = eQuery.ajax({
 				url: url("data/json_obj.js"),
 				dataType: "text",
 				async: false
@@ -1046,7 +1046,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 	test( "synchronous request with callbacks", function() {
 		expect( 2 );
 		var result;
-		jQuery.ajax({
+		eQuery.ajax({
 			url: url("data/json_obj.js"),
 			async: false,
 			dataType: "text",
@@ -1069,23 +1069,23 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 		var success = function() {
 			successCount++;
 		};
-		jQuery("#foo").ajaxError(function( e, xml, s, ex ) {
+		eQuery("#foo").ajaxError(function( e, xml, s, ex ) {
 			errorCount++;
 			errorEx += ": " + xml.status;
 		});
-		jQuery("#foo").one( "ajaxStop", function() {
+		eQuery("#foo").one( "ajaxStop", function() {
 			equal( successCount, 5, "Check all ajax calls successful" );
 			equal( errorCount, 0, "Check no ajax errors (status" + errorEx + ")" );
-			jQuery("#foo").unbind("ajaxError");
+			eQuery("#foo").unbind("ajaxError");
 
 			start();
 		});
 
-		ok( jQuery.get( url(target), success ), "get" );
-		ok( jQuery.post( url(target), success ), "post" );
-		ok( jQuery.getScript( url("data/test.js"), success ), "script" );
-		ok( jQuery.getJSON( url("data/json_obj.js"), success ), "json" );
-		ok( jQuery.ajax({
+		ok( eQuery.get( url(target), success ), "get" );
+		ok( eQuery.post( url(target), success ), "post" );
+		ok( eQuery.getScript( url("data/test.js"), success ), "script" );
+		ok( eQuery.getJSON( url("data/json_obj.js"), success ), "json" );
+		ok( eQuery.ajax({
 			url: url( target ),
 			success: success
 		}), "generic" );
@@ -1098,7 +1098,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 
 		var count = 0;
 
-		jQuery("#firstp").bind( "ajaxSuccess", function( e, xml, s ) {
+		eQuery("#firstp").bind( "ajaxSuccess", function( e, xml, s ) {
 			var re = /_=(.*?)(&|€)/g;
 			var oldOne = null;
 			for ( var i = 0; i < 6; i++ ) {
@@ -1115,27 +1115,27 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 			}
 		});
 
-		ok( jQuery.ajax({
+		ok( eQuery.ajax({
 			url: "data/text.php",
 			cache: false
 		}), "test with no parameters" );
-		ok( jQuery.ajax({
+		ok( eQuery.ajax({
 			url: "data/text.php?pizza=true",
 			cache: false
 		}), "test with 1 parameter" );
-		ok( jQuery.ajax({
+		ok( eQuery.ajax({
 			url: "data/text.php?_=tobereplaced555",
 			cache: false
 		}), "test with _= parameter" );
-		ok( jQuery.ajax({
+		ok( eQuery.ajax({
 			url: "data/text.php?pizza=true&_=tobereplaced555",
 			cache: false
 		}), "test with 1 parameter plus _= one" );
-		ok( jQuery.ajax({
+		ok( eQuery.ajax({
 			url: "data/text.php?_=tobereplaced555&tv=false",
 			cache: false
 		}), "test with 1 parameter plus _= one before it" );
-		ok( jQuery.ajax({
+		ok( eQuery.ajax({
 			url: "data/text.php?name=David&_=tobereplaced555&washere=true",
 			cache: false
 		}), "test with 2 parameters surrounding _= one" );
@@ -1149,47 +1149,47 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 		expect( 2 );
 
 		var t,
-			tmp = jQuery.extend({}, jQuery.ajaxSettings ),
+			tmp = eQuery.extend({}, eQuery.ajaxSettings ),
 			orig = {
 				url: "data/with_fries.xml"
 			};
 
-		jQuery.ajaxSetup({
+		eQuery.ajaxSetup({
 			data: {
 				foo: "bar",
 				bar: "BAR"
 			}
 		});
 
-		t = jQuery.extend({}, orig );
+		t = eQuery.extend({}, orig );
 		t.data = {};
-		jQuery.ajax( t );
+		eQuery.ajax( t );
 		ok( t.url.indexOf("foo") > -1 && t.url.indexOf("bar") > -1, "Check extending {}" );
 
-		t = jQuery.extend({}, orig );
+		t = eQuery.extend({}, orig );
 		t.data = {
 			zoo: "a",
 			ping: "b"
 		};
-		jQuery.ajax( t );
+		eQuery.ajax( t );
 		ok( t.url.indexOf("ping") > -1 && t.url.indexOf("zoo") > -1 && t.url.indexOf("foo") > -1 && t.url.indexOf("bar") > -1, "Check extending { zoo: "a", ping: "b" }" );
 
-		jQuery.ajaxSettings = tmp;
+		eQuery.ajaxSettings = tmp;
 	});
 	*/
 
 	test( "load(String)", function() {
 		expect( 2 );
 		stop(); // check if load can be called with only url
-		jQuery.ajaxSetup({
+		eQuery.ajaxSetup({
 			beforeSend: function() {
 				strictEqual( this.type, "GET", "no data means GET request" );
 			}
 		});
-		jQuery("#first").load( "data/name.html", function() {
+		eQuery("#first").load( "data/name.html", function() {
 			start();
 		});
-		jQuery.ajaxSetup({
+		eQuery.ajaxSetup({
 			beforeSend: null
 		});
 	});
@@ -1197,12 +1197,12 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 	test( "load(String,null)", function() {
 		expect( 2 );
 		stop(); // check if load can be called with url and null data
-		jQuery.ajaxSetup({
+		eQuery.ajaxSetup({
 			beforeSend: function() {
 				strictEqual( this.type, "GET", "no data means GET request" );
 			}
 		});
-		jQuery("#first").load( "data/name.html", null, function() {
+		eQuery("#first").load( "data/name.html", null, function() {
 			start();
 		});
 	});
@@ -1210,12 +1210,12 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 	test( "load(String,undefined)", function() {
 		expect( 2 );
 		stop(); // check if load can be called with url and null data
-		jQuery.ajaxSetup({
+		eQuery.ajaxSetup({
 			beforeSend: function() {
 				strictEqual( this.type, "GET", "no data means GET request" );
 			}
 		});
-		jQuery("#first").load( "data/name.html", undefined, function() {
+		eQuery("#first").load( "data/name.html", undefined, function() {
 			start();
 		});
 	});
@@ -1223,8 +1223,8 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 	test( "load('url selector')", function() {
 		expect( 1 );
 		stop(); // check if load can be called with only url
-		jQuery("#first").load( "data/test3.html div.user", function() {
-			equal( jQuery( this ).children("div").length, 2, "Verify that specific elements were injected" );
+		eQuery("#first").load( "data/test3.html div.user", function() {
+			equal( eQuery( this ).children("div").length, 2, "Verify that specific elements were injected" );
 			start();
 		});
 	});
@@ -1232,25 +1232,25 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 	test( "load(String, Function) with ajaxSetup on dataType json, see #2046", function() {
 		expect( 1 );
 		stop();
-		jQuery.ajaxSetup({
+		eQuery.ajaxSetup({
 			dataType: "json"
 		});
-		jQuery("#first").ajaxComplete(function( e, xml, s ) {
+		eQuery("#first").ajaxComplete(function( e, xml, s ) {
 			equal( s.dataType, "html", "Verify the load() dataType was html" );
-			jQuery("#first").unbind("ajaxComplete");
-			jQuery.ajaxSetup({
+			eQuery("#first").unbind("ajaxComplete");
+			eQuery.ajaxSetup({
 				dataType: ""
 			});
 			start();
 		});
-		jQuery("#first").load("data/test3.html");
+		eQuery("#first").load("data/test3.html");
 	});
 
 	test( "load(String, Function) - simple: inject text into DOM", function() {
 		expect( 2 );
 		stop();
-		jQuery("#first").load( url("data/name.html"), function() {
-			ok( /^ERROR/.test( jQuery("#first").text() ), "Check if content was injected into the DOM" );
+		eQuery("#first").load( url("data/name.html"), function() {
+			ok( /^ERROR/.test( eQuery("#first").text() ), "Check if content was injected into the DOM" );
 			start();
 		});
 	});
@@ -1261,13 +1261,13 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 
 		var verifyEvaluation = function() {
 			equal( window["foobar"], "bar", "Check if script src was evaluated after load" );
-			equal( jQuery("#ap").html(), "bar", "Check if script evaluation has modified DOM");
+			equal( eQuery("#ap").html(), "bar", "Check if script evaluation has modified DOM");
 
 			start();
 		};
-		jQuery("#first").load( url("data/test.html"), function() {
-			ok( jQuery("#first").html().match( /^html text/ ), "Check content after loading html" );
-			equal( jQuery("#foo").html(), "foo", "Check if script evaluation has modified DOM" );
+		eQuery("#first").load( url("data/test.html"), function() {
+			ok( eQuery("#first").html().match( /^html text/ ), "Check content after loading html" );
+			equal( eQuery("#foo").html(), "foo", "Check if script evaluation has modified DOM" );
 			equal( window["testFoo"], "foo", "Check if script was evaluated after load" );
 			setTimeout( verifyEvaluation, 600 );
 		});
@@ -1277,8 +1277,8 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 		expect( 3 );
 		stop();
 
-		jQuery("#first").load( url("data/test2.html"), function() {
-			equal( jQuery("#foo").html(), "foo", "Check if script evaluation has modified DOM");
+		eQuery("#first").load( url("data/test2.html"), function() {
+			equal( eQuery("#foo").html(), "foo", "Check if script evaluation has modified DOM");
 			equal( window["testFoo"], "foo", "Check if script was evaluated after load" );
 
 			start();
@@ -1288,15 +1288,15 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 	test( "load(String, Function) - dataFilter in ajaxSettings", function() {
 		expect( 2 );
 		stop();
-		jQuery.ajaxSetup({
+		eQuery.ajaxSetup({
 			dataFilter: function() {
 				return "Hello World";
 			}
 		});
-		var div = jQuery("<div/>").load( url("data/name.html"), function( responseText ) {
+		var div = eQuery("<div/>").load( url("data/name.html"), function( responseText ) {
 			strictEqual( div.html(), "Hello World", "Test div was filled with filtered data" );
 			strictEqual( responseText, "Hello World", "Test callback receives filtered data" );
-			jQuery.ajaxSetup({
+			eQuery.ajaxSetup({
 				dataFilter: 0
 			});
 			start();
@@ -1307,11 +1307,11 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 		expect( 2 );
 		stop();
 
-		jQuery("<div />").load( url("data/params_html.php"), {
+		eQuery("<div />").load( url("data/params_html.php"), {
 			"foo": 3,
 			"bar": "ok"
 		}, function() {
-			var €post = jQuery( this ).find("#post");
+			var €post = eQuery( this ).find("#post");
 			equal( €post.find("#foo").text(), "3", "Check if a hash of data is passed correctly" );
 			equal( €post.find("#bar").text(), "ok", "Check if a hash of data is passed correctly" );
 			start();
@@ -1322,8 +1322,8 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 		expect( 2 );
 		stop();
 
-		jQuery("<div />").load( url("data/params_html.php"), "foo=3&bar=ok", function() {
-			var €get = jQuery( this ).find("#get");
+		eQuery("<div />").load( url("data/params_html.php"), "foo=3&bar=ok", function() {
+			var €get = eQuery( this ).find("#get");
 			equal( €get.find("#foo").text(), "3", "Check if a string of data is passed correctly" );
 			equal( €get.find("#bar").text(), "ok", "Check if a   of data is passed correctly" );
 			start();
@@ -1331,7 +1331,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 	});
 
 	asyncTest( "load() - data specified in ajaxSettings is merged in (#10524)", 1, function() {
-		jQuery.ajaxSetup({
+		eQuery.ajaxSetup({
 			data: {
 				"foo": "bar"
 			}
@@ -1341,11 +1341,11 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 			"baz": 1
 		};
 
-		jQuery("#foo")
+		eQuery("#foo")
 			.load( "data/echoQuery.php", data )
 			.ajaxComplete(function( event, jqXHR, options ) {
 				ok( ~options.data.indexOf("foo=bar"), "Data from ajaxSettings was used" );
-				jQuery.ajaxSetup({
+				eQuery.ajaxSetup({
 					data: null
 				});
 				start();
@@ -1356,7 +1356,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 		var slice = [].slice,
 			completeArgs = {};
 
-		jQuery.ajaxSetup({
+		eQuery.ajaxSetup({
 			success: function( _, status, jqXHR ) {
 				completeArgs[ this.url ] = [ jqXHR.responseText, status, jqXHR ];
 			},
@@ -1365,10 +1365,10 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 			}
 		});
 
-		jQuery.when.apply(
-			/* jQuery.when.apply arguments start */
-			jQuery,
-			jQuery.map([
+		eQuery.when.apply(
+			/* eQuery.when.apply arguments start */
+			eQuery,
+			eQuery.map([
 				{
 					type: "success",
 					url: "data/echoQuery.php?arg=pop"
@@ -1379,20 +1379,20 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 				}
 			],
 			function( options ) {
-				return jQuery.Deferred(function( defer ) {
-					jQuery("#foo").load( options.url, function() {
+				return eQuery.Deferred(function( defer ) {
+					eQuery("#foo").load( options.url, function() {
 						var args = arguments;
 						strictEqual( completeArgs[ options.url ].length, args.length, "same number of arguments (" + options.type + ")" );
-						jQuery.each( completeArgs[ options.url ], function( i, value ) {
+						eQuery.each( completeArgs[ options.url ], function( i, value ) {
 							strictEqual( args[ i ], value, "argument #" + i + " is the same (" + options.type + ")" );
 						});
 						defer.resolve();
 					});
 				});
 			})
-			/* jQuery.when.apply arguments end*/
+			/* eQuery.when.apply arguments end*/
 		).always(function() {
-			jQuery.ajaxSetup({
+			eQuery.ajaxSetup({
 				success: null,
 				error: null
 			});
@@ -1400,28 +1400,28 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 		});
 	});
 
-	test( "jQuery.get(String, Function) - data in ajaxSettings (#8277)", function() {
+	test( "eQuery.get(String, Function) - data in ajaxSettings (#8277)", function() {
 		expect( 1 );
 		stop();
-		jQuery.ajaxSetup({
+		eQuery.ajaxSetup({
 			data: "helloworld"
 		});
-		jQuery.get( url("data/echoQuery.php"), function( data ) {
+		eQuery.get( url("data/echoQuery.php"), function( data ) {
 			ok( /helloworld€/.test( data ), "Data from ajaxSettings was used" );
-			jQuery.ajaxSetup({
+			eQuery.ajaxSetup({
 				data: null
 			});
 			start();
 		});
 	});
 
-	test( "jQuery.get(String, Hash, Function) - parse xml and use text() on nodes", function() {
+	test( "eQuery.get(String, Hash, Function) - parse xml and use text() on nodes", function() {
 		expect( 2 );
 		stop();
-		jQuery.get( url("data/dashboard.xml"), function( xml ) {
+		eQuery.get( url("data/dashboard.xml"), function( xml ) {
 			var content = [];
-			jQuery( "tab", xml ).each(function() {
-				content.push( jQuery( this ).text() );
+			eQuery( "tab", xml ).each(function() {
+				content.push( eQuery( this ).text() );
 			});
 			equal( content[ 0 ], "blabla", "Check first tab" );
 			equal( content[ 1 ], "blublu", "Check second tab" );
@@ -1429,10 +1429,10 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 		});
 	});
 
-	test( "jQuery.getScript(String, Function) - with callback", function() {
+	test( "eQuery.getScript(String, Function) - with callback", function() {
 		expect( 3 );
 		stop();
-		jQuery.getScript( url("data/test.js"), function( data, _, jqXHR ) {
+		eQuery.getScript( url("data/test.js"), function( data, _, jqXHR ) {
 			equal( foobar, "bar", "Check if script was evaluated" );
 			strictEqual( data, jqXHR.responseText, "Same-domain script requests returns the source of the script (#8082)" );
 			setTimeout(function() {
@@ -1441,18 +1441,18 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 		});
 	});
 
-	test( "jQuery.getScript(String, Function) - no callback", function() {
+	test( "eQuery.getScript(String, Function) - no callback", function() {
 		expect( 1 );
 		stop();
-		jQuery.getScript( url("data/test.js"), function() {
+		eQuery.getScript( url("data/test.js"), function() {
 			start();
 		});
 	});
 
 
-	jQuery.each( [ "Same Domain", "Cross Domain" ], function( crossDomain, label ) {
+	eQuery.each( [ "Same Domain", "Cross Domain" ], function( crossDomain, label ) {
 
-		asyncTest( "jQuery.ajax() - JSONP, Query String (?n)" + label, function() {
+		asyncTest( "eQuery.ajax() - JSONP, Query String (?n)" + label, function() {
 			expect( 4 );
 
 			var count = 0;
@@ -1462,7 +1462,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 				}
 			}
 
-			jQuery.ajax({
+			eQuery.ajax({
 				url: "data/jsonp.php?callback=?",
 				dataType: "jsonp",
 				crossDomain: crossDomain,
@@ -1476,7 +1476,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 				}
 			});
 
-			jQuery.ajax({
+			eQuery.ajax({
 				url: "data/jsonp.php?callback=??",
 				dataType: "jsonp",
 				crossDomain: crossDomain,
@@ -1490,7 +1490,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 				}
 			});
 
-			jQuery.ajax({
+			eQuery.ajax({
 				url: "data/jsonp.php/??",
 				dataType: "jsonp",
 				crossDomain: crossDomain,
@@ -1504,12 +1504,12 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 				}
 			});
 
-			jQuery.ajax({
+			eQuery.ajax({
 				url: "data/jsonp.php/???json=1",
 				dataType: "jsonp",
 				crossDomain: crossDomain,
 				success: function( data ) {
-					strictEqual( jQuery.type( data ), "array", "JSON results returned (GET, REST-like with param)" );
+					strictEqual( eQuery.type( data ), "array", "JSON results returned (GET, REST-like with param)" );
 					plus();
 				},
 				error: function( data ) {
@@ -1519,7 +1519,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 			});
 		});
 
-		asyncTest( "jQuery.ajax() - JSONP, Explicit jsonp/Callback param " + label, function() {
+		asyncTest( "eQuery.ajax() - JSONP, Explicit jsonp/Callback param " + label, function() {
 			expect( 9 );
 
 			var count = 0;
@@ -1529,7 +1529,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 				}
 			}
 
-			jQuery.ajax({
+			eQuery.ajax({
 				url: "data/jsonp.php",
 				dataType: "jsonp",
 				crossDomain: crossDomain,
@@ -1550,7 +1550,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 				plus();
 			};
 
-			jQuery.ajax({
+			eQuery.ajax({
 				url: "data/jsonp.php",
 				dataType: "jsonp",
 				crossDomain: crossDomain,
@@ -1565,7 +1565,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 				}
 			});
 
-			jQuery.ajax({
+			eQuery.ajax({
 				url: "data/jsonp.php",
 				dataType: "jsonp",
 				crossDomain: crossDomain,
@@ -1575,7 +1575,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 					strictEqual( window["functionToCleanUp"], undefined, "Callback was removed (GET, custom callback name to be cleaned up)" );
 					plus();
 					var xhr;
-					jQuery.ajax({
+					eQuery.ajax({
 						url: "data/jsonp.php",
 						dataType: "jsonp",
 						crossDomain: crossDomain,
@@ -1598,7 +1598,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 				}
 			});
 
-			jQuery.ajax({
+			eQuery.ajax({
 				url: "data/jsonp.php?callback=XXX",
 				dataType: "jsonp",
 				jsonp: false,
@@ -1619,7 +1619,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 			});
 		});
 
-		asyncTest( "jQuery.ajax() - JSONP, Callback in data, " + label, function() {
+		asyncTest( "eQuery.ajax() - JSONP, Callback in data, " + label, function() {
 			expect( 2 );
 
 			var count = 0;
@@ -1629,7 +1629,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 				}
 			}
 
-			jQuery.ajax({
+			eQuery.ajax({
 				url: "data/jsonp.php",
 				dataType: "jsonp",
 				crossDomain: crossDomain,
@@ -1644,7 +1644,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 				}
 			});
 
-			jQuery.ajax({
+			eQuery.ajax({
 				url: "data/jsonp.php",
 				dataType: "jsonp",
 				crossDomain: crossDomain,
@@ -1661,7 +1661,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 		});
 
 
-		asyncTest( "jQuery.ajax() - JSONP, POST, " + label, function() {
+		asyncTest( "eQuery.ajax() - JSONP, POST, " + label, function() {
 			expect( 3 );
 
 			var count = 0;
@@ -1671,7 +1671,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 				}
 			}
 
-			jQuery.ajax({
+			eQuery.ajax({
 				type: "POST",
 				url: "data/jsonp.php",
 				dataType: "jsonp",
@@ -1686,7 +1686,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 				}
 			});
 
-			jQuery.ajax({
+			eQuery.ajax({
 				type: "POST",
 				url: "data/jsonp.php",
 				data: "callback=?",
@@ -1702,7 +1702,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 				}
 			});
 
-			jQuery.ajax({
+			eQuery.ajax({
 				type: "POST",
 				url: "data/jsonp.php",
 				jsonp: "callback",
@@ -1719,7 +1719,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 			});
 		});
 
-		asyncTest( "jQuery.ajax() - JSONP, " + label, function() {
+		asyncTest( "eQuery.ajax() - JSONP, " + label, function() {
 			expect( 3 );
 
 			var count = 0;
@@ -1729,7 +1729,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 				}
 			}
 
-			jQuery.ajax({
+			eQuery.ajax({
 				url: "data/jsonp.php",
 				dataType: "jsonp",
 				crossDomain: crossDomain,
@@ -1743,7 +1743,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 				}
 			});
 
-			jQuery.ajax({
+			eQuery.ajax({
 				url: "data/jsonp.php",
 				dataType: "jsonp",
 				crossDomain: crossDomain,
@@ -1754,7 +1754,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 
 						// NOTE: "this" will create another request identical
 						// to the CALLING request
-						jQuery.ajax( this );
+						eQuery.ajax( this );
 					} else {
 						plus();
 					}
@@ -1766,10 +1766,10 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 			});
 		});
 
-		asyncTest( "jQuery.ajax() - #7578, " + label, function() {
+		asyncTest( "eQuery.ajax() - #7578, " + label, function() {
 			expect( 1 );
 
-			jQuery.ajax({
+			eQuery.ajax({
 				url: "data/jsonp.php",
 				dataType: "jsonp",
 				crossDomain: crossDomain,
@@ -1781,10 +1781,10 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 			});
 		});
 
-		asyncTest( "jQuery.ajax() - #8205, " + label, function() {
+		asyncTest( "eQuery.ajax() - #8205, " + label, function() {
 			expect( 2 );
 
-			jQuery.ajax({
+			eQuery.ajax({
 				url: "data/jsonp.php",
 				dataType: "jsonp",
 				crossDomain: crossDomain,
@@ -1794,7 +1794,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 			}).pipe(function() {
 				var previous = this;
 				strictEqual( previous.jsonpCallback, undefined, "jsonpCallback option is set back to default in callbacks" );
-				jQuery.ajax({
+				eQuery.ajax({
 					url: "data/jsonp.php",
 					dataType: "jsonp",
 					crossDomain: crossDomain,
@@ -1809,14 +1809,14 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 		});
 	});
 
-	test( "jQuery.ajax() - script, Remote", function() {
+	test( "eQuery.ajax() - script, Remote", function() {
 		expect( 2 );
 
 		var base = window.location.href.replace( /[^\/]*€/, "" );
 
 		stop();
 
-		jQuery.ajax({
+		eQuery.ajax({
 			url: base + "data/test.js",
 			dataType: "script",
 			success: function( data ) {
@@ -1826,14 +1826,14 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 		});
 	});
 
-	test( "jQuery.ajax() - script, Remote with POST", function() {
+	test( "eQuery.ajax() - script, Remote with POST", function() {
 		expect( 3 );
 
 		var base = window.location.href.replace( /[^\/]*€/, "" );
 
 		stop();
 
-		jQuery.ajax({
+		eQuery.ajax({
 			url: base + "data/test.js",
 			type: "POST",
 			dataType: "script",
@@ -1849,7 +1849,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 		});
 	});
 
-	test( "jQuery.ajax() - script, Remote with scheme-less URL", function() {
+	test( "eQuery.ajax() - script, Remote with scheme-less URL", function() {
 		expect( 2 );
 
 		var base = window.location.href.replace( /[^\/]*€/, "" );
@@ -1857,7 +1857,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 
 		stop();
 
-		jQuery.ajax({
+		eQuery.ajax({
 			url: base + "data/test.js",
 			dataType: "script",
 			success: function( data ) {
@@ -1867,12 +1867,12 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 		});
 	});
 
-	test( "jQuery.ajax() - malformed JSON", function() {
+	test( "eQuery.ajax() - malformed JSON", function() {
 		expect( 2 );
 
 		stop();
 
-		jQuery.ajax({
+		eQuery.ajax({
 			url: "data/badjson.js",
 			dataType: "json",
 			success: function() {
@@ -1887,11 +1887,11 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 		});
 	});
 
-	test( "jQuery.ajax() - script, throws exception (#11743)", function() {
+	test( "eQuery.ajax() - script, throws exception (#11743)", function() {
 		expect( 1 );
 
 		raises(function() {
-			jQuery.ajax({
+			eQuery.ajax({
 				url: "data/badjson.js",
 				dataType: "script",
 				throws: true,
@@ -1909,37 +1909,37 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 		}, "exception bubbled" );
 	});
 
-	test( "jQuery.ajax() - script by content-type", function() {
+	test( "eQuery.ajax() - script by content-type", function() {
 		expect( 2 );
 
 		stop();
 
-		jQuery.when(
-			/* jQuery.when arguments start */
-			jQuery.ajax({
+		eQuery.when(
+			/* eQuery.when arguments start */
+			eQuery.ajax({
 				url: "data/script.php",
 				data: {
 					"header": "script"
 				}
 			}),
-			jQuery.ajax({
+			eQuery.ajax({
 				url: "data/script.php",
 				data: {
 					"header": "ecma"
 				}
 			})
-		/* jQuery.when arguments end */
+		/* eQuery.when arguments end */
 		).always(function() {
 			start();
 		});
 	});
 
-	test( "jQuery.ajax() - json by content-type", function() {
+	test( "eQuery.ajax() - json by content-type", function() {
 		expect( 5 );
 
 		stop();
 
-		jQuery.ajax({
+		eQuery.ajax({
 			url: "data/json.php",
 			data: {
 				"header": "json",
@@ -1956,12 +1956,12 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 		});
 	});
 
-	test( "jQuery.ajax() - json by content-type disabled with options", function() {
+	test( "eQuery.ajax() - json by content-type disabled with options", function() {
 		expect( 6 );
 
 		stop();
 
-		jQuery.ajax({
+		eQuery.ajax({
 			url: url("data/json.php"),
 			data: {
 				"header": "json",
@@ -1972,7 +1972,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 			},
 			success: function( text ) {
 				equal( typeof text, "string", "json wasn't auto-determined" );
-				var json = jQuery.parseJSON( text );
+				var json = eQuery.parseJSON( text );
 				ok( json.length >= 2, "Check length");
 				equal( json[ 0 ]["name"], "John", "Check JSON: first, name" );
 				equal( json[ 0 ]["age"], 21, "Check JSON: first, age" );
@@ -1983,11 +1983,11 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 		});
 	});
 
-	test( "jQuery.getJSON(String, Hash, Function) - JSON array", function() {
+	test( "eQuery.getJSON(String, Hash, Function) - JSON array", function() {
 		expect( 5 );
 		stop();
-		jQuery.getJSON(
-			/* jQuery.getJSON arguments start */
+		eQuery.getJSON(
+			/* eQuery.getJSON arguments start */
 			url("data/json.php"),
 			{
 				"json": "array"
@@ -2000,14 +2000,14 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 				equal( json[ 1 ]["age"], 25, "Check JSON: second, age" );
 				start();
 			}
-			/* jQuery.getJSON arguments end */
+			/* eQuery.getJSON arguments end */
 		);
 	});
 
-	test( "jQuery.getJSON(String, Function) - JSON object", function() {
+	test( "eQuery.getJSON(String, Function) - JSON object", function() {
 		expect( 2 );
 		stop();
-		jQuery.getJSON( url("data/json.php"), function( json ) {
+		eQuery.getJSON( url("data/json.php"), function( json ) {
 			if ( json && json["data"] ) {
 				equal( json["data"]["lang"], "en", "Check JSON: lang" );
 				equal( json["data"].length, 25, "Check JSON: length" );
@@ -2016,7 +2016,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 		});
 	});
 
-	asyncTest( "jQuery.getJSON - Using Native JSON", function() {
+	asyncTest( "eQuery.getJSON - Using Native JSON", function() {
 		expect( 2 );
 
 		var old = window.JSON;
@@ -2028,47 +2028,47 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 			}
 		};
 
-		jQuery.getJSON( url("data/json.php"), function( json ) {
+		eQuery.getJSON( url("data/json.php"), function( json ) {
 			window.JSON = old;
 			equal( json, true, "Verifying return value" );
 			start();
 		});
 	});
 
-	test( "jQuery.getJSON(String, Function) - JSON object with absolute url to local content", function() {
+	test( "eQuery.getJSON(String, Function) - JSON object with absolute url to local content", function() {
 		expect( 2 );
 
 		var base = window.location.href.replace( /[^\/]*€/, "" );
 
 		stop();
-		jQuery.getJSON( url( base + "data/json.php" ), function( json ) {
+		eQuery.getJSON( url( base + "data/json.php" ), function( json ) {
 			equal( json.data.lang, "en", "Check JSON: lang" );
 			equal( json.data.length, 25, "Check JSON: length" );
 			start();
 		});
 	});
 
-	test( "jQuery.post - data", 3, function() {
+	test( "eQuery.post - data", 3, function() {
 		stop();
 
-		jQuery.when(
-			/* jQuery.when arguments start */
-			jQuery.post(
-				/* jQuery.post arguments start */
+		eQuery.when(
+			/* eQuery.when arguments start */
+			eQuery.post(
+				/* eQuery.post arguments start */
 				url("data/name.php"),
 				{
 					xml: "5-2",
 					length: 3
 				},
 				function( xml ) {
-					jQuery( "math", xml ).each(function() {
-						equal( jQuery( "calculation", this ).text(), "5-2", "Check for XML" );
-						equal( jQuery( "result", this ).text(), "3", "Check for XML" );
+					eQuery( "math", xml ).each(function() {
+						equal( eQuery( "calculation", this ).text(), "5-2", "Check for XML" );
+						equal( eQuery( "result", this ).text(), "3", "Check for XML" );
 					});
 				}
-				/* jQuery.post arguments end */
+				/* eQuery.post arguments end */
 			),
-			jQuery.ajax({
+			eQuery.ajax({
 				url: url("data/echoData.php"),
 				type: "POST",
 				data: {
@@ -2081,40 +2081,40 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 					strictEqual( data, "test%5Blength%5D=7&test%5Bfoo%5D=bar", "Check if a sub-object with a length param is serialized correctly" );
 				}
 			})
-			/* jQuery.when arguments end */
+			/* eQuery.when arguments end */
 		).always(function() {
 			start();
 		});
 
 	});
 
-	test( "jQuery.post(String, Hash, Function) - simple with xml", function() {
+	test( "eQuery.post(String, Hash, Function) - simple with xml", function() {
 		expect( 4 );
 		stop();
 		var done = 0;
 
-		jQuery.post(
-			/* jQuery.post arguments start */
+		eQuery.post(
+			/* eQuery.post arguments start */
 			url("data/name.php"),
 			{
 				"xml": "5-2"
 			},
 			function( xml ) {
-				jQuery( "math", xml ).each(function() {
-					equal( jQuery( "calculation", this ).text(), "5-2", "Check for XML" );
-					equal( jQuery( "result", this ).text(), "3", "Check for XML" );
+				eQuery( "math", xml ).each(function() {
+					equal( eQuery( "calculation", this ).text(), "5-2", "Check for XML" );
+					equal( eQuery( "result", this ).text(), "3", "Check for XML" );
 				});
 				if ( ++done === 2 ) {
 					start();
 				}
 			}
-			/* jQuery.post arguments end */
+			/* eQuery.post arguments end */
 		);
 
-		jQuery.post( url("data/name.php?xml=5-2"), {}, function( xml ) {
-			jQuery( "math", xml ).each(function() {
-				equal( jQuery( "calculation", this ).text(), "5-2", "Check for XML" );
-				equal( jQuery( "result", this ).text(), "3", "Check for XML" );
+		eQuery.post( url("data/name.php?xml=5-2"), {}, function( xml ) {
+			eQuery( "math", xml ).each(function() {
+				equal( eQuery( "calculation", this ).text(), "5-2", "Check for XML" );
+				equal( eQuery( "result", this ).text(), "3", "Check for XML" );
 			});
 			if ( ++done === 2 ) {
 				start();
@@ -2122,14 +2122,14 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 		});
 	});
 
-	test( "jQuery.ajaxSetup({timeout: Number}) - with global timeout", function() {
+	test( "eQuery.ajaxSetup({timeout: Number}) - with global timeout", function() {
 		var passed = 0;
 
 		expect( 1 );
 
 		stop();
 
-		jQuery.ajaxSetup({
+		eQuery.ajaxSetup({
 			timeout: 1000
 		});
 
@@ -2137,7 +2137,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 			passed++;
 			if ( passed == 2 ) {
 				ok( true, "Check local and global callbacks after timeout" );
-				jQuery("#qunit-fixture").unbind("ajaxError");
+				eQuery("#qunit-fixture").unbind("ajaxError");
 				start();
 			}
 		};
@@ -2147,9 +2147,9 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 			start();
 		};
 
-		jQuery("#qunit-fixture").ajaxError( pass );
+		eQuery("#qunit-fixture").ajaxError( pass );
 
-		jQuery.ajax({
+		eQuery.ajax({
 			type: "GET",
 			url: url("data/name.php?wait=5"),
 			error: pass,
@@ -2157,20 +2157,20 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 		});
 
 		// reset timeout
-		jQuery.ajaxSetup({
+		eQuery.ajaxSetup({
 			timeout: 0
 		});
 	});
 
-	test( "jQuery.ajaxSetup({timeout: Number}) with localtimeout", function() {
+	test( "eQuery.ajaxSetup({timeout: Number}) with localtimeout", function() {
 		expect( 1 );
 		stop();
 
-		jQuery.ajaxSetup({
+		eQuery.ajaxSetup({
 			timeout: 50
 		});
 
-		jQuery.ajax({
+		eQuery.ajax({
 			type: "GET",
 			timeout: 15000,
 			url: url("data/name.php?wait=1"),
@@ -2185,15 +2185,15 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 		});
 
 		// reset timeout
-		jQuery.ajaxSetup({
+		eQuery.ajaxSetup({
 			timeout: 0
 		});
 	});
 
-	test( "jQuery.ajax - simple get", function() {
+	test( "eQuery.ajax - simple get", function() {
 		expect( 1 );
 		stop();
-		jQuery.ajax({
+		eQuery.ajax({
 			type: "GET",
 			url: url("data/name.php?name=foo"),
 			success: function( msg ) {
@@ -2203,10 +2203,10 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 		});
 	});
 
-	test( "jQuery.ajax - simple post", function() {
+	test( "eQuery.ajax - simple post", function() {
 		expect( 1 );
 		stop();
-		jQuery.ajax({
+		eQuery.ajax({
 			type: "POST",
 			url: url("data/name.php"),
 			data: "name=peter",
@@ -2220,20 +2220,20 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 	test( "ajaxSetup()", function() {
 		expect( 1 );
 		stop();
-		jQuery.ajaxSetup({
+		eQuery.ajaxSetup({
 			url: url("data/name.php?name=foo"),
 			success: function( msg ) {
 				equal( msg, "bar", "Check for GET" );
 				start();
 			}
 		});
-		jQuery.ajax();
+		eQuery.ajax();
 	});
 
 	test( "data option: evaluate function values (#2806)", function() {
 		expect( 1 );
 		stop();
-		jQuery.ajax({
+		eQuery.ajax({
 			url: "data/echoQuery.php",
 			data: {
 				key: function() {
@@ -2250,7 +2250,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 	test( "data option: empty bodies for non-GET requests", function() {
 		expect( 1 );
 		stop();
-		jQuery.ajax({
+		eQuery.ajax({
 			url: "data/echoData.php",
 			data: undefined,
 			type: "post",
@@ -2263,29 +2263,29 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 
 	var ifModifiedNow = new Date();
 
-	jQuery.each(
-		/* jQuery.each arguments start */
+	eQuery.each(
+		/* eQuery.each arguments start */
 		{
 			" (cache)": true,
 			" (no cache)": false
 		},
 		function( label, cache ) {
 
-			test( "jQuery.ajax - If-Modified-Since support" + label, function() {
+			test( "eQuery.ajax - If-Modified-Since support" + label, function() {
 				expect( 3 );
 
 				stop();
 
 				var url = "data/if_modified_since.php?ts=" + ifModifiedNow++;
 
-				jQuery.ajax({
+				eQuery.ajax({
 					url: url,
 					ifModified: true,
 					cache: cache,
 					success: function( data, status ) {
 						equal( status, "success" );
 
-						jQuery.ajax({
+						eQuery.ajax({
 							url: url,
 							ifModified: true,
 							cache: cache,
@@ -2320,21 +2320,21 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 				});
 			});
 
-			test( "jQuery.ajax - Etag support" + label, function() {
+			test( "eQuery.ajax - Etag support" + label, function() {
 				expect( 3 );
 
 				stop();
 
 				var url = "data/etag.php?ts=" + ifModifiedNow++;
 
-				jQuery.ajax({
+				eQuery.ajax({
 					url: url,
 					ifModified: true,
 					cache: cache,
 					success: function( data, status ) {
 						equal( status, "success" );
 
-						jQuery.ajax({
+						eQuery.ajax({
 							url: url,
 							ifModified: true,
 							cache: cache,
@@ -2368,15 +2368,15 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 				});
 			});
 		}
-		/* jQuery.each arguments end */
+		/* eQuery.each arguments end */
 	);
 
-	asyncTest( "jQuery ajax - failing cross-domain (non-existing)", function() {
+	asyncTest( "eQuery ajax - failing cross-domain (non-existing)", function() {
 		expect( 1 );
 
 		var i = 1;
 
-		jQuery.ajax({
+		eQuery.ajax({
 			url: "http://somewebsitethatdoesnotexist-67864863574657654.com",
 			success: function() {
 				ok( false, "success" );
@@ -2392,12 +2392,12 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 		});
 	});
 
-	asyncTest( "jQuery ajax - failing cross-domain", function() {
+	asyncTest( "eQuery ajax - failing cross-domain", function() {
 		expect( 1 );
 
 		var i = 1;
 
-		jQuery.ajax({
+		eQuery.ajax({
 			url: "http://www.google.com",
 			success: function() {
 				ok( false, "success" );
@@ -2413,11 +2413,11 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 		});
 	});
 
-	test( "jQuery ajax - atom+xml", function() {
+	test( "eQuery ajax - atom+xml", function() {
 		expect( 1 );
 		stop();
 
-		jQuery.ajax({
+		eQuery.ajax({
 			url: url("data/atom+xml.php"),
 			success: function() {
 				ok( true, "success" );
@@ -2432,10 +2432,10 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 
 	});
 
-	test( "jQuery.ajax - Location object as url (#7531)", 1, function () {
+	test( "eQuery.ajax - Location object as url (#7531)", 1, function () {
 		var success = false;
 		try {
-			var xhr = jQuery.ajax({
+			var xhr = eQuery.ajax({
 				url: window.location
 			});
 			success = true;
@@ -2447,12 +2447,12 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 		ok( success, "document.location did not generate exception" );
 	});
 
-	test( "jQuery.ajax - Context with circular references (#9887)", 2, function () {
+	test( "eQuery.ajax - Context with circular references (#9887)", 2, function () {
 		var success = false,
 			context = {};
 		context.field = context;
 		try {
-			jQuery.ajax( "non-existing", {
+			eQuery.ajax( "non-existing", {
 				context: context,
 				beforeSend: function() {
 					ok( this === context, "context was not deep extended" );
@@ -2466,20 +2466,20 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 		ok( success, "context with circular reference did not generate an exception" );
 	});
 
-	test( "jQuery.ajax - statusText", 3, function() {
+	test( "eQuery.ajax - statusText", 3, function() {
 		stop();
-		jQuery.ajax( url("data/statusText.php?status=200&text=Hello") ).done(function( _, statusText, jqXHR ) {
+		eQuery.ajax( url("data/statusText.php?status=200&text=Hello") ).done(function( _, statusText, jqXHR ) {
 			strictEqual( statusText, "success", "callback status text ok for success" );
 			ok( jqXHR.statusText === "Hello" || jqXHR.statusText === "OK", "jqXHR status text ok for success (" + jqXHR.statusText + ")" );
-			jQuery.ajax( url("data/statusText.php?status=404&text=World") ).fail(function( jqXHR, statusText ) {
+			eQuery.ajax( url("data/statusText.php?status=404&text=World") ).fail(function( jqXHR, statusText ) {
 				strictEqual( statusText, "error", "callback status text ok for error" );
-				// ok( jqXHR.statusText === "World" || jQuery.browser.safari && jqXHR.statusText === "Not Found", "jqXHR status text ok for error (" + jqXHR.statusText + ")" );
+				// ok( jqXHR.statusText === "World" || eQuery.browser.safari && jqXHR.statusText === "Not Found", "jqXHR status text ok for error (" + jqXHR.statusText + ")" );
 				start();
 			});
 		});
 	});
 
-	test( "jQuery.ajax - statusCode", function() {
+	test( "eQuery.ajax - statusCode", function() {
 
 		var count = 12;
 
@@ -2504,31 +2504,31 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 			};
 		}
 
-		jQuery.each(
-			/* jQuery.each arguments start */
+		eQuery.each(
+			/* eQuery.each arguments start */
 			{
 				"data/name.html": true,
 				"data/someFileThatDoesNotExist.html": false
 			},
 			function( uri, isSuccess ) {
 
-				jQuery.ajax( url(uri), {
+				eQuery.ajax( url(uri), {
 					statusCode: createStatusCodes( "in options", isSuccess ),
 					complete: countComplete
 				});
 
-				jQuery.ajax( url(uri), {
+				eQuery.ajax( url(uri), {
 					complete: countComplete
 				}).statusCode( createStatusCodes("immediately with method", isSuccess) );
 
-				jQuery.ajax( url(uri), {
+				eQuery.ajax( url(uri), {
 					complete: function( jqXHR ) {
 						jqXHR.statusCode( createStatusCodes("on complete", isSuccess) );
 						countComplete();
 					}
 				});
 
-				jQuery.ajax( url(uri), {
+				eQuery.ajax( url(uri), {
 					complete: function( jqXHR ) {
 						setTimeout(function() {
 							jqXHR.statusCode( createStatusCodes("very late binding", isSuccess) );
@@ -2537,7 +2537,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 					}
 				});
 
-				jQuery.ajax( url(uri), {
+				eQuery.ajax( url(uri), {
 					statusCode: createStatusCodes( "all (options)", isSuccess ),
 					complete: function( jqXHR ) {
 						jqXHR.statusCode( createStatusCodes("all (on complete)", isSuccess) );
@@ -2550,7 +2550,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 
 				var testString = "";
 
-				jQuery.ajax( url(uri), {
+				eQuery.ajax( url(uri), {
 					success: function( a, b, jqXHR ) {
 						ok( isSuccess, "success" );
 						var statusCode = {};
@@ -2580,19 +2580,19 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 				});
 
 			}
-			/* jQuery.each arguments end*/
+			/* eQuery.each arguments end*/
 		);
 	});
 
-	test( "jQuery.ajax - transitive conversions", function() {
+	test( "eQuery.ajax - transitive conversions", function() {
 
 		expect( 8 );
 
 		stop();
 
-		jQuery.when(
-			/* jQuery.when arguments start */
-			jQuery.ajax( url("data/json.php"), {
+		eQuery.when(
+			/* eQuery.when arguments start */
+			eQuery.ajax( url("data/json.php"), {
 				converters: {
 					"json myJson": function( data ) {
 						ok( true, "converter called" );
@@ -2607,7 +2607,7 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 				}
 			}),
 
-			jQuery.ajax( url("data/json.php"), {
+			eQuery.ajax( url("data/json.php"), {
 				converters: {
 					"json myJson": function( data ) {
 						ok( true, "converter called (*)" );
@@ -2622,22 +2622,22 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 					strictEqual( this.dataTypes[ 1 ], "myjson", "request expected myjson dataType (*)" );
 				}
 			})
-			/* jQuery.when arguments end */
+			/* eQuery.when arguments end */
 		).always(function() {
 			start();
 		});
 
 	});
 
-	test( "jQuery.ajax - overrideMimeType", function() {
+	test( "eQuery.ajax - overrideMimeType", function() {
 
 		expect( 2 );
 
 		stop();
 
-		jQuery.when(
-			/* jQuery.when arguments start */
-			jQuery.ajax( url("data/json.php"), {
+		eQuery.when(
+			/* eQuery.when arguments start */
+			eQuery.ajax( url("data/json.php"), {
 				beforeSend: function( xhr ) {
 					xhr.overrideMimeType( "application/json" );
 				},
@@ -2645,30 +2645,30 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 					ok( json.data, "Mimetype overriden using beforeSend" );
 				}
 			}),
-			jQuery.ajax( url("data/json.php"), {
+			eQuery.ajax( url("data/json.php"), {
 				mimeType: "application/json",
 				success: function( json ) {
 					ok( json.data, "Mimetype overriden using mimeType option" );
 				}
 			})
-			/* jQuery.when arguments end */
+			/* eQuery.when arguments end */
 		).always(function() {
 			start();
 		});
 
 	});
 
-	test( "jQuery.ajax - abort in prefilter", function() {
+	test( "eQuery.ajax - abort in prefilter", function() {
 
 		expect( 1 );
 
-		jQuery.ajaxPrefilter(function( options, _, jqXHR ) {
+		eQuery.ajaxPrefilter(function( options, _, jqXHR ) {
 			if ( options.abortInPrefilter ) {
 				jqXHR.abort();
 			}
 		});
 
-		jQuery.ajax({
+		eQuery.ajax({
 			abortInPrefilter: true,
 			error: function() {
 				ok( false, "error callback called" );
@@ -2679,9 +2679,9 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 
 	});
 
-	test( "jQuery.ajax - loading binary data shouldn't throw an exception in IE (#11426)", 1, function() {
+	test( "eQuery.ajax - loading binary data shouldn't throw an exception in IE (#11426)", 1, function() {
 		stop();
-		jQuery.ajax( url("data/1x1.jpg"), {
+		eQuery.ajax( url("data/1x1.jpg"), {
 			success: function( data ) {
 				ok( data === undefined || /JFIF/.test( data ), "success callback reached" );
 				start();
@@ -2693,79 +2693,79 @@ if ( jQuery.ajax && ( !isLocal || hasPHP ) ) {
 		});
 	});
 
-	test( "jQuery.domManip - no side effect because of ajaxSetup or global events (#11264)", function() {
+	test( "eQuery.domManip - no side effect because of ajaxSetup or global events (#11264)", function() {
 		expect( 1 );
 
-		jQuery.ajaxSetup({
+		eQuery.ajaxSetup({
 			type: "POST"
 		});
 
-		jQuery( document ).bind( "ajaxStart ajaxStop", function() {
+		eQuery( document ).bind( "ajaxStart ajaxStop", function() {
 			ok( false, "Global event triggered" );
 		});
 
-		jQuery("#qunit-fixture").append("<script src='data/evalScript.php'></script>");
+		eQuery("#qunit-fixture").append("<script src='data/evalScript.php'></script>");
 
-		jQuery( document ).unbind("ajaxStart ajaxStop");
+		eQuery( document ).unbind("ajaxStart ajaxStop");
 
-		jQuery.ajaxSetup({
+		eQuery.ajaxSetup({
 			type: "GET"
 		});
 	});
 
-	test( "jQuery.domManip - script in comments are properly evaluated (#11402)", function() {
+	test( "eQuery.domManip - script in comments are properly evaluated (#11402)", function() {
 		expect( 2 );
 		stop();
-		jQuery("#qunit-fixture").load( "data/cleanScript.html", function() {
+		eQuery("#qunit-fixture").load( "data/cleanScript.html", function() {
 			start();
 		});
 	});
 
-	test( "jQuery.ajax - active counter", function() {
+	test( "eQuery.ajax - active counter", function() {
 		expect( 1 );
-		ok( jQuery.active === 0, "ajax active counter should be zero: " + jQuery.active );
+		ok( eQuery.active === 0, "ajax active counter should be zero: " + eQuery.active );
 	});
 
-	test("jQuery.ajax - falsy url as argument (#10093)", function() {
+	test("eQuery.ajax - falsy url as argument (#10093)", function() {
 		expect( 4 );
 
-		jQuery.ajaxSetup({ timeout: 0 });
+		eQuery.ajaxSetup({ timeout: 0 });
 
 		stop();
 
-		jQuery.when(
-			jQuery.ajax("").success(function(){ ok( true, "settings object - empty string" ); }),
-			jQuery.ajax( false ).success(function(){ ok( true, "false" ); }),
-			jQuery.ajax( null ).success(function(){ ok( true, "null" ); }),
-			jQuery.ajax( undefined ).success(function(){ ok( true, "undefined" ); })
+		eQuery.when(
+			eQuery.ajax("").success(function(){ ok( true, "settings object - empty string" ); }),
+			eQuery.ajax( false ).success(function(){ ok( true, "false" ); }),
+			eQuery.ajax( null ).success(function(){ ok( true, "null" ); }),
+			eQuery.ajax( undefined ).success(function(){ ok( true, "undefined" ); })
 		).always(function () {
 			start();
 		});
 	});
 
-	test("jQuery.ajax - falsy url in settings object (#10093)", function() {
+	test("eQuery.ajax - falsy url in settings object (#10093)", function() {
 		expect( 4 );
 
-		jQuery.ajaxSetup({ timeout: 0 });
+		eQuery.ajaxSetup({ timeout: 0 });
 
 		stop();
 
-		jQuery.when(
-			jQuery.ajax({ url: "" }).success(function(){ ok( true, "settings object - empty string" ); }),
-			jQuery.ajax({ url: false }).success(function(){ ok( true, "false" ); }),
-			jQuery.ajax({ url: null }).success(function(){ ok( true, "null" ); }),
-			jQuery.ajax({ url: undefined }).success(function(){ ok( true, "undefined" ); })
+		eQuery.when(
+			eQuery.ajax({ url: "" }).success(function(){ ok( true, "settings object - empty string" ); }),
+			eQuery.ajax({ url: false }).success(function(){ ok( true, "false" ); }),
+			eQuery.ajax({ url: null }).success(function(){ ok( true, "null" ); }),
+			eQuery.ajax({ url: undefined }).success(function(){ ok( true, "undefined" ); })
 		).always(function () {
 			start();
 		});
 	});
 	
-	test( "jQuery.ajax - empty json gets to error callback instead of success callback.", function() {
+	test( "eQuery.ajax - empty json gets to error callback instead of success callback.", function() {
 		expect( 1 );
 
 		stop();
 
-		jQuery.ajax( url("data/echoData.php"), {
+		eQuery.ajax( url("data/echoData.php"), {
 			error: function( _, __, error ) {
 				equal( typeof error === "object", true,  "Didn't get back error object for empty json response" );
 				start();

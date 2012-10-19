@@ -15,14 +15,14 @@ var fxNow, timerId,
 
 			if ( parts ) {
 				end = +parts[2];
-				unit = parts[3] || ( jQuery.cssNumber[ prop ] ? "" : "px" );
+				unit = parts[3] || ( eQuery.cssNumber[ prop ] ? "" : "px" );
 
 				// We need to compute starting value
 				if ( unit !== "px" && start ) {
 					// Iteratively approximate from a nonzero starting point
 					// Prefer the current property, because this process will be trivial if it uses the same units
 					// Fallback to end or a simple constant
-					start = jQuery.css( tween.elem, prop, true ) || end || 1;
+					start = eQuery.css( tween.elem, prop, true ) || end || 1;
 
 					do {
 						// If previous iteration zeroed out, double until we get *something*
@@ -31,7 +31,7 @@ var fxNow, timerId,
 
 						// Adjust and apply
 						start = start / scale;
-						jQuery.style( tween.elem, prop, start + unit );
+						eQuery.style( tween.elem, prop, start + unit );
 
 					// Update scale, tolerating zero or NaN from tween.cur()
 					// And breaking the loop if scale is unchanged or perfect, or if we've just had enough
@@ -52,11 +52,11 @@ function createFxNow() {
 	setTimeout(function() {
 		fxNow = undefined;
 	}, 0 );
-	return ( fxNow = jQuery.now() );
+	return ( fxNow = eQuery.now() );
 }
 
 function createTweens( animation, props ) {
-	jQuery.each( props, function( prop, value ) {
+	eQuery.each( props, function( prop, value ) {
 		var collection = ( tweeners[ prop ] || [] ).concat( tweeners[ "*" ] ),
 			index = 0,
 			length = collection.length;
@@ -74,7 +74,7 @@ function Animation( elem, properties, options ) {
 	var result,
 		index = 0,
 		length = animationPrefilters.length,
-		deferred = jQuery.Deferred().always( function() {
+		deferred = eQuery.Deferred().always( function() {
 			// don't match elem in the :animated selector
 			delete tick.elem;
 		}),
@@ -100,15 +100,15 @@ function Animation( elem, properties, options ) {
 		},
 		animation = deferred.promise({
 			elem: elem,
-			props: jQuery.extend( {}, properties ),
-			opts: jQuery.extend( true, { specialEasing: {} }, options ),
+			props: eQuery.extend( {}, properties ),
+			opts: eQuery.extend( true, { specialEasing: {} }, options ),
 			originalProperties: properties,
 			originalOptions: options,
 			startTime: fxNow || createFxNow(),
 			duration: options.duration,
 			tweens: [],
 			createTween: function( prop, end ) {
-				var tween = jQuery.Tween( elem, animation.opts, prop, end,
+				var tween = eQuery.Tween( elem, animation.opts, prop, end,
 						animation.opts.specialEasing[ prop ] || animation.opts.easing );
 				animation.tweens.push( tween );
 				return tween;
@@ -146,12 +146,12 @@ function Animation( elem, properties, options ) {
 
 	createTweens( animation, props );
 
-	if ( jQuery.isFunction( animation.opts.start ) ) {
+	if ( eQuery.isFunction( animation.opts.start ) ) {
 		animation.opts.start.call( elem, animation );
 	}
 
-	jQuery.fx.timer(
-		jQuery.extend( tick, {
+	eQuery.fx.timer(
+		eQuery.extend( tick, {
 			anim: animation,
 			queue: animation.opts.queue,
 			elem: elem
@@ -170,10 +170,10 @@ function propFilter( props, specialEasing ) {
 
 	// camelCase, specialEasing and expand cssHook pass
 	for ( index in props ) {
-		name = jQuery.camelCase( index );
+		name = eQuery.camelCase( index );
 		easing = specialEasing[ name ];
 		value = props[ index ];
-		if ( jQuery.isArray( value ) ) {
+		if ( eQuery.isArray( value ) ) {
 			easing = value[ 1 ];
 			value = props[ index ] = value[ 0 ];
 		}
@@ -183,7 +183,7 @@ function propFilter( props, specialEasing ) {
 			delete props[ index ];
 		}
 
-		hooks = jQuery.cssHooks[ name ];
+		hooks = eQuery.cssHooks[ name ];
 		if ( hooks && "expand" in hooks ) {
 			value = hooks.expand( value );
 			delete props[ name ];
@@ -202,10 +202,10 @@ function propFilter( props, specialEasing ) {
 	}
 }
 
-jQuery.Animation = jQuery.extend( Animation, {
+eQuery.Animation = eQuery.extend( Animation, {
 
 	tweener: function( props, callback ) {
-		if ( jQuery.isFunction( props ) ) {
+		if ( eQuery.isFunction( props ) ) {
 			callback = props;
 			props = [ "*" ];
 		} else {
@@ -242,7 +242,7 @@ function defaultPrefilter( elem, props, opts ) {
 
 	// handle queue: false promises
 	if ( !opts.queue ) {
-		hooks = jQuery._queueHooks( elem, "fx" );
+		hooks = eQuery._queueHooks( elem, "fx" );
 		if ( hooks.unqueued == null ) {
 			hooks.unqueued = 0;
 			oldfire = hooks.empty.fire;
@@ -259,7 +259,7 @@ function defaultPrefilter( elem, props, opts ) {
 			// before this completes
 			anim.always(function() {
 				hooks.unqueued--;
-				if ( !jQuery.queue( elem, "fx" ).length ) {
+				if ( !eQuery.queue( elem, "fx" ).length ) {
 					hooks.empty.fire();
 				}
 			});
@@ -276,12 +276,12 @@ function defaultPrefilter( elem, props, opts ) {
 
 		// Set display property to inline-block for height/width
 		// animations on inline elements that are having width/height animated
-		if ( jQuery.css( elem, "display" ) === "inline" &&
-				jQuery.css( elem, "float" ) === "none" ) {
+		if ( eQuery.css( elem, "display" ) === "inline" &&
+				eQuery.css( elem, "float" ) === "none" ) {
 
 			// inline-level elements accept inline-block;
 			// block-level elements need to be inline with layout
-			if ( !jQuery.support.inlineBlockNeedsLayout || css_defaultDisplay( elem.nodeName ) === "inline" ) {
+			if ( !eQuery.support.inlineBlockNeedsLayout || css_defaultDisplay( elem.nodeName ) === "inline" ) {
 				style.display = "inline-block";
 
 			} else {
@@ -292,7 +292,7 @@ function defaultPrefilter( elem, props, opts ) {
 
 	if ( opts.overflow ) {
 		style.overflow = "hidden";
-		if ( !jQuery.support.shrinkWrapBlocks ) {
+		if ( !eQuery.support.shrinkWrapBlocks ) {
 			anim.done(function() {
 				style.overflow = opts.overflow[ 0 ];
 				style.overflowX = opts.overflow[ 1 ];
@@ -316,25 +316,25 @@ function defaultPrefilter( elem, props, opts ) {
 
 	length = handled.length;
 	if ( length ) {
-		dataShow = jQuery._data( elem, "fxshow" ) || jQuery._data( elem, "fxshow", {} );
+		dataShow = eQuery._data( elem, "fxshow" ) || eQuery._data( elem, "fxshow", {} );
 		if ( hidden ) {
-			jQuery( elem ).show();
+			eQuery( elem ).show();
 		} else {
 			anim.done(function() {
-				jQuery( elem ).hide();
+				eQuery( elem ).hide();
 			});
 		}
 		anim.done(function() {
 			var prop;
-			jQuery._removeData( elem, "fxshow" );
+			eQuery._removeData( elem, "fxshow" );
 			for ( prop in orig ) {
-				jQuery.style( elem, prop, orig[ prop ] );
+				eQuery.style( elem, prop, orig[ prop ] );
 			}
 		});
 		for ( index = 0 ; index < length ; index++ ) {
 			prop = handled[ index ];
 			tween = anim.createTween( prop, hidden ? dataShow[ prop ] : 0 );
-			orig[ prop ] = dataShow[ prop ] || jQuery.style( elem, prop );
+			orig[ prop ] = dataShow[ prop ] || eQuery.style( elem, prop );
 
 			if ( !( prop in dataShow ) ) {
 				dataShow[ prop ] = tween.start;
@@ -350,7 +350,7 @@ function defaultPrefilter( elem, props, opts ) {
 function Tween( elem, options, prop, end, easing ) {
 	return new Tween.prototype.init( elem, options, prop, end, easing );
 }
-jQuery.Tween = Tween;
+eQuery.Tween = Tween;
 
 Tween.prototype = {
 	constructor: Tween,
@@ -361,7 +361,7 @@ Tween.prototype = {
 		this.options = options;
 		this.start = this.now = this.cur();
 		this.end = end;
-		this.unit = unit || ( jQuery.cssNumber[ prop ] ? "" : "px" );
+		this.unit = unit || ( eQuery.cssNumber[ prop ] ? "" : "px" );
 	},
 	cur: function() {
 		var hooks = Tween.propHooks[ this.prop ];
@@ -375,7 +375,7 @@ Tween.prototype = {
 			hooks = Tween.propHooks[ this.prop ];
 
 		if ( this.options.duration ) {
-			this.pos = eased = jQuery.easing[ this.easing ](
+			this.pos = eased = eQuery.easing[ this.easing ](
 				percent, this.options.duration * percent, 0, 1, this.options.duration
 			);
 		} else {
@@ -412,17 +412,17 @@ Tween.propHooks = {
 			// attempt a parseFloat and fallback to a string if the parse fails
 			// so, simple values such as "10px" are parsed to Float.
 			// complex values such as "rotate(1rad)" are returned as is.
-			result = jQuery.css( tween.elem, tween.prop, false, "" );
+			result = eQuery.css( tween.elem, tween.prop, false, "" );
 			// Empty strings, null, undefined and "auto" are converted to 0.
 			return !result || result === "auto" ? 0 : result;
 		},
 		set: function( tween ) {
 			// use step hook for back compat - use cssHook if its there - use .style if its
 			// available and use plain properties where available
-			if ( jQuery.fx.step[ tween.prop ] ) {
-				jQuery.fx.step[ tween.prop ]( tween );
-			} else if ( tween.elem.style && ( tween.elem.style[ jQuery.cssProps[ tween.prop ] ] != null || jQuery.cssHooks[ tween.prop ] ) ) {
-				jQuery.style( tween.elem, tween.prop, tween.now + tween.unit );
+			if ( eQuery.fx.step[ tween.prop ] ) {
+				eQuery.fx.step[ tween.prop ]( tween );
+			} else if ( tween.elem.style && ( tween.elem.style[ eQuery.cssProps[ tween.prop ] ] != null || eQuery.cssHooks[ tween.prop ] ) ) {
+				eQuery.style( tween.elem, tween.prop, tween.now + tween.unit );
 			} else {
 				tween.elem[ tween.prop ] = tween.now;
 			}
@@ -441,16 +441,16 @@ Tween.propHooks.scrollTop = Tween.propHooks.scrollLeft = {
 	}
 };
 
-jQuery.each([ "toggle", "show", "hide" ], function( i, name ) {
-	var cssFn = jQuery.fn[ name ];
-	jQuery.fn[ name ] = function( speed, easing, callback ) {
+eQuery.each([ "toggle", "show", "hide" ], function( i, name ) {
+	var cssFn = eQuery.fn[ name ];
+	eQuery.fn[ name ] = function( speed, easing, callback ) {
 		return speed == null || typeof speed === "boolean" ?
 			cssFn.apply( this, arguments ) :
 			this.animate( genFx( name, true ), speed, easing, callback );
 	};
 });
 
-jQuery.fn.extend({
+eQuery.fn.extend({
 	fadeTo: function( speed, to, easing, callback ) {
 
 		// show any hidden elements after setting opacity to 0
@@ -460,11 +460,11 @@ jQuery.fn.extend({
 			.end().animate({ opacity: to }, speed, easing, callback );
 	},
 	animate: function( prop, speed, easing, callback ) {
-		var empty = jQuery.isEmptyObject( prop ),
-			optall = jQuery.speed( speed, easing, callback ),
+		var empty = eQuery.isEmptyObject( prop ),
+			optall = eQuery.speed( speed, easing, callback ),
 			doAnimation = function() {
 				// Operate on a copy of prop so per-property easing won't be lost
-				var anim = Animation( this, jQuery.extend( {}, prop ), optall );
+				var anim = Animation( this, eQuery.extend( {}, prop ), optall );
 
 				// Empty animations resolve immediately
 				if ( empty ) {
@@ -495,8 +495,8 @@ jQuery.fn.extend({
 		return this.each(function() {
 			var dequeue = true,
 				index = type != null && type + "queueHooks",
-				timers = jQuery.timers,
-				data = jQuery._data( this );
+				timers = eQuery.timers,
+				data = eQuery._data( this );
 
 			if ( index ) {
 				if ( data[ index ] && data[ index ].stop ) {
@@ -522,7 +522,7 @@ jQuery.fn.extend({
 			// timers currently will call their complete callbacks, which will dequeue
 			// but only if they were gotoEnd
 			if ( dequeue || !gotoEnd ) {
-				jQuery.dequeue( this, type );
+				eQuery.dequeue( this, type );
 			}
 		});
 	}
@@ -550,7 +550,7 @@ function genFx( type, includeWidth ) {
 }
 
 // Generate shortcuts for custom animations
-jQuery.each({
+eQuery.each({
 	slideDown: genFx("show"),
 	slideUp: genFx("hide"),
 	slideToggle: genFx("toggle"),
@@ -558,21 +558,21 @@ jQuery.each({
 	fadeOut: { opacity: "hide" },
 	fadeToggle: { opacity: "toggle" }
 }, function( name, props ) {
-	jQuery.fn[ name ] = function( speed, easing, callback ) {
+	eQuery.fn[ name ] = function( speed, easing, callback ) {
 		return this.animate( props, speed, easing, callback );
 	};
 });
 
-jQuery.speed = function( speed, easing, fn ) {
-	var opt = speed && typeof speed === "object" ? jQuery.extend( {}, speed ) : {
+eQuery.speed = function( speed, easing, fn ) {
+	var opt = speed && typeof speed === "object" ? eQuery.extend( {}, speed ) : {
 		complete: fn || !fn && easing ||
-			jQuery.isFunction( speed ) && speed,
+			eQuery.isFunction( speed ) && speed,
 		duration: speed,
-		easing: fn && easing || easing && !jQuery.isFunction( easing ) && easing
+		easing: fn && easing || easing && !eQuery.isFunction( easing ) && easing
 	};
 
-	opt.duration = jQuery.fx.off ? 0 : typeof opt.duration === "number" ? opt.duration :
-		opt.duration in jQuery.fx.speeds ? jQuery.fx.speeds[ opt.duration ] : jQuery.fx.speeds._default;
+	opt.duration = eQuery.fx.off ? 0 : typeof opt.duration === "number" ? opt.duration :
+		opt.duration in eQuery.fx.speeds ? eQuery.fx.speeds[ opt.duration ] : eQuery.fx.speeds._default;
 
 	// normalize opt.queue - true/undefined/null -> "fx"
 	if ( opt.queue == null || opt.queue === true ) {
@@ -583,19 +583,19 @@ jQuery.speed = function( speed, easing, fn ) {
 	opt.old = opt.complete;
 
 	opt.complete = function() {
-		if ( jQuery.isFunction( opt.old ) ) {
+		if ( eQuery.isFunction( opt.old ) ) {
 			opt.old.call( this );
 		}
 
 		if ( opt.queue ) {
-			jQuery.dequeue( this, opt.queue );
+			eQuery.dequeue( this, opt.queue );
 		}
 	};
 
 	return opt;
 };
 
-jQuery.easing = {
+eQuery.easing = {
 	linear: function( p ) {
 		return p;
 	},
@@ -604,11 +604,11 @@ jQuery.easing = {
 	}
 };
 
-jQuery.timers = [];
-jQuery.fx = Tween.prototype.init;
-jQuery.fx.tick = function() {
+eQuery.timers = [];
+eQuery.fx = Tween.prototype.init;
+eQuery.fx.tick = function() {
 	var timer,
-		timers = jQuery.timers,
+		timers = eQuery.timers,
 		i = 0;
 
 	for ( ; i < timers.length; i++ ) {
@@ -620,24 +620,24 @@ jQuery.fx.tick = function() {
 	}
 
 	if ( !timers.length ) {
-		jQuery.fx.stop();
+		eQuery.fx.stop();
 	}
 };
 
-jQuery.fx.timer = function( timer ) {
-	if ( timer() && jQuery.timers.push( timer ) && !timerId ) {
-		timerId = setInterval( jQuery.fx.tick, jQuery.fx.interval );
+eQuery.fx.timer = function( timer ) {
+	if ( timer() && eQuery.timers.push( timer ) && !timerId ) {
+		timerId = setInterval( eQuery.fx.tick, eQuery.fx.interval );
 	}
 };
 
-jQuery.fx.interval = 13;
+eQuery.fx.interval = 13;
 
-jQuery.fx.stop = function() {
+eQuery.fx.stop = function() {
 	clearInterval( timerId );
 	timerId = null;
 };
 
-jQuery.fx.speeds = {
+eQuery.fx.speeds = {
 	slow: 600,
 	fast: 200,
 	// Default speed
@@ -645,11 +645,11 @@ jQuery.fx.speeds = {
 };
 
 // Back Compat <1.8 extension point
-jQuery.fx.step = {};
+eQuery.fx.step = {};
 
-if ( jQuery.expr && jQuery.expr.filters ) {
-	jQuery.expr.filters.animated = function( elem ) {
-		return jQuery.grep(jQuery.timers, function( fn ) {
+if ( eQuery.expr && eQuery.expr.filters ) {
+	eQuery.expr.filters.animated = function( elem ) {
+		return eQuery.grep(eQuery.timers, function( fn ) {
 			return elem === fn.elem;
 		}).length;
 	};

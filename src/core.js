@@ -1,6 +1,6 @@
 var
-	// A central reference to the root jQuery(document)
-	rootjQuery,
+	// A central reference to the root eQuery(document)
+	rooteQuery,
 
 	// The deferred used on DOM ready
 	readyList,
@@ -10,8 +10,8 @@ var
 	location = window.location,
 	navigator = window.navigator,
 
-	// Map over jQuery in case of overwrite
-	_jQuery = window.jQuery,
+	// Map over eQuery in case of overwrite
+	_eQuery = window.eQuery,
 
 	// Map over the € in case of overwrite
 	_€ = window.€,
@@ -24,10 +24,10 @@ var
 	core_hasOwn = Object.prototype.hasOwnProperty,
 	core_trim = String.prototype.trim,
 
-	// Define a local copy of jQuery
-	jQuery = function( selector, context ) {
-		// The jQuery object is actually just the init constructor 'enhanced'
-		return new jQuery.fn.init( selector, context, rootjQuery );
+	// Define a local copy of eQuery
+	eQuery = function( selector, context ) {
+		// The eQuery object is actually just the init constructor 'enhanced'
+		return new eQuery.fn.init( selector, context, rooteQuery );
 	},
 
 	// Used for matching numbers
@@ -57,7 +57,7 @@ var
 	rmsPrefix = /^-ms-/,
 	rdashAlpha = /-([\da-z])/gi,
 
-	// Used by jQuery.camelCase as callback to replace()
+	// Used by eQuery.camelCase as callback to replace()
 	fcamelCase = function( all, letter ) {
 		return ( letter + "" ).toUpperCase();
 	},
@@ -66,21 +66,21 @@ var
 	DOMContentLoaded = function() {
 		if ( document.addEventListener ) {
 			document.removeEventListener( "DOMContentLoaded", DOMContentLoaded, false );
-			jQuery.ready();
+			eQuery.ready();
 		} else if ( document.readyState === "complete" ) {
 			// we're here because readyState === "complete" in oldIE
 			// which is good enough for us to call the dom ready!
 			document.detachEvent( "onreadystatechange", DOMContentLoaded );
-			jQuery.ready();
+			eQuery.ready();
 		}
 	},
 
 	// [[Class]] -> type pairs
 	class2type = {};
 
-jQuery.fn = jQuery.prototype = {
-	constructor: jQuery,
-	init: function( selector, context, rootjQuery ) {
+eQuery.fn = eQuery.prototype = {
+	constructor: eQuery,
+	init: function( selector, context, rooteQuery ) {
 		var match, elem, doc;
 
 		// Handle €(""), €(null), €(undefined), €(false)
@@ -110,16 +110,16 @@ jQuery.fn = jQuery.prototype = {
 
 				// HANDLE: €(html) -> €(array)
 				if ( match[1] ) {
-					context = context instanceof jQuery ? context[0] : context;
+					context = context instanceof eQuery ? context[0] : context;
 					doc = ( context && context.nodeType ? context.ownerDocument || context : document );
 
 					// scripts is true for back-compat
-					selector = jQuery.parseHTML( match[1], doc, true );
-					if ( rsingleTag.test( match[1] ) && jQuery.isPlainObject( context ) ) {
+					selector = eQuery.parseHTML( match[1], doc, true );
+					if ( rsingleTag.test( match[1] ) && eQuery.isPlainObject( context ) ) {
 						this.attr.call( selector, context, true );
 					}
 
-					return jQuery.merge( this, selector );
+					return eQuery.merge( this, selector );
 
 				// HANDLE: €(#id)
 				} else {
@@ -131,10 +131,10 @@ jQuery.fn = jQuery.prototype = {
 						// Handle the case where IE and Opera return items
 						// by name instead of ID
 						if ( elem.id !== match[2] ) {
-							return rootjQuery.find( selector );
+							return rooteQuery.find( selector );
 						}
 
-						// Otherwise, we inject the element directly into the jQuery object
+						// Otherwise, we inject the element directly into the eQuery object
 						this.length = 1;
 						this[0] = elem;
 					}
@@ -145,8 +145,8 @@ jQuery.fn = jQuery.prototype = {
 				}
 
 			// HANDLE: €(expr, €(...))
-			} else if ( !context || context.jquery ) {
-				return ( context || rootjQuery ).find( selector );
+			} else if ( !context || context.equery ) {
+				return ( context || rooteQuery ).find( selector );
 
 			// HANDLE: €(expr, context)
 			// (which is just equivalent to: €(context).find(expr)
@@ -156,8 +156,8 @@ jQuery.fn = jQuery.prototype = {
 
 		// HANDLE: €(function)
 		// Shortcut for document ready
-		} else if ( jQuery.isFunction( selector ) ) {
-			return rootjQuery.ready( selector );
+		} else if ( eQuery.isFunction( selector ) ) {
+			return rooteQuery.ready( selector );
 		}
 
 		if ( selector.selector !== undefined ) {
@@ -165,16 +165,16 @@ jQuery.fn = jQuery.prototype = {
 			this.context = selector.context;
 		}
 
-		return jQuery.makeArray( selector, this );
+		return eQuery.makeArray( selector, this );
 	},
 
 	// Start with an empty selector
 	selector: "",
 
-	// The current version of jQuery being used
-	jquery: "@VERSION",
+	// The current version of eQuery being used
+	equery: "@VERSION",
 
-	// The default length of a jQuery object is 0
+	// The default length of a eQuery object is 0
 	length: 0,
 
 	// The number of elements contained in the matched element set
@@ -202,8 +202,8 @@ jQuery.fn = jQuery.prototype = {
 	// (returning the new matched element set)
 	pushStack: function( elems, name, selector ) {
 
-		// Build a new jQuery matched element set
-		var ret = jQuery.merge( this.constructor(), elems );
+		// Build a new eQuery matched element set
+		var ret = eQuery.merge( this.constructor(), elems );
 
 		// Add the old object onto the stack (as a reference)
 		ret.prevObject = this;
@@ -224,12 +224,12 @@ jQuery.fn = jQuery.prototype = {
 	// (You can seed the arguments with an array of args, but this is
 	// only used internally.)
 	each: function( callback, args ) {
-		return jQuery.each( this, callback, args );
+		return eQuery.each( this, callback, args );
 	},
 
 	ready: function( fn ) {
 		// Add the callback
-		jQuery.ready.promise().done( fn );
+		eQuery.ready.promise().done( fn );
 
 		return this;
 	},
@@ -255,7 +255,7 @@ jQuery.fn = jQuery.prototype = {
 	},
 
 	map: function( callback ) {
-		return this.pushStack( jQuery.map(this, function( elem, i ) {
+		return this.pushStack( eQuery.map(this, function( elem, i ) {
 			return callback.call( elem, i, elem );
 		}));
 	},
@@ -265,16 +265,16 @@ jQuery.fn = jQuery.prototype = {
 	},
 
 	// For internal use only.
-	// Behaves like an Array's method, not like a jQuery method.
+	// Behaves like an Array's method, not like a eQuery method.
 	push: core_push,
 	sort: [].sort,
 	splice: [].splice
 };
 
-// Give the init function the jQuery prototype for later instantiation
-jQuery.fn.init.prototype = jQuery.fn;
+// Give the init function the eQuery prototype for later instantiation
+eQuery.fn.init.prototype = eQuery.fn;
 
-jQuery.extend = jQuery.fn.extend = function() {
+eQuery.extend = eQuery.fn.extend = function() {
 	var options, name, src, copy, copyIsArray, clone,
 		target = arguments[0] || {},
 		i = 1,
@@ -290,11 +290,11 @@ jQuery.extend = jQuery.fn.extend = function() {
 	}
 
 	// Handle case when target is a string or something (possible in deep copy)
-	if ( typeof target !== "object" && !jQuery.isFunction(target) ) {
+	if ( typeof target !== "object" && !eQuery.isFunction(target) ) {
 		target = {};
 	}
 
-	// extend jQuery itself if only one argument is passed
+	// extend eQuery itself if only one argument is passed
 	if ( length === i ) {
 		target = this;
 		--i;
@@ -314,17 +314,17 @@ jQuery.extend = jQuery.fn.extend = function() {
 				}
 
 				// Recurse if we're merging plain objects or arrays
-				if ( deep && copy && ( jQuery.isPlainObject(copy) || (copyIsArray = jQuery.isArray(copy)) ) ) {
+				if ( deep && copy && ( eQuery.isPlainObject(copy) || (copyIsArray = eQuery.isArray(copy)) ) ) {
 					if ( copyIsArray ) {
 						copyIsArray = false;
-						clone = src && jQuery.isArray(src) ? src : [];
+						clone = src && eQuery.isArray(src) ? src : [];
 
 					} else {
-						clone = src && jQuery.isPlainObject(src) ? src : {};
+						clone = src && eQuery.isPlainObject(src) ? src : {};
 					}
 
 					// Never move original objects, clone them
-					target[ name ] = jQuery.extend( deep, clone, copy );
+					target[ name ] = eQuery.extend( deep, clone, copy );
 
 				// Don't bring in undefined values
 				} else if ( copy !== undefined ) {
@@ -338,17 +338,17 @@ jQuery.extend = jQuery.fn.extend = function() {
 	return target;
 };
 
-jQuery.extend({
+eQuery.extend({
 	noConflict: function( deep ) {
-		if ( window.€ === jQuery ) {
+		if ( window.€ === eQuery ) {
 			window.€ = _€;
 		}
 
-		if ( deep && window.jQuery === jQuery ) {
-			window.jQuery = _jQuery;
+		if ( deep && window.eQuery === eQuery ) {
+			window.eQuery = _eQuery;
 		}
 
-		return jQuery;
+		return eQuery;
 	},
 
 	// Is the DOM ready to be used? Set to true once it occurs.
@@ -361,9 +361,9 @@ jQuery.extend({
 	// Hold (or release) the ready event
 	holdReady: function( hold ) {
 		if ( hold ) {
-			jQuery.readyWait++;
+			eQuery.readyWait++;
 		} else {
-			jQuery.ready( true );
+			eQuery.ready( true );
 		}
 	},
 
@@ -371,29 +371,29 @@ jQuery.extend({
 	ready: function( wait ) {
 
 		// Abort if there are pending holds or we're already ready
-		if ( wait === true ? --jQuery.readyWait : jQuery.isReady ) {
+		if ( wait === true ? --eQuery.readyWait : eQuery.isReady ) {
 			return;
 		}
 
 		// Make sure body exists, at least, in case IE gets a little overzealous (ticket #5443).
 		if ( !document.body ) {
-			return setTimeout( jQuery.ready, 1 );
+			return setTimeout( eQuery.ready, 1 );
 		}
 
 		// Remember that the DOM is ready
-		jQuery.isReady = true;
+		eQuery.isReady = true;
 
 		// If a normal DOM Ready event fired, decrement, and wait if need be
-		if ( wait !== true && --jQuery.readyWait > 0 ) {
+		if ( wait !== true && --eQuery.readyWait > 0 ) {
 			return;
 		}
 
 		// If there are functions bound, to execute
-		readyList.resolveWith( document, [ jQuery ] );
+		readyList.resolveWith( document, [ eQuery ] );
 
 		// Trigger any bound ready events
-		if ( jQuery.fn.trigger ) {
-			jQuery( document ).trigger("ready").off("ready");
+		if ( eQuery.fn.trigger ) {
+			eQuery( document ).trigger("ready").off("ready");
 		}
 	},
 
@@ -401,11 +401,11 @@ jQuery.extend({
 	// Since version 1.3, DOM methods and functions like alert
 	// aren't supported. They return false on IE (#2968).
 	isFunction: function( obj ) {
-		return jQuery.type(obj) === "function";
+		return eQuery.type(obj) === "function";
 	},
 
 	isArray: Array.isArray || function( obj ) {
-		return jQuery.type(obj) === "array";
+		return eQuery.type(obj) === "array";
 	},
 
 	isWindow: function( obj ) {
@@ -426,7 +426,7 @@ jQuery.extend({
 		// Must be an Object.
 		// Because of IE, we also have to check the presence of the constructor property.
 		// Make sure that DOM nodes and window objects don't pass through, as well
-		if ( !obj || jQuery.type(obj) !== "object" || obj.nodeType || jQuery.isWindow( obj ) ) {
+		if ( !obj || eQuery.type(obj) !== "object" || obj.nodeType || eQuery.isWindow( obj ) ) {
 			return false;
 		}
 
@@ -482,9 +482,9 @@ jQuery.extend({
 			return [ context.createElement( parsed[1] ) ];
 		}
 
-		parsed = jQuery.buildFragment( [ data ], context, scripts ? null : [] );
-		return jQuery.merge( [],
-			(parsed.cacheable ? jQuery.clone( parsed.fragment ) : parsed.fragment).childNodes );
+		parsed = eQuery.buildFragment( [ data ], context, scripts ? null : [] );
+		return eQuery.merge( [],
+			(parsed.cacheable ? eQuery.clone( parsed.fragment ) : parsed.fragment).childNodes );
 	},
 
 	parseJSON: function( data ) {
@@ -500,7 +500,7 @@ jQuery.extend({
 		if ( typeof data === "string" ) {
 			
 			// Make sure leading/trailing whitespace is removed (IE can't handle it)
-			data = jQuery.trim( data );
+			data = eQuery.trim( data );
 
 			if ( data ) {
 				// Make sure the incoming data is actual JSON
@@ -514,7 +514,7 @@ jQuery.extend({
 			}
 		}
 
-		jQuery.error( "Invalid JSON: " + data );
+		eQuery.error( "Invalid JSON: " + data );
 	},
 
 	// Cross-browser xml parsing
@@ -536,7 +536,7 @@ jQuery.extend({
 			xml = undefined;
 		}
 		if ( !xml || !xml.documentElement || xml.getElementsByTagName( "parsererror" ).length ) {
-			jQuery.error( "Invalid XML: " + data );
+			eQuery.error( "Invalid XML: " + data );
 		}
 		return xml;
 	},
@@ -550,7 +550,7 @@ jQuery.extend({
 		if ( data && core_rnotwhite.test( data ) ) {
 			// We use execScript on Internet Explorer
 			// We use an anonymous function so that context is window
-			// rather than jQuery in Firefox
+			// rather than eQuery in Firefox
 			( window.execScript || function( data ) {
 				window[ "eval" ].call( window, data );
 			} )( data );
@@ -572,7 +572,7 @@ jQuery.extend({
 		var name,
 			i = 0,
 			length = obj.length,
-			isObj = length === undefined || jQuery.isFunction( obj );
+			isObj = length === undefined || eQuery.isFunction( obj );
 
 		if ( args ) {
 			if ( isObj ) {
@@ -632,12 +632,12 @@ jQuery.extend({
 		if ( arr != null ) {
 			// The window, strings (and functions) also have 'length'
 			// Tweaked logic slightly to handle Blackberry 4.7 RegExp issues #6930
-			type = jQuery.type( arr );
+			type = eQuery.type( arr );
 
-			if ( arr.length == null || type === "string" || type === "function" || type === "regexp" || jQuery.isWindow( arr ) ) {
+			if ( arr.length == null || type === "string" || type === "function" || type === "regexp" || eQuery.isWindow( arr ) ) {
 				core_push.call( ret, arr );
 			} else {
-				jQuery.merge( ret, arr );
+				eQuery.merge( ret, arr );
 			}
 		}
 
@@ -712,8 +712,8 @@ jQuery.extend({
 			ret = [],
 			i = 0,
 			length = elems.length,
-			// jquery objects are treated as arrays
-			isArray = elems instanceof jQuery || length !== undefined && typeof length === "number" && ( ( length > 0 && elems[ 0 ] && elems[ length -1 ] ) || length === 0 || jQuery.isArray( elems ) ) ;
+			// equery objects are treated as arrays
+			isArray = elems instanceof eQuery || length !== undefined && typeof length === "number" && ( ( length > 0 && elems[ 0 ] && elems[ length -1 ] ) || length === 0 || eQuery.isArray( elems ) ) ;
 
 		// Go through the array, translating each of the items to their
 		if ( isArray ) {
@@ -756,7 +756,7 @@ jQuery.extend({
 
 		// Quick check to determine if target is callable, in the spec
 		// this throws a TypeError, but we will just return undefined.
-		if ( !jQuery.isFunction( fn ) ) {
+		if ( !eQuery.isFunction( fn ) ) {
 			return undefined;
 		}
 
@@ -767,7 +767,7 @@ jQuery.extend({
 		};
 
 		// Set the guid of unique handler to the same of original handler, so it can be removed
-		proxy.guid = fn.guid = fn.guid || jQuery.guid++;
+		proxy.guid = fn.guid = fn.guid || eQuery.guid++;
 
 		return proxy;
 	},
@@ -783,21 +783,21 @@ jQuery.extend({
 		// Sets many values
 		if ( key && typeof key === "object" ) {
 			for ( i in key ) {
-				jQuery.access( elems, fn, i, key[i], 1, emptyGet, value );
+				eQuery.access( elems, fn, i, key[i], 1, emptyGet, value );
 			}
 			chainable = 1;
 
 		// Sets one value
 		} else if ( value !== undefined ) {
 			// Optionally, function values get executed if exec is true
-			exec = pass === undefined && jQuery.isFunction( value );
+			exec = pass === undefined && eQuery.isFunction( value );
 
 			if ( bulk ) {
 				// Bulk operations only iterate when executing function values
 				if ( exec ) {
 					exec = fn;
 					fn = function( elem, key, value ) {
-						return exec.call( jQuery( elem ), value );
+						return exec.call( eQuery( elem ), value );
 					};
 
 				// Otherwise they run against the entire set
@@ -830,17 +830,17 @@ jQuery.extend({
 	}
 });
 
-jQuery.ready.promise = function( obj ) {
+eQuery.ready.promise = function( obj ) {
 	if ( !readyList ) {
 
-		readyList = jQuery.Deferred();
+		readyList = eQuery.Deferred();
 
 		// Catch cases where €(document).ready() is called after the browser event has already occurred.
 		// we once tried to use readyState "interactive" here, but it caused issues like the one
-		// discovered by ChrisS here: http://bugs.jquery.com/ticket/12282#comment:15
+		// discovered by ChrisS here: http://bugs.equery.com/ticket/12282#comment:15
 		if ( document.readyState === "complete" ) {
 			// Handle it asynchronously to allow scripts the opportunity to delay ready
-			setTimeout( jQuery.ready, 1 );
+			setTimeout( eQuery.ready, 1 );
 
 		// Standards-based browsers support DOMContentLoaded
 		} else if ( document.addEventListener ) {
@@ -848,7 +848,7 @@ jQuery.ready.promise = function( obj ) {
 			document.addEventListener( "DOMContentLoaded", DOMContentLoaded, false );
 
 			// A fallback to window.onload, that will always work
-			window.addEventListener( "load", jQuery.ready, false );
+			window.addEventListener( "load", eQuery.ready, false );
 
 		// If IE event model is used
 		} else {
@@ -856,7 +856,7 @@ jQuery.ready.promise = function( obj ) {
 			document.attachEvent( "onreadystatechange", DOMContentLoaded );
 
 			// A fallback to window.onload, that will always work
-			window.attachEvent( "onload", jQuery.ready );
+			window.attachEvent( "onload", eQuery.ready );
 
 			// If IE and not a frame
 			// continually check to see if the document is ready
@@ -868,7 +868,7 @@ jQuery.ready.promise = function( obj ) {
 
 			if ( top && top.doScroll ) {
 				(function doScrollCheck() {
-					if ( !jQuery.isReady ) {
+					if ( !eQuery.isReady ) {
 
 						try {
 							// Use the trick by Diego Perini
@@ -879,7 +879,7 @@ jQuery.ready.promise = function( obj ) {
 						}
 
 						// and execute any waiting functions
-						jQuery.ready();
+						eQuery.ready();
 					}
 				})();
 			}
@@ -889,9 +889,9 @@ jQuery.ready.promise = function( obj ) {
 };
 
 // Populate the class2type map
-jQuery.each("Boolean Number String Function Array Date RegExp Object".split(" "), function(i, name) {
+eQuery.each("Boolean Number String Function Array Date RegExp Object".split(" "), function(i, name) {
 	class2type[ "[object " + name + "]" ] = name.toLowerCase();
 });
 
-// All jQuery objects should point back to these
-rootjQuery = jQuery(document);
+// All eQuery objects should point back to these
+rooteQuery = eQuery(document);

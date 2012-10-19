@@ -4,7 +4,7 @@ var optionsCache = {};
 // Convert String-formatted options into Object-formatted ones and store in cache
 function createOptions( options ) {
 	var object = optionsCache[ options ] = {};
-	jQuery.each( options.split( core_rspace ), function( _, flag ) {
+	eQuery.each( options.split( core_rspace ), function( _, flag ) {
 		object[ flag ] = true;
 	});
 	return object;
@@ -32,13 +32,13 @@ function createOptions( options ) {
  *	stopOnFalse:	interrupt callings when a callback returns false
  *
  */
-jQuery.Callbacks = function( options ) {
+eQuery.Callbacks = function( options ) {
 
 	// Convert options from String-formatted to Object-formatted if needed
 	// (we check in cache first)
 	options = typeof options === "string" ?
 		( optionsCache[ options ] || createOptions( options ) ) :
-		jQuery.extend( {}, options );
+		eQuery.extend( {}, options );
 
 	var // Last fire value (for non-forgettable lists)
 		memory,
@@ -91,8 +91,8 @@ jQuery.Callbacks = function( options ) {
 					// First, we save the current length
 					var start = list.length;
 					(function add( args ) {
-						jQuery.each( args, function( _, arg ) {
-							var type = jQuery.type( arg );
+						eQuery.each( args, function( _, arg ) {
+							var type = eQuery.type( arg );
 							if ( type === "function" ) {
 								if ( !options.unique || !self.has( arg ) ) {
 									list.push( arg );
@@ -119,9 +119,9 @@ jQuery.Callbacks = function( options ) {
 			// Remove a callback from the list
 			remove: function() {
 				if ( list ) {
-					jQuery.each( arguments, function( _, arg ) {
+					eQuery.each( arguments, function( _, arg ) {
 						var index;
-						while( ( index = jQuery.inArray( arg, list, index ) ) > -1 ) {
+						while( ( index = eQuery.inArray( arg, list, index ) ) > -1 ) {
 							list.splice( index, 1 );
 							// Handle firing indexes
 							if ( firing ) {
@@ -139,7 +139,7 @@ jQuery.Callbacks = function( options ) {
 			},
 			// Control if a given callback is in the list
 			has: function( fn ) {
-				return jQuery.inArray( fn, list ) > -1;
+				return eQuery.inArray( fn, list ) > -1;
 			},
 			// Remove all callbacks from the list
 			empty: function() {

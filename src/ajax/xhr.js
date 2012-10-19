@@ -23,7 +23,7 @@ function createActiveXHR() {
 
 // Create the request object
 // (This is still attached to ajaxSettings for backward compatibility)
-jQuery.ajaxSettings.xhr = window.ActiveXObject ?
+eQuery.ajaxSettings.xhr = window.ActiveXObject ?
 	/* Microsoft failed to properly
 	 * implement the XMLHttpRequest in IE7 (can't request local files),
 	 * so we use the ActiveXObject when it is available
@@ -38,18 +38,18 @@ jQuery.ajaxSettings.xhr = window.ActiveXObject ?
 
 // Determine support properties
 (function( xhr ) {
-	jQuery.extend( jQuery.support, {
+	eQuery.extend( eQuery.support, {
 		ajax: !!xhr,
 		cors: !!xhr && ( "withCredentials" in xhr )
 	});
-})( jQuery.ajaxSettings.xhr() );
+})( eQuery.ajaxSettings.xhr() );
 
 // Create transport if the browser can provide an xhr
-if ( jQuery.support.ajax ) {
+if ( eQuery.support.ajax ) {
 
-	jQuery.ajaxTransport(function( s ) {
+	eQuery.ajaxTransport(function( s ) {
 		// Cross domain only allowed if supported through XMLHttpRequest
-		if ( !s.crossDomain || jQuery.support.cors ) {
+		if ( !s.crossDomain || eQuery.support.cors ) {
 
 			var callback;
 
@@ -98,7 +98,7 @@ if ( jQuery.support.ajax ) {
 
 					// Do send the request
 					// This may raise an exception which is actually
-					// handled in jQuery.ajax (so no try/catch here)
+					// handled in eQuery.ajax (so no try/catch here)
 					xhr.send( ( s.hasContent && s.data ) || null );
 
 					// Listener
@@ -123,7 +123,7 @@ if ( jQuery.support.ajax ) {
 
 								// Do not keep as active anymore
 								if ( handle ) {
-									xhr.onreadystatechange = jQuery.noop;
+									xhr.onreadystatechange = eQuery.noop;
 									if ( xhrOnUnloadAbort ) {
 										delete xhrCallbacks[ handle ];
 									}
@@ -201,7 +201,7 @@ if ( jQuery.support.ajax ) {
 							// and attach the unload handler
 							if ( !xhrCallbacks ) {
 								xhrCallbacks = {};
-								jQuery( window ).unload( xhrOnUnloadAbort );
+								eQuery( window ).unload( xhrOnUnloadAbort );
 							}
 							// Add to list of active xhrs callbacks
 							xhrCallbacks[ handle ] = callback;

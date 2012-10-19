@@ -1,11 +1,11 @@
-jQuery.extend({
+eQuery.extend({
 
 	Deferred: function( func ) {
 		var tuples = [
 				// action, add listener, listener list, final state
-				[ "resolve", "done", jQuery.Callbacks("once memory"), "resolved" ],
-				[ "reject", "fail", jQuery.Callbacks("once memory"), "rejected" ],
-				[ "notify", "progress", jQuery.Callbacks("memory") ]
+				[ "resolve", "done", eQuery.Callbacks("once memory"), "resolved" ],
+				[ "reject", "fail", eQuery.Callbacks("once memory"), "rejected" ],
+				[ "notify", "progress", eQuery.Callbacks("memory") ]
 			],
 			state = "pending",
 			promise = {
@@ -18,15 +18,15 @@ jQuery.extend({
 				},
 				then: function( /* fnDone, fnFail, fnProgress */ ) {
 					var fns = arguments;
-					return jQuery.Deferred(function( newDefer ) {
-						jQuery.each( tuples, function( i, tuple ) {
+					return eQuery.Deferred(function( newDefer ) {
+						eQuery.each( tuples, function( i, tuple ) {
 							var action = tuple[ 0 ],
 								fn = fns[ i ];
 							// deferred[ done | fail | progress ] for forwarding actions to newDefer
-							deferred[ tuple[1] ]( jQuery.isFunction( fn ) ?
+							deferred[ tuple[1] ]( eQuery.isFunction( fn ) ?
 								function() {
 									var returned = fn.apply( this, arguments );
-									if ( returned && jQuery.isFunction( returned.promise ) ) {
+									if ( returned && eQuery.isFunction( returned.promise ) ) {
 										returned.promise()
 											.done( newDefer.resolve )
 											.fail( newDefer.reject )
@@ -44,7 +44,7 @@ jQuery.extend({
 				// Get a promise for this deferred
 				// If obj is provided, the promise aspect is added to the object
 				promise: function( obj ) {
-					return obj != null ? jQuery.extend( obj, promise ) : promise;
+					return obj != null ? eQuery.extend( obj, promise ) : promise;
 				}
 			},
 			deferred = {};
@@ -53,7 +53,7 @@ jQuery.extend({
 		promise.pipe = promise.then;
 
 		// Add list-specific methods
-		jQuery.each( tuples, function( i, tuple ) {
+		eQuery.each( tuples, function( i, tuple ) {
 			var list = tuple[ 2 ],
 				stateString = tuple[ 3 ];
 
@@ -94,10 +94,10 @@ jQuery.extend({
 			length = resolveValues.length,
 
 			// the count of uncompleted subordinates
-			remaining = length !== 1 || ( subordinate && jQuery.isFunction( subordinate.promise ) ) ? length : 0,
+			remaining = length !== 1 || ( subordinate && eQuery.isFunction( subordinate.promise ) ) ? length : 0,
 
 			// the master Deferred. If resolveValues consist of only a single Deferred, just use that.
-			deferred = remaining === 1 ? subordinate : jQuery.Deferred(),
+			deferred = remaining === 1 ? subordinate : eQuery.Deferred(),
 
 			// Update function for both resolve and progress values
 			updateFunc = function( i, contexts, values ) {
@@ -120,7 +120,7 @@ jQuery.extend({
 			progressContexts = new Array( length );
 			resolveContexts = new Array( length );
 			for ( ; i < length; i++ ) {
-				if ( resolveValues[ i ] && jQuery.isFunction( resolveValues[ i ].promise ) ) {
+				if ( resolveValues[ i ] && eQuery.isFunction( resolveValues[ i ].promise ) ) {
 					resolveValues[ i ].promise()
 						.done( updateFunc( i, resolveContexts, resolveValues ) )
 						.fail( deferred.reject )

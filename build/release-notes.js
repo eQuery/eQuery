@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /*
- * jQuery Release Note Generator
+ * eQuery Release Note Generator
  */
 
 var fs = require("fs"),
@@ -16,7 +16,7 @@ var opts = {
 };
 
 http.request({
-	host: "bugs.jquery.com",
+	host: "bugs.equery.com",
 	port: 80,
 	method: "GET",
 	path: "/query?status=closed&resolution=fixed&max=400&component=!web&order=component&milestone=" + opts.final_version

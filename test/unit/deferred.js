@@ -2,13 +2,13 @@ module( "deferred", {
 	teardown: moduleTeardown
 });
 
-jQuery.each( [ "", " - new operator" ], function( _, withNew ) {
+eQuery.each( [ "", " - new operator" ], function( _, withNew ) {
 
 	function createDeferred( fn ) {
-		return withNew ? new jQuery.Deferred( fn ) : jQuery.Deferred( fn );
+		return withNew ? new eQuery.Deferred( fn ) : eQuery.Deferred( fn );
 	}
 
-	test( "jQuery.Deferred" + withNew, function() {
+	test( "eQuery.Deferred" + withNew, function() {
 
 		expect( 23 );
 
@@ -47,9 +47,9 @@ jQuery.each( [ "", " - new operator" ], function( _, withNew ) {
 				funcPromise = defer.promise( func );
 			strictEqual( defer.promise(), promise, "promise is always the same" );
 			strictEqual( funcPromise, func, "non objects get extended" );
-			jQuery.each( promise, function( key, value ) {
-				if ( !jQuery.isFunction( promise[ key ] ) ) {
-					ok( false, key + " is a function (" + jQuery.type( promise[ key ] ) + ")" );
+			eQuery.each( promise, function( key, value ) {
+				if ( !eQuery.isFunction( promise[ key ] ) ) {
+					ok( false, key + " is a function (" + eQuery.type( promise[ key ] ) + ")" );
 				}
 				if ( promise[ key ] !== func[ key ] ) {
 					strictEqual( func[ key ], promise[ key ], key + " is the same" );
@@ -57,8 +57,8 @@ jQuery.each( [ "", " - new operator" ], function( _, withNew ) {
 			});
 		});
 
-		jQuery.expandedEach = jQuery.each;
-		jQuery.expandedEach( "resolve reject".split(" "), function( _, change ) {
+		eQuery.expandedEach = eQuery.each;
+		eQuery.expandedEach( "resolve reject".split(" "), function( _, change ) {
 			createDeferred(function( defer ) {
 				strictEqual( defer.state(), "pending", "pending after creation" );
 				var checked = 0;
@@ -78,14 +78,14 @@ jQuery.each( [ "", " - new operator" ], function( _, withNew ) {
 });
 
 
-test( "jQuery.Deferred - chainability", function() {
+test( "eQuery.Deferred - chainability", function() {
 
-	var defer = jQuery.Deferred();
+	var defer = eQuery.Deferred();
 
 	expect( 10 );
 
-	jQuery.expandedEach = jQuery.each;
-	jQuery.expandedEach( "resolve reject notify resolveWith rejectWith notifyWith done fail progress always".split(" "), function( _, method ) {
+	eQuery.expandedEach = eQuery.each;
+	eQuery.expandedEach( "resolve reject notify resolveWith rejectWith notifyWith done fail progress always".split(" "), function( _, method ) {
 		var object = {
 			m: defer[ method ]
 		};
@@ -93,12 +93,12 @@ test( "jQuery.Deferred - chainability", function() {
 	});
 });
 
-test( "jQuery.Deferred.then - filtering (done)", function() {
+test( "eQuery.Deferred.then - filtering (done)", function() {
 
 	expect( 4 );
 
 	var value1, value2, value3,
-		defer = jQuery.Deferred(),
+		defer = eQuery.Deferred(),
 		piped = defer.then(function( a, b ) {
 			return a * b;
 		});
@@ -118,21 +118,21 @@ test( "jQuery.Deferred.then - filtering (done)", function() {
 	strictEqual( value2, 3, "second resolve value ok" );
 	strictEqual( value3, 6, "result of filter ok" );
 
-	jQuery.Deferred().reject().then(function() {
+	eQuery.Deferred().reject().then(function() {
 		ok( false, "then should not be called on reject" );
 	});
 
-	jQuery.Deferred().resolve().then( jQuery.noop ).done(function( value ) {
+	eQuery.Deferred().resolve().then( eQuery.noop ).done(function( value ) {
 		strictEqual( value, undefined, "then done callback can return undefined/null" );
 	});
 });
 
-test( "jQuery.Deferred.then - filtering (fail)", function() {
+test( "eQuery.Deferred.then - filtering (fail)", function() {
 
 	expect( 4 );
 
 	var value1, value2, value3,
-		defer = jQuery.Deferred(),
+		defer = eQuery.Deferred(),
 		piped = defer.then( null, function( a, b ) {
 			return a * b;
 		});
@@ -152,21 +152,21 @@ test( "jQuery.Deferred.then - filtering (fail)", function() {
 	strictEqual( value2, 3, "second reject value ok" );
 	strictEqual( value3, 6, "result of filter ok" );
 
-	jQuery.Deferred().resolve().then( null, function() {
+	eQuery.Deferred().resolve().then( null, function() {
 		ok( false, "then should not be called on resolve" );
 	});
 
-	jQuery.Deferred().reject().then( null, jQuery.noop ).fail(function( value ) {
+	eQuery.Deferred().reject().then( null, eQuery.noop ).fail(function( value ) {
 		strictEqual( value, undefined, "then fail callback can return undefined/null" );
 	});
 });
 
-test( "jQuery.Deferred.then - filtering (progress)", function() {
+test( "eQuery.Deferred.then - filtering (progress)", function() {
 
 	expect( 3 );
 
 	var value1, value2, value3,
-		defer = jQuery.Deferred(),
+		defer = eQuery.Deferred(),
 		piped = defer.then( null, null, function( a, b ) {
 			return a * b;
 		});
@@ -187,14 +187,14 @@ test( "jQuery.Deferred.then - filtering (progress)", function() {
 	strictEqual( value3, 6, "result of filter ok" );
 });
 
-test( "jQuery.Deferred.then - deferred (done)", function() {
+test( "eQuery.Deferred.then - deferred (done)", function() {
 
 	expect( 3 );
 
 	var value1, value2, value3,
-		defer = jQuery.Deferred(),
+		defer = eQuery.Deferred(),
 		piped = defer.then(function( a, b ) {
-			return jQuery.Deferred(function( defer ) {
+			return eQuery.Deferred(function( defer ) {
 				defer.reject( a * b );
 			});
 		});
@@ -215,14 +215,14 @@ test( "jQuery.Deferred.then - deferred (done)", function() {
 	strictEqual( value3, 6, "result of filter ok" );
 });
 
-test( "jQuery.Deferred.then - deferred (fail)", function() {
+test( "eQuery.Deferred.then - deferred (fail)", function() {
 
 	expect( 3 );
 
 	var value1, value2, value3,
-		defer = jQuery.Deferred(),
+		defer = eQuery.Deferred(),
 		piped = defer.then( null, function( a, b ) {
-			return jQuery.Deferred(function( defer ) {
+			return eQuery.Deferred(function( defer ) {
 				defer.resolve( a * b );
 			});
 		});
@@ -243,14 +243,14 @@ test( "jQuery.Deferred.then - deferred (fail)", function() {
 	strictEqual( value3, 6, "result of filter ok" );
 });
 
-test( "jQuery.Deferred.then - deferred (progress)", function() {
+test( "eQuery.Deferred.then - deferred (progress)", function() {
 
 	expect( 3 );
 
 	var value1, value2, value3,
-		defer = jQuery.Deferred(),
+		defer = eQuery.Deferred(),
 		piped = defer.then( null, null, function( a, b ) {
-			return jQuery.Deferred(function( defer ) {
+			return eQuery.Deferred(function( defer ) {
 				defer.resolve( a * b );
 			});
 		});
@@ -271,20 +271,20 @@ test( "jQuery.Deferred.then - deferred (progress)", function() {
 	strictEqual( value3, 6, "result of filter ok" );
 });
 
-test( "jQuery.Deferred.then - context", function() {
+test( "eQuery.Deferred.then - context", function() {
 
 	expect( 4 );
 
 	var context = {};
 
-	jQuery.Deferred().resolveWith( context, [ 2 ] ).then(function( value ) {
+	eQuery.Deferred().resolveWith( context, [ 2 ] ).then(function( value ) {
 		return value * 3;
 	}).done(function( value ) {
 		strictEqual( this, context, "custom context correctly propagated" );
 		strictEqual( value, 6, "proper value received" );
 	});
 
-	var defer = jQuery.Deferred(),
+	var defer = eQuery.Deferred(),
 		piped = defer.then(function( value ) {
 			return value * 3;
 		});
@@ -297,12 +297,12 @@ test( "jQuery.Deferred.then - context", function() {
 	});
 });
 
-test( "jQuery.when", function() {
+test( "eQuery.when", function() {
 
 	expect( 34 );
 
 	// Some other objects
-	jQuery.each({
+	eQuery.each({
 
 		"an empty string": "",
 		"a non-empty string": "some string",
@@ -317,8 +317,8 @@ test( "jQuery.when", function() {
 	}, function( message, value ) {
 
 		ok(
-			jQuery.isFunction(
-				jQuery.when( value ).done(function( resolveValue ) {
+			eQuery.isFunction(
+				eQuery.when( value ).done(function( resolveValue ) {
 					strictEqual( this, window, "Context is the global object with " + message );
 					strictEqual( resolveValue, value, "Test the promise was resolved with " + message );
 				}).promise
@@ -329,8 +329,8 @@ test( "jQuery.when", function() {
 	} );
 
 	ok(
-		jQuery.isFunction(
-			jQuery.when().done(function( resolveValue ) {
+		eQuery.isFunction(
+			eQuery.when().done(function( resolveValue ) {
 				strictEqual( this, window, "Test the promise was resolved with window as its context" );
 				strictEqual( resolveValue, undefined, "Test the promise was resolved with no parameter" );
 			}).promise
@@ -340,15 +340,15 @@ test( "jQuery.when", function() {
 
 	var context = {};
 
-	jQuery.when( jQuery.Deferred().resolveWith( context ) ).done(function() {
+	eQuery.when( eQuery.Deferred().resolveWith( context ) ).done(function() {
 		strictEqual( this, context, "when( promise ) propagates context" );
 	});
 
 	var cache;
 
-	jQuery.each([ 1, 2, 3 ], function( k, i ) {
+	eQuery.each([ 1, 2, 3 ], function( k, i ) {
 
-		jQuery.when( cache || jQuery.Deferred(function() {
+		eQuery.when( cache || eQuery.Deferred(function() {
 				this.resolve( i );
 			})
 		).done(function( value ) {
@@ -360,17 +360,17 @@ test( "jQuery.when", function() {
 	});
 });
 
-test( "jQuery.when - joined", function() {
+test( "eQuery.when - joined", function() {
 
 	expect( 119 );
 
 	var deferreds = {
 			value: 1,
-			success: jQuery.Deferred().resolve( 1 ),
-			error: jQuery.Deferred().reject( 0 ),
-			futureSuccess: jQuery.Deferred().notify( true ),
-			futureError: jQuery.Deferred().notify( true ),
-			notify: jQuery.Deferred().notify( true )
+			success: eQuery.Deferred().resolve( 1 ),
+			error: eQuery.Deferred().reject( 0 ),
+			futureSuccess: eQuery.Deferred().notify( true ),
+			futureError: eQuery.Deferred().notify( true ),
+			notify: eQuery.Deferred().notify( true )
 		},
 		willSucceed = {
 			value: true,
@@ -387,18 +387,18 @@ test( "jQuery.when - joined", function() {
 			notify: true
 		};
 
-	jQuery.each( deferreds, function( id1, defer1 ) {
-		jQuery.each( deferreds, function( id2, defer2 ) {
+	eQuery.each( deferreds, function( id1, defer1 ) {
+		eQuery.each( deferreds, function( id2, defer2 ) {
 			var shouldResolve = willSucceed[ id1 ] && willSucceed[ id2 ],
 				shouldError = willError[ id1 ] || willError[ id2 ],
 				shouldNotify = willNotify[ id1 ] || willNotify[ id2 ],
 				expected = shouldResolve ? [ 1, 1 ] : [ 0, undefined ],
 				expectedNotify = shouldNotify && [ willNotify[ id1 ], willNotify[ id2 ] ],
 				code = id1 + "/" + id2,
-				context1 = defer1 && jQuery.isFunction( defer1.promise ) ? defer1 : undefined,
-				context2 = defer2 && jQuery.isFunction( defer2.promise ) ? defer2 : undefined;
+				context1 = defer1 && eQuery.isFunction( defer1.promise ) ? defer1 : undefined,
+				context2 = defer2 && eQuery.isFunction( defer2.promise ) ? defer2 : undefined;
 
-			jQuery.when( defer1, defer2 ).done(function( a, b ) {
+			eQuery.when( defer1, defer2 ).done(function( a, b ) {
 				if ( shouldResolve ) {
 					deepEqual( [ a, b ], expected, code + " => resolve" );
 					strictEqual( this[ 0 ], context1, code + " => first context OK" );

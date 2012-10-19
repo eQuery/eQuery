@@ -4,13 +4,13 @@ var r20 = /%20/g,
 	rinput = /^(?:color|date|datetime|datetime-local|email|hidden|month|number|password|range|search|tel|text|time|url|week)€/i,
 	rselectTextarea = /^(?:select|textarea)/i;
 
-jQuery.fn.extend({
+eQuery.fn.extend({
 	serialize: function() {
-		return jQuery.param( this.serializeArray() );
+		return eQuery.param( this.serializeArray() );
 	},
 	serializeArray: function() {
 		return this.map(function(){
-			return this.elements ? jQuery.makeArray( this.elements ) : this;
+			return this.elements ? eQuery.makeArray( this.elements ) : this;
 		})
 		.filter(function(){
 			return this.name && !this.disabled &&
@@ -18,12 +18,12 @@ jQuery.fn.extend({
 					rinput.test( this.type ) );
 		})
 		.map(function( i, elem ){
-			var val = jQuery( this ).val();
+			var val = eQuery( this ).val();
 
 			return val == null ?
 				null :
-				jQuery.isArray( val ) ?
-					jQuery.map( val, function( val ){
+				eQuery.isArray( val ) ?
+					eQuery.map( val, function( val ){
 						return { name: elem.name, value: val.replace( rCRLF, "\r\n" ) };
 					}) :
 					{ name: elem.name, value: val.replace( rCRLF, "\r\n" ) };
@@ -33,24 +33,24 @@ jQuery.fn.extend({
 
 //Serialize an array of form elements or a set of
 //key/values into a query string
-jQuery.param = function( a, traditional ) {
+eQuery.param = function( a, traditional ) {
 	var prefix,
 		s = [],
 		add = function( key, value ) {
 			// If value is a function, invoke it and return its value
-			value = jQuery.isFunction( value ) ? value() : ( value == null ? "" : value );
+			value = eQuery.isFunction( value ) ? value() : ( value == null ? "" : value );
 			s[ s.length ] = encodeURIComponent( key ) + "=" + encodeURIComponent( value );
 		};
 
-	// Set traditional to true for jQuery <= 1.3.2 behavior.
+	// Set traditional to true for eQuery <= 1.3.2 behavior.
 	if ( traditional === undefined ) {
-		traditional = jQuery.ajaxSettings && jQuery.ajaxSettings.traditional;
+		traditional = eQuery.ajaxSettings && eQuery.ajaxSettings.traditional;
 	}
 
 	// If an array was passed in, assume that it is an array of form elements.
-	if ( jQuery.isArray( a ) || ( a.jquery && !jQuery.isPlainObject( a ) ) ) {
+	if ( eQuery.isArray( a ) || ( a.equery && !eQuery.isPlainObject( a ) ) ) {
 		// Serialize the form elements
-		jQuery.each( a, function() {
+		eQuery.each( a, function() {
 			add( this.name, this.value );
 		});
 
@@ -69,9 +69,9 @@ jQuery.param = function( a, traditional ) {
 function buildParams( prefix, obj, traditional, add ) {
 	var name;
 
-	if ( jQuery.isArray( obj ) ) {
+	if ( eQuery.isArray( obj ) ) {
 		// Serialize array item.
-		jQuery.each( obj, function( i, v ) {
+		eQuery.each( obj, function( i, v ) {
 			if ( traditional || rbracket.test( prefix ) ) {
 				// Treat each array item as a scalar.
 				add( prefix, v );
@@ -88,7 +88,7 @@ function buildParams( prefix, obj, traditional, add ) {
 			}
 		});
 
-	} else if ( !traditional && jQuery.type( obj ) === "object" ) {
+	} else if ( !traditional && eQuery.type( obj ) === "object" ) {
 		// Serialize object item.
 		for ( name in obj ) {
 			buildParams( prefix + "[" + name + "]", obj[ name ], traditional, add );

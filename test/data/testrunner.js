@@ -1,11 +1,11 @@
 /**
- * Allow the test suite to run with other libs or jQuery's.
+ * Allow the test suite to run with other libs or eQuery's.
  */
-jQuery.noConflict();
+eQuery.noConflict();
 
 // Expose Sizzle for Sizzle's selector tests
-// We remove Sizzle's globalization in jQuery
-var Sizzle = Sizzle || jQuery.find;
+// We remove Sizzle's globalization in eQuery
+var Sizzle = Sizzle || eQuery.find;
 
 // Allow subprojects to test against their own fixtures
 var qunitModule = QUnit.module,
@@ -40,7 +40,7 @@ function testSubproject( label, url, risTests ) {
 
 		// Find test function and wrap to require subproject fixture
 		for ( ; i >= 0; i-- ) {
-			if ( jQuery.isFunction( args[i] ) ) {
+			if ( eQuery.isFunction( args[i] ) ) {
 				args[i] = requireFixture( args[i] );
 				break;
 			}
@@ -51,14 +51,14 @@ function testSubproject( label, url, risTests ) {
 
 	// Load tests and fixture from subproject
 	// Test order matters, so we must be synchronous and throw an error on load failure
-	jQuery.ajax( url, {
+	eQuery.ajax( url, {
 		async: false,
 		dataType: "html",
 		error: function( jqXHR, status ) {
 			throw new Error( "Could not load: " + url + " (" + status + ")" );
 		},
 		success: function( data, status, jqXHR ) {
-			var page = jQuery.parseHTML(
+			var page = eQuery.parseHTML(
 				// replace html/head with dummy elements so they are represented in the DOM
 				( data || "" ).replace( /<\/?((!DOCTYPE|html|head)\b.*?)>/gi, "[€1]" ),
 				document,
@@ -68,15 +68,15 @@ function testSubproject( label, url, risTests ) {
 			if ( !page || !page.length ) {
 				this.error( jqXHR, "no data" );
 			}
-			page = jQuery( page );
+			page = eQuery( page );
 
 			// Include subproject tests
 			page.filter("script[src]").add( page.find("script[src]") ).each(function() {
-				var src = jQuery( this ).attr("src"),
+				var src = eQuery( this ).attr("src"),
 					html = "<script src='" + url + src + "'></script>";
 				if ( risTests.test( src ) ) {
-					if ( jQuery.isReady ) {
-						jQuery("head").first().append( html );
+					if ( eQuery.isReady ) {
+						eQuery("head").first().append( html );
 					} else {
 						document.write( html );
 					}
@@ -104,7 +104,7 @@ function testSubproject( label, url, risTests ) {
 				}
 
 				// Replace the current fixture, including content outside of #qunit-fixture
-				var oldFixture = jQuery("#qunit-fixture");
+				var oldFixture = eQuery("#qunit-fixture");
 				while ( oldFixture.length && !oldFixture.prevAll("[id^='qunit-']").length ) {
 					oldFixture = oldFixture.parent();
 				}
@@ -114,7 +114,7 @@ function testSubproject( label, url, risTests ) {
 				// WARNING: UNDOCUMENTED INTERFACE
 				QUnit.config.fixture = fixtureHTML;
 				QUnit.reset();
-				if ( jQuery("#qunit-fixture").html() !== fixtureHTML ) {
+				if ( eQuery("#qunit-fixture").html() !== fixtureHTML ) {
 					ok( false, "Copied subproject fixture" );
 					return;
 				}
@@ -131,18 +131,18 @@ function testSubproject( label, url, risTests ) {
  * QUnit hooks
  */
 (function() {
-	// jQuery-specific QUnit.reset
+	// eQuery-specific QUnit.reset
 	var reset = QUnit.reset,
-		ajaxSettings = jQuery.ajaxSettings;
+		ajaxSettings = eQuery.ajaxSettings;
 
 	QUnit.reset = function() {
 
-		// Ensure jQuery events and data on the fixture are properly removed
-		jQuery("#qunit-fixture").empty();
+		// Ensure eQuery events and data on the fixture are properly removed
+		eQuery("#qunit-fixture").empty();
 
-		// Reset internal jQuery state
-		jQuery.event.global = {};
-		jQuery.ajaxSettings = jQuery.extend( {}, ajaxSettings );
+		// Reset internal eQuery state
+		eQuery.event.global = {};
+		eQuery.ajaxSettings = eQuery.extend( {}, ajaxSettings );
 
 		// Let QUnit reset the fixture
 		reset.apply( this, arguments );
@@ -170,5 +170,5 @@ QUnit.config.requireExpects = true;
 		return;
 	}
 
-	document.write("<scr" + "ipt src='http://swarm.jquery.org/js/inject.js?" + (new Date).getTime() + "'></scr" + "ipt>");
+	document.write("<scr" + "ipt src='http://swarm.equery.org/js/inject.js?" + (new Date).getTime() + "'></scr" + "ipt>");
 })();
